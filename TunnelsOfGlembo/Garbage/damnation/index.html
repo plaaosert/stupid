@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
 <head>
-<title>Wisdom</title>
+	<link rel="icon" type="image/x-icon" href="icon.png">
+	<title>Your Horoscope for Today</title>
 <style>
 	@keyframes slideIn {
 		0% {transform:translate(500px,0);}
@@ -30,9 +31,9 @@
 		
 		position: fixed;
 		bottom:0;
-		right:0px;
+		right:0;
 		margin-right:250px;
-		margin-bottom:10vh;
+		margin-bottom:10.5vh;
 		background: #004;
 		border-radius: .4em;
 		min-height:5em;
@@ -78,7 +79,7 @@
 	"SALVATION!!!!!!!!!!",
 	"DAMNATION!!!!!!!!!!",
 	"OBLIVION!!!!!!!!!!!",
-	"ANNIHILIATION!!!!!!",
+	"ANNIHILATION!!!!!!!",
 	"TARNATION!!!!!!!!!!",
 	"EXFILTRATION!!!!!!!",
 	"DIVISION!!!!!!!!!!!",
@@ -95,11 +96,11 @@
 	"PROVOCATION!!!!!!!!",
 	"INVOCATION!!!!!!!!!",
 	"EXPLORATION!!!!!!!!",
+	"DIVINATION!!!!!!!!!",
 	"I'm glad you're here.<br>I rarely see visitors this deep into the labyrinth."
 	]
 	if (document.cookie) {
 		document.getElementById("speech").innerHTML = "COOKIES!!!!!!!!!!!!<br><a href='../../../FatherGaarg/'>VISIT GAARG!!!!!!!!!!!</a>";
-		
 	} else {
 		document.getElementById("speech").innerHTML = responses[Math.floor(Math.random() * responses.length)];
 	}
