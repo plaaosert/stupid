@@ -41,7 +41,7 @@ function confess() {
         });
         noise();
         confession.value = "";
-        localStorage.setItem("totalconfessions") = localStorage.setItem("totalconfessions") + 1;
+        localStorage.setItem("totalconfessions", localStorage.getItem("totalconfessions") + 1);
     }
 }
 
