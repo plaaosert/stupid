@@ -31,6 +31,12 @@
                  "height":64,
                  "id":1,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"\/TunnelsOfGlembo\/Garbage\/cookie.html"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
@@ -42,6 +48,12 @@
                  "height":64,
                  "id":2,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"\/TunnelsOfGlembo\/Garbage\/theTruth.html"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
@@ -53,6 +65,12 @@
                  "height":64,
                  "id":3,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"\/TunnelsOfGlembo\/Garbage\/damnation\/"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
@@ -64,6 +82,12 @@
                  "height":64,
                  "id":4,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"\/TunnelsOfGlembo\/Garbage\/sludge.html"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
@@ -75,6 +99,12 @@
                  "height":64,
                  "id":5,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"\/TunnelsOfGlembo\/Scrumblus"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
@@ -86,6 +116,12 @@
                  "height":64,
                  "id":6,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"\/TunnelsOfGlembo\/Garbage\/procrastination.html"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
