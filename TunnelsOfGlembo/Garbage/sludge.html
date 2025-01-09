@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <title>sludge</title>
 <style>
-	body{margin:0;}
+	body{margin:0; overflow:hidden;}
 	#google {
 		background-color:white;
 		border:0px;
@@ -9,6 +9,7 @@
 		border-color:black;
 		border-style:solid;
 		padding-top:1px;
+		z-index:200;
 	}
 	#google p {
 		margin-left:2em;
@@ -22,10 +23,15 @@
 		align-items:center;
 		justify-content:center;
 		margin-top:32px;
-
->>>>>>> 610a61ef7f9e515e8fae8e9edcad8712e1d67888
 	}
 	img {
+		width:18%;
+		max-width:543px;
+		min-width:271px;
+		max-height:680px;
+		min-height:340px;
+		z-index:-1;
+		
 		box-shadow:20px 20px 15px #111;
 		border-width:88px;
 		border-image-slice: 88 88 88 88;
