@@ -30,7 +30,8 @@ const locations = [ "../",
 	"Garbage/cookie.html",
 	"Garbage/procrastination.html",
 	"Garbage/theTruth.html",
-	"Garbage/damnation/"
+	"Garbage/damnation/",
+	"/cave",
 ];
 /* Links to images for the Tunnels of Glembo */
 /* Don't include the .gif at the end. Case Sensitive, probably. */
@@ -60,7 +61,7 @@ var nrrNum = 0;
 var newNum;
 function rando (maxNum) {
 	var attempt = 0;
-	while(newNum == undefined || newNum == nrrNum && attempt < 12){
+	while(newNum === undefined || newNum === nrrNum && attempt < 12){
 		newNum = Math.floor(Math.random() * maxNum);
 		attempt++;
 	}
