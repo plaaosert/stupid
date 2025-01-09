@@ -38,6 +38,8 @@ header {
         </center>
         <script>
 
+localStorage.setItem("totalglurches", localStorage.getItem("totalglurches") + 10);
+
 var text = '<div class="glurch"><img src="glurch.ico"><a href="https://glurch.glurch">https://glurch.glurch</a><h4>glurch</h4><p>Glorem glipsum glolor glit glamet, glonsectetur gladipiscing glelit, gled glo gleiusmod glempor glincididunt glut glabore glet glolore glagna glaliqua. Glut glenim glad glinim gleniam, gluis glostrud glexercitation glullamco glaboris glisi glut glaliquip glex glea glommodo glonsequat.</p></div>';
 
 function addglurch() {
@@ -52,6 +54,7 @@ function addglurch() {
     glurches.innerHTML = glurches.innerHTML + text;
     glurches.innerHTML = glurches.innerHTML + text;
     glurches.innerHTML = glurches.innerHTML + text;
+    localStorage.setItem("totalglurches", localStorage.getItem("totalglurches") + 10);
 }
 
 addglurch();
