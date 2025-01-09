@@ -34,8 +34,8 @@
                  "properties":[
                         {
                          "name":"destination",
-                         "type":"string",
-                         "value":"\/TunnelsOfGlembo\/Garbage\/cookie.html"
+                         "type":"int",
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"exit",
@@ -51,8 +51,8 @@
                  "properties":[
                         {
                          "name":"destination",
-                         "type":"string",
-                         "value":"\/TunnelsOfGlembo\/Garbage\/theTruth.html"
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"exit",
@@ -68,8 +68,8 @@
                  "properties":[
                         {
                          "name":"destination",
-                         "type":"string",
-                         "value":"\/TunnelsOfGlembo\/Garbage\/damnation\/"
+                         "type":"int",
+                         "value":4
                         }],
                  "rotation":0,
                  "type":"exit",
@@ -85,8 +85,8 @@
                  "properties":[
                         {
                          "name":"destination",
-                         "type":"string",
-                         "value":"\/TunnelsOfGlembo\/Garbage\/sludge.html"
+                         "type":"int",
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"exit",
@@ -102,8 +102,8 @@
                  "properties":[
                         {
                          "name":"destination",
-                         "type":"string",
-                         "value":"\/TunnelsOfGlembo\/Scrumblus"
+                         "type":"int",
+                         "value":5
                         }],
                  "rotation":0,
                  "type":"exit",
@@ -119,8 +119,8 @@
                  "properties":[
                         {
                          "name":"destination",
-                         "type":"string",
-                         "value":"\/TunnelsOfGlembo\/Garbage\/procrastination.html"
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"exit",
