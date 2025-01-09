@@ -20,7 +20,6 @@
                 image-rendering: optimize-contrast;
                 image-rendering: pixelated;
                 -ms-interpolation-mode: nearest-neighbor;
-                position: absolute;
             }
 
             .center-loot-box img {
@@ -102,6 +101,27 @@
                 animation-iteration-count: infinite;
                 animation-direction: alternate;
             }
+
+            .coincount {
+                position: fixed;
+
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .coincount img.coin {
+                width: 70px;
+                height: 46px;
+            }
+
+            .coincount .coincount-text {
+                font-size: 20px;
+                margin: 0;
+
+                font-family: 'MS Gothic', monospace;
+                color: white;
+            }
         </style>
     </head>
     <body>
@@ -110,10 +130,18 @@
                 - all sprites:
                     - Whitecat                               | https://web.archive.org/web/20170726190716/http://whitecafe.sakura.ne.jp/info.html
                     - Bakeneko                               | https://neko.moo.jp/BS/
-                    - explosion_big.gif, explosion_small.gif | Captain Commando https://www.spriters-resource.com/arcade/capcommand/
+                    - explosion_big.gif, explosion_small.gif, dustcloud.gif
+                        Captain Commando https://www.spriters-resource.com/arcade/capcommand/
+                    - coin1,2,3,4,5.png, speedlines.png
+                        Rhythm Heaven (DS) https://www.spriters-resource.com/ds_dsi/rhythmheaven/sheet/152506/
                 - sounds:
                     
         -->
+        <div class="coincount">
+            <img src="coin5.png" class="coin" draggable="false">
+            <p id="coincount_text" class="coincount-text">0</p>
+        </div>
+
         <div class="center-loot-box item-box" id="center-loot-box" draggable="false">
             <img src="looting\chests\t5.png" class="item rarity0 hidden" id="center-loot-box-item" draggable="false">
         </div>
@@ -121,10 +149,81 @@
         <script>
             // TODO GIVE PLAYER GOLD WHEN THEY BLOW UP A CHEST AND MAKE THEM ABLE TO SEE HOW MUCH GOLD THEY HAVE AND ALSO SAVE THE GOLD
 
-            chest_shaking_level = 0;
-            ready_for_next = true;
+            let chest_shaking_level = 0;
+            let ready_for_next = true;
+            let coins = 0;
 
             let flying_items = [];
+
+            function load_coins() {
+                coins = Number.parseInt(localStorage.getItem("coins") ? localStorage.getItem("coins") : "0");
+                update_coins_view();
+            }
+
+            function save_coins() {
+                localStorage.setItem("coins", coins.toString());
+            }
+
+            function update_coins_view() {
+                document.getElementById("coincount_text").textContent = coins.toLocaleString();
+            }
+
+            function send_coin() {
+                let bbox = document.getElementById("center-loot-box").getBoundingClientRect();
+
+                let elem1 = document.createElement("img");
+                elem1.className = "particle";
+                elem1.style.left = `${bbox.x + (24)}px`;
+                elem1.style.top = `${bbox.y - (160)}px`;
+                elem1.src = `speedlines.png?t=${Date.now()}`;
+
+                document.body.appendChild(elem1);
+
+                setTimeout(() => {
+                    elem1.remove();
+                }, 50)
+
+                // make the coin and have it fall down after a random amount of time
+                let elem2 = document.createElement("img");
+                elem2.className = "particle";
+                elem2.style.left = `${bbox.x + (0)}px`;
+                elem2.style.top = `${bbox.y - (360)}px`;
+                elem2.src = `coin2.png?t=${Date.now()}`;
+                elem2.style.display = "none";
+
+                setTimeout(() => {
+                    elem2.style.display = "none";
+                }, 20)
+
+                document.body.appendChild(elem2);
+
+                setTimeout(() => {
+                    /*
+                    let e = document.createElement("img");
+                    e.className = "particle";
+                    e.style.left = `${bbox.x + (24)}px`;
+                    e.style.top = `${window.innerHeight - 216}px`;
+                    e.src = `speedlines.png?t=${Date.now()}`;
+
+                    document.body.appendChild(e);
+
+                    setTimeout(() => {
+                        e.remove();
+                    }, 50)
+                    */
+
+                    elem2.style.top = `${window.innerHeight - 432}px`;
+                    elem2.style.display = "";
+                    elem2.src = `coinFall.gif?t=${Date.now()}`;
+                    elem2.filter = "";
+
+                    setTimeout(() => {
+                        coins++;
+                        save_coins();
+                        update_coins_view();
+                    }, 50)
+                }, Math.random() * 3000 + 2000)
+            }
 
             function make_big_explosion() {
                 document.getElementById("center-loot-box").classList.remove(`shaking1`);
@@ -139,6 +238,8 @@
                     expl.style.left = `${bbox.x - (102)}px`;
                     expl.style.top = `${bbox.y - (132)}px`;
                     expl.src = `explosion_big.gif?t=${Date.now()}`;
+
+                    send_coin();
 
                     setTimeout(() => {
                         expl.remove();
@@ -227,6 +328,8 @@
             let last = Date.now();
 
             document.addEventListener("DOMContentLoaded", e => {
+                load_coins();
+
                 document.getElementById("center-loot-box").addEventListener("mousedown", e => {
                     make_click_explosion(e.clientX, e.clientY);
 
@@ -251,16 +354,18 @@
                             // update gravity
                             item.vy += item.gravity * delta_time;
 
-                            if (item.ty >= window.innerHeight - 32) {
-                                item.elem.style.top = `${window.innerHeight - 32}px`;
+                            if (item.ty >= window.innerHeight - 32 || Date.now() >= item.killtime) {
+                                if (item.ty >= window.innerHeight - 32) {
+                                    item.elem.style.top = `${window.innerHeight - 32}px`;
+                                }
 
                                 console.log("killing", item.killtime, Date.now());
                                 let bbox = item.elem.getBoundingClientRect();
                                 let expl = document.createElement("img");
                                 expl.className = "particle";
-                                expl.style.left = `${bbox.x - (148/2) + (12)}px`;
-                                expl.style.top = `${bbox.y - (124/2) + (12)}px`;
-                                expl.src = `explosion_small.gif?t=${Date.now()}`;
+                                expl.style.left = `${bbox.x - (0/2) + (0)}px`;
+                                expl.style.top = `${bbox.y - (0/2) + (0)}px`;
+                                expl.src = `dustcloud.gif?t=${Date.now()}`;
 
                                 document.body.appendChild(expl);
 
