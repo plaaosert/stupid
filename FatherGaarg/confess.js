@@ -45,7 +45,7 @@ function confess() {
             localStorage.setItem("totalconfessions", 1);
         }
         else {
-            localStorage.setItem("totalconfessions", Number.parseInt(localStorage.getItem("totalconfessions") + 1));
+            localStorage.setItem("totalconfessions", Number.parseInt(localStorage.getItem("totalconfessions")) + 1);
         }
     }
 }
