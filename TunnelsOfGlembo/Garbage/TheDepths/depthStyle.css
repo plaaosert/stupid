@@ -1,0 +1,51 @@
+body {
+	margin:0;
+	background-color:#090a14;
+}
+#mainContainer {
+	width:100vw;
+	height:82vh;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+	
+	color:#EEE;
+}
+#mainContainer img {
+	margin-bottom:10px;
+}
+#depthsText {
+	font-family:"MS Gothic", "Courier New", monospace;
+	width:512px;
+}
+#fluffText {
+	font-size:18px;
+}
+.leftAlign {
+	text-align:left;
+}
+.centerAlign {
+	text-align:center;
+	font-size-adjust:1.23;
+}
+hr {
+	border:0;
+	border-top:3px solid #151d28;
+}
+p {
+	margin:5px;
+	padding-left:5px;
+	padding-right:5px;
+}
+a, p {
+	font-size:20px;
+	text-decoration:none;
+}
+a:link {
+	color:#3c5e8b;
+}
+a:visited {
+	color:#253a5e;
+}
