@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PHARAOS GOLD</title>
+	<style>
+		#jackpot {
+			position: absolute;
+			color: red;
+			background-color: white;
+			width: 100%;
+			top: 30%;
+			font-size: 10em;
+			z-index: 999;
+			display: none;
+		}
+		body {
+			background-color:#111;
+			background-image: url("./pharaos_gold.png");
+			background-size: cover;
+			color:#99004d;
+			text-align:center;
+		}
+		h1, h4 {font-family: "Courier New", Courier, monospace;}
+		.gamble_col  {
+			width: 15em;
+			display: inline-block;
+		}
+		.gamble_col img {
+			width: 15em;
+			height: 15em;
+		}
+		.pinup {
+			height: 45em !important;
+			width: 100% !important;
+		}
+		#pinup_left {
+			transform: scaleX(-1);
+		}
+		.pinup_col {
+			width: 20em !important;
+		}
+		#overlay {
+			background-color: black;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			z-index: 10000;
+			transition: opacity 1s ease;
+		}
+		#gamble_btn {
+			width: 10em;
+			height: 4em;
+		}
+	</style>
+	<script>
+		var title_type = 1;
+		const possible_images = [
+			"./gold.png",
+			"./spices.png",
+			"./locust.png",
+			"./pyramid.png",
+			"./tablet.png"
+		];
+		function get_columns(length) {
+			results = []
+			for(var i = 0; i <  length; i++) {
+				results.push(possible_images[Math.floor(random_range(0, possible_images.length))])
+			}
+			console.log(results)
+			return results
+		}
+		function end_gamble() {
+			if(gamble_columns[0][1].src == gamble_columns[1][1].src && gamble_columns[0][1].src == gamble_columns[2][1].src) {
+				coin_fountain();
+				for(var i = 0; i < 10; i++) {
+					setTimeout((i) => {
+						const jp = document.getElementById("jackpot")
+						jp.style.display = i%2==1?"none":"block"
+					}, 300*i, i)
+				}
+			} else {
+				var audio = new Audio('./hitHurt.wav');
+				audio.play();
+			}
+		}
+		function gamble_button() {
+			var audio = new Audio('./pharaohsgold.mp3');
+			audio.play();
+			get_columns(10);
+			setTimeout(()=> {
+				for(var x = 0; x < gamble_columns.length; x++) {
+					const rows = get_columns(40-x*4);
+					const col = gamble_columns[x];
+					const speed_mod = 40*x
+					for(var i = 0; i < rows.length; i++) {
+						setTimeout((i, col, rows, final) => {
+							var audio = undefined;
+							if(rows.length - i > 3) {
+								audio = new Audio('./explosion.wav');
+							} else {
+								audio = new Audio('./blipSelect.wav');
+							}
+							audio.play();
+							const last_img = rows[i == 0? rows.length-1 : i-1];
+							const cur_img = rows[i];
+							const next_img = rows[(i+1) % rows.length];
+							col[0].src = last_img;
+							col[1].src = cur_img;
+							col[2].src = next_img;
+							if(final)
+								end_gamble();
+						}, (200+speed_mod)*i+x*300, i, col, rows, x == gamble_columns.length-1 && i == rows.length-1);
+					}
+				}
+			}, 1000)
+		}
+		var gamble_columns = undefined;
+		document.addEventListener("DOMContentLoaded", (event) => {
+			gamble_columns = [
+				[
+					document.getElementById('c1r1'),
+					document.getElementById('c1r2'),
+					document.getElementById('c1r3'),
+				],
+				[
+					document.getElementById('c2r1'),
+					document.getElementById('c2r2'),
+					document.getElementById('c2r3'),
+				],
+				[
+					document.getElementById('c3r1'),
+					document.getElementById('c3r2'),
+					document.getElementById('c3r3'),
+				],
+			];
+			var audio = new Audio('./pharaohsgold.mp3');
+			audio.play();
+			for(var i = 0 ; i < 100; i++) {
+				create_coin(0, 0, 0, 0, 0, false, true, i);
+			}
+			const overlay = document.getElementById('overlay');
+			setTimeout(() => {
+				overlay.style.opacity = '0';
+				setTimeout(() => {
+					overlay.style.display = 'none';
+				}, 1000)
+			}, 1000);
+		});
+		function alternate_title() {
+			const titles = [
+				"!! PHARAOS G0LD !!",
+				"!!!PH4R40S G0LD!!!",
+				"!  PHARAOS GOLD  !"
+			]
+			document.title = titles[title_type%titles.length]
+			title_type ++;
+		}
+		function random_range(min, max) {
+			return Math.random()*(max-min)+min;
+		}
+
+		const imageUrls = [
+			"/coin1.png",
+			"/coin2.png",
+			"/coin3.png",
+			"/coin4.png",
+			"/coin5.png",
+		];
+
+		const images = imageUrls.map(url => {
+			const img = new Image(); // Create a new image instance
+			img.src = url; // Set the source
+			return img; // Return the image object
+		});
+
+		const coin_animation = [
+			images[0],
+			images[1],
+			images[2],
+			images[3],
+			images[4],
+			images[3],
+			images[2],
+			images[1],
+		]
+
+		var all_coins = []
+		var last_frame = Date.now();
+		function coin_physics_frame() {
+			var dtime = (Date.now() - last_frame)/1000;
+			for (var i = 0; i < all_coins.length; i++) {
+				var coin = all_coins[i]
+				if (coin.dormant) {
+					coin.style.display = 'none';
+					continue;
+				}
+				if(coin.lifetime < 0) {
+					coin.dormant = true;
+				}
+				coin.lifetime--;
+				//coin.animation_frame = 0;
+				coin.animation_subframe++;
+				if(coin.animation_subframe > coin.animation_speed) {
+					coin.src = coin_animation[coin.animation_frame++%coin_animation.length].src;
+					coin.animation_subframe=0;
+				}
+				coin.pos_x += coin.vel_x * dtime;
+				coin.pos_y -= coin.vel_y * dtime;
+				coin.vel_y -= 60*dtime;
+
+				coin.pos_x = coin.pos_x > 50? 50:coin.pos_x;
+				coin.pos_y = coin.pos_y > 40? 40:coin.pos_y;
+
+				coin.style.left = (coin.pos_x+50)+'%'
+				coin.style.top = (coin.pos_y+50)+'%'
+				coin.style.width = coin.size+'px'; // Example size
+				coin.style.height = coin.size+'px';
+				coin.style.display = 'block'
+			}
+			last_frame = Date.now();
+		}
+		function create_coin(x, y, size, vel_x, vel_y, play_sound, dormant, anim_frame) {
+			var caudio = new Audio('./coin.wav');
+			if (play_sound)
+				caudio.play();
+			var img = undefined;
+
+			if (!dormant) {
+				for(var i = 0; i < all_coins.length; i++) {
+					if(i.dormant) {
+						img = i;
+						i.dormant = false;
+					}
+				}
+			}
+			if(!img)
+				img = document.createElement('img');
+			img.lifetime = 100;
+			img.dormant = dormant;
+			img.size = size;
+			img.pos_x = vel_x;
+			img.pos_y = vel_y;
+			img.vel_x = vel_x;
+			img.vel_y = vel_y;
+			img.animation_speed = 30;
+			img.animation_subframe = 0;
+			img.animation_frame = anim_frame;
+			img.src = coin_animation[anim_frame%coin_animation.length].src;
+			img.style.position = 'absolute';
+			img.style.display = 'none'
+			all_coins.push(img);
+			document.body.appendChild(img);
+			return img;
+		}
+		function coin_fountain() {
+			for(var i = 0; i < 300; i++) {
+				setTimeout((i) => {
+					create_coin(0, 0, random_range(90, 110), random_range(-10, 10), random_range(90, 110), i%5 == 1, false, 0)
+				}, i*20, i);
+			}
+		}
+		setInterval(coin_physics_frame, 33);
+		setInterval(alternate_title, 200)
+	</script>
+</head>
+
+<body>
+	<img src="/gate.gif" id="overlay"/>
+	<h1>YOU HAVE: 0$</h1>
+	<h1 id="jackpot">JACKPOT!!!</h1>
+
+
+	<div class="gamble_col pinup_col"> 
+		<img class="pinup" src="./pinup_gambling.png"/ id="pinup_left">
+	</div>
+	<div class="gamble_col" id="col1">
+		<img id="c1r1" src="./pyramid.png"/>
+		<img id="c1r2" src="./gold.png"/>
+		<img id="c1r3" src="./pyramid.png"/>
+	</div>
+	<div class="gamble_col" id="col2">
+		<img id="c2r1" src="./mummy.png"/>
+		<img id="c2r2" src="./gold.png"/>
+		<img id="c2r3" src="./tablet.png"/>
+	</div>
+	<div class="gamble_col" id="col3">
+		<img id="c3r1" src="./spices.png"/>
+		<img id="c3r2" src="./sphinx.png"/>
+		<img id="c3r3" src="./locust.png"/>
+	</div>
+	<div class="gamble_col pinup_col"> 
+		<img class="pinup" src="./pinup_gambling.png"/>
+	</div>
+	<center>
+		<button id="gamble_btn" onclick="gamble_button()">GAMBLE</button>
+	</center>
+</body>
+</html>
