@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+	<title>Labyrinth Depths</title>
+	<link rel="icon" type="image/x-icon" href="icon.gif">
+	<link rel="stylesheet" href="depthStyle.css">
+</head>
+<body>
+	<div id="mainContainer">
+		<img src="thedepths.gif">
+		<div id="depthsText">
+			<div class="leftAlign">
+				<p id="fluffText"></p><hr>
+				<p>You can still go deeper into the labyrinth.<br></p>
+			</div>
+			<div class="centerAlign">
+				<a id="depthsContinue" href="">Continue.</a><br>
+				<a id="depthsLeave" href="../../../">Return.</a>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	function updateCoins(amount) {
+		//if we don't already have the coins key, make it.
+		if (localStorage.getItem("coins") === null) {
+			localStorage.setItem("coins", 0);
+		}
+		var x = parseInt(localStorage.getItem("coins"));
+		//don't decrease the value if we're at 0
+		if (x > 0 || amount == 1) {
+			localStorage.setItem("coins", x += amount);
+		} else {
+			console.log("We're Poor!");
+		}
+		console.log("Coins: " + x);
+	}
+	const fluffList = [
+		"You can hear the dripping of the surrounding cave. It echoes for a good while.",
+		"A single lantern is ahead of you, still lit. Was someone here?",
+		"These are <b>not</b> the Tunnels of Glembo. You don't feel safe here.",
+		"You find a coin on the floor of the cave. Who lost it and how?",
+		"You check your pockets to see you've lost a coin somewhere in the depths. Oops!",
+		"There's a cool looking bug on the wall, lemme show it to y- nevermind. It ran off.",
+		//this reference would be funny if i also made it reset looter drops. i'm not that evil though.
+		"You feel a black wind blow through you.<br>All weapons dropped to level 1!"
+	]
+	const fluffListRandom = Math.floor(Math.random() * fluffList.length)
+	const depthExits = [
+		"../damnation",
+		"../../../endless_coin_box.html"
+	]
+	const depthExitRandom = Math.floor(Math.random() * depthExits.length)
+	
+	//Add the coin.
+	if (fluffListRandom == 3) {
+		updateCoins(1);
+	}
+	//Remove the coin.
+	if (fluffListRandom == 4) {
+		updateCoins(-1);
+	}
+	
+	document.getElementById("depthsContinue").setAttribute("href", depthExits[depthExitRandom]);
+	document.getElementById("fluffText").innerHTML = fluffList[fluffListRandom];
+</script>
