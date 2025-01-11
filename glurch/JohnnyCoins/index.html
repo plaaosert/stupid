@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+    <head>
+<style>
+html {
+    background-color: black;
+    color: white;
+}
+#eye {
+    position: fixed;
+    display:  block;
+    top:  calc(50% - 250px);
+    left: calc(50% - 125px);
+    z-index: 1;
+}
+#coins img {
+    position: relative;
+    top: 8px;
+}
+#coins {
+    position: fixed;
+    bottom: 0;
+    left:   0;
+}
+#fudge {
+    position: fixed;
+    top: 50%;
+    left: 15%;
+    z-index: 2;
+    animation: pulse 5s infinite;
+}
+#hand {
+    position: fixed;
+    top: 25%;
+    left: 15%;
+    z-index: 0
+}
+#stuff {
+    display: none;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(1, 1, 1, 0.75);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(1, 1, 1, 0);
+  }
+}
+</style>
+    </head>
+    <body>
+        <img src="eye.png" id="eye">
+        <div id="stuff">
+            <img src="../../Quality/fudge.png" id="fudge">
+            <img src="hand.png" id="hand">
+            <audio loop id="noise">
+                <source src="../../Quality/noise.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <center style="margin-top: 700px;">
+            <span id="text">
+                oh my.....
+            </span>
+            <br>
+            <button id="next">next</button>
+        </center>
+        <div id="coins">
+            <img src="../../coin4.png"> x <span id="counter">
+        </div>
+        <script>
+let box = document.querySelector("#eye");
+let boxBoundingRect = box.getBoundingClientRect();
+let boxCenter= {
+    x: boxBoundingRect.left + boxBoundingRect.width/2,
+    y: boxBoundingRect.top + boxBoundingRect.height/2
+};
+
+document.addEventListener("mousemove", e => {
+    let angle = Math.atan2(e.pageX - boxCenter.x, - (e.pageY - boxCenter.y) )*(180 / Math.PI);
+    box.style.transform = `rotate(${angle}deg)`;
+});
+
+var index = 0;
+var texts = [
+    "oh my.....",
+    " that coin....... ",
+    "it does shine in a most beautiful manner.....",
+    "i want it.",
+    "is that ok?",
+    "good.",
+    "i have taken your coin.",
+    "it does please me a lot.",
+    "in exchange i shall give you one of my prized trinkets.",
+    "it has great power. use it responsibly."
+];
+
+function updatecoins() {
+    let coins = Number.parseInt(localStorage.getItem("coins") ? localStorage.getItem("coins") : "0");
+    document.getElementById("counter").innerHTML = coins;
+}
+
+document.getElementById("next").addEventListener("click", () => {
+    let coins = Number.parseInt(localStorage.getItem("coins") ? localStorage.getItem("coins") : "0");
+    if (coins == 0 && index == 0) {
+        document.getElementById("text").innerHTML = "you don't even have one coin.... commoner.";
+    }
+    else {
+        index = index + 1;
+        if (index < texts.length) {
+            document.getElementById("text").innerHTML = texts[index];
+            if (index == 6) {
+                coins = coins - 1;
+                localStorage.setItem("coins", coins.toString());
+                updatecoins();
+            }
+            if (index == 8) {
+                document.getElementById("stuff").style["display"] = "block";
+                document.getElementById("noise").play();
+                let streets = getstreets();
+                streets.push("'fudge'");
+                setstreets(streets);
+            }
+        }
+        else {
+            window.location.replace("/");
+        }
+    }
+});
+
+function setstreets(streets) {
+    localStorage.setItem("qualitystreets", "[" + String(streets) + "]");
+}
+
+function getstreets() {
+    return eval(localStorage.getItem("qualitystreets") ? localStorage.getItem("qualitystreets") : []);
+}
+
+updatecoins();
+        </script>
+    </body>
+</html>

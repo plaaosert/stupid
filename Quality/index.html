@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+    <head>
+<style>
+#container {
+    position: fixed;
+    top:  100px;
+    left: calc(50% - 150px);
+}
+#tub, #open {
+    width: 300px;
+}
+#sweetlist {
+    display: flex;
+}
+.sweet {
+    width: 100px;
+    margin: auto 30px;
+    animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+}
+</style>
+    </head>
+    <body>
+        <div id="container">
+            <center>
+                <img src="tub.png" id="tub">
+            </center>
+            <center id="sweetlist">
+            </center>
+            <audio loop id="noise">
+                <source src="noise.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <script>
+var sweets = [
+    "fudge",
+    "caramel-swirl",
+    "coconut-eclair",
+    "green-triangle",
+    "milk-choc-block",
+    "orange-creme",
+    "orange-crunch",
+    "strawberry-creme",
+    "toffee-penny",
+    "the-purple-one",
+    "toffee-finger"
+];
+
+document.getElementById("tub").addEventListener("click", () => {
+    document.getElementById("tub").outerHTML = "<img src='tub-open.png' id='open'>";
+    summonsweets();
+});
+
+if (localStorage.getItem("qualitystreets") === null) {
+    localStorage.setItem("qualitystreets", "[]");
+}
+
+function summonsweets() {
+    var collected = sweets.filter(sweet => localStorage.getItem("qualitystreets").includes(sweet));
+    let text = "";
+    for (let i = 0; i < collected.length; i++) {
+        text = text + "<img src='" + collected[i] + ".png' class='sweet'>";
+    }
+    if (text == "") {
+        text = "<i>You have no Quality Streets...</i>";
+    }
+    else {
+        document.getElementById("noise").play();
+    }
+    document.getElementById("sweetlist").innerHTML = text;
+}
+
+function setstreets(streets) {
+    localStorage.setItem("qualitystreets", "[" + String(streets) + "]");
+}
+
+function getstreets() {
+    return eval(localStorage.getItem("qualitystreets") ? localStorage.getItem("qualitystreets") : []);
+}
+        </script>
+    </body>
+</html>
