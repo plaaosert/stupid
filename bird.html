@@ -28,7 +28,8 @@
              height: 100px;
              position: absolute;
              animation: fly linear infinite;
-             --friend: false
+             --friend: false;
+             cursor: pointer;
         }
 
         .egg {
@@ -38,6 +39,7 @@
             background-image: url("egg.png");
             animation: fall 2s ease-in;
             animation-fill-mode: forwards;
+            cursor: pointer;
         }
     </style>
 
@@ -79,6 +81,9 @@
                     egg.classList.add("egg")
                     egg.style.left = (e.x - 50)+"px"
                     egg.style.top = (e.y - 50)+"px"
+                    egg.onclick = function(){
+                        window.location.href = "./gambling/gambler.html"
+                    }
                     document.body.appendChild(egg)
                 }
                 if (document.getElementsByClassName("bird").length < 1) {
