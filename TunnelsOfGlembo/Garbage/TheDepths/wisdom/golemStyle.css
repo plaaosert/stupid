@@ -1,0 +1,60 @@
+#mainContainer {
+	width:100vw;
+	height:82vh;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:row;
+	
+	color:#EEE;
+}
+#depthsText {
+	font-family:"MS Gothic", "Courier New", monospace;
+	height:244px;
+	width:244px;
+	padding:12px;
+}
+#yn {
+	cursor:default;
+	font-size:26px;
+}
+#y, #n {
+	cursor:pointer;
+}
+#y:hover, #n:hover {
+	color:red;
+	text-shadow:0 0 5px red;
+}
+#wis p {
+	font-size-adjust:0.5;
+	color:gold;
+	text-shadow:0 0 8px gold;
+}
+
+body {
+	margin:0;
+	background-color:#090a14;
+}
+hr {
+	border:0;
+	border-top:3px solid #151d28;
+}
+p {
+	margin:5px;
+	padding-left:5px;
+	padding-right:5px;
+}
+a, p {
+	font-size:20px;
+	text-decoration:none;
+}
+a:link {
+	color:#DDD;
+}
+a:visited {
+	color:#BBB;
+}
+a:hover {
+	text-shadow:0 0 5px #FFF;
+}
