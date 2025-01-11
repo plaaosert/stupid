@@ -37,24 +37,30 @@ header {
             <button onclick="addglurch();">load more results</button>
         </center>
         <script>
-
-localStorage.setItem("totalglurches", localStorage.getItem("totalglurches") + 10);
-
 var text = '<div class="glurch"><img src="glurch.ico"><a href="https://glurch.glurch">https://glurch.glurch</a><h4>glurch</h4><p>Glorem glipsum glolor glit glamet, glonsectetur gladipiscing glelit, gled glo gleiusmod glempor glincididunt glut glabore glet glolore glagna glaliqua. Glut glenim glad glinim gleniam, gluis glostrud glexercitation glullamco glaboris glisi glut glaliquip glex glea glommodo glonsequat.</p></div>';
+var deal = '<div class="glurch"><img src="coins.ico"> <a href="JohnnyCoins/"> https://johnny.coins </a><h4>johnny coins emporium</h4><p>do you too eat coins for breakfast, brucnh, lunch, and dinner? then come to my emporium of delicious coins</p></div>';
 
 function addglurch() {
     let glurches = document.getElementById("glurches");
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    glurches.innerHTML = glurches.innerHTML + text;
-    localStorage.setItem("totalglurches", localStorage.getItem("totalglurches") + 10);
+    for (let i = 0; i < 10; i++) {
+        let number = Math.floor(Math.random() * 100);
+        if (number == 99) {
+            glurches.innerHTML = glurches.innerHTML + deal;
+        }
+        else {
+            glurches.innerHTML = glurches.innerHTML + text;
+        }
+    }
+    glurchup();
+}
+
+function glurchup() {
+    if (localStorage.getItem("totalglurches") === null) {
+        localStorage.setItem("totalglurches", 1);
+    }
+    else {
+        localStorage.setItem("totalglurches", Number.parseInt(localStorage.getItem("totalglurches") + 1));
+    }
 }
 
 addglurch();
