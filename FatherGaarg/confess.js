@@ -41,7 +41,12 @@ function confess() {
         });
         noise();
         confession.value = "";
-        localStorage.setItem("totalconfessions", localStorage.getItem("totalconfessions") + 1);
+        if (localStorage.getItem("totalconfessions") === null) {
+            localStorage.setItem("totalconfessions", 1);
+        }
+        else {
+            localStorage.setItem("totalconfessions", Number.parseInt(localStorage.getItem("totalconfessions") + 1));
+        }
     }
 }
 
