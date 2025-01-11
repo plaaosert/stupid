@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+	<title>Wise Golem</title>
+	<link rel="icon" type="image/x-icon" href="../icon.gif">
+	<link rel="stylesheet" href="golemStyle.css">
+</head>
+<body>
+	<div id="mainContainer">
+		<img src="wiseGolem.gif">
+		<div id="depthsText">
+			<p>The Stone Golem requests <b style="color:#be772b; text-shadow:0 0 5px #be772b">one coin from you</b>. 
+			In exchange, you shall recieve some <b style="color:#7a367b; text-shadow:0 0 5px #7a367b">wisdom</b>.</p>
+			<br>
+			<p>Do you accept?</p>
+			<p id="yn"><b id="y" onclick="wisdom()">Yes</b> | <b id="n" onclick="decline()">No</b></p>
+		</div>
+	</div>
+</body>
+<script>
+	const wiseWords = [
+		"Man who chases car gets exhausted.<br>Man who runs from car gets tired.",
+		"Riichi Mahjong is a game about skill and skill alone.",
+		"When your channeling is not effective, look to yourself first - are you determined?",
+		"You can easily defeat any foe with mere patience and glares.",
+		"All that is, is the 'now'.<br>What is to come is forged by our wills.",
+		"As you loathe your opponent, you will feel the victory be one with survival.",
+		"As I have demonstrated, nothing is free.",
+		"One who demands the role will never get it. One who is simply fit for the role will.",
+		"Iterate enough on an idea or concept, and anything is possible with time.",
+		"Fate has a sense of humour, let it play its cards, for it shall smile upon you one day.",
+		"There is no such thing as 'Nothing'.",
+		"What I percieve as red, may not be the same red to you.",
+		"Nobody remembers Ozymandias for the man he was, just his status."
+	];
+	var textField = document.getElementById("depthsText");
+	function wisdom() {
+		//setup wisdom counter in storage
+		if (localStorage.getItem("gWisdom") === null) {
+			localStorage.setItem("gWisdom", 0);
+		}
+		//if you somehow don't have a coin counter.
+		if (localStorage.getItem("coins") === null) {
+			localStorage.setItem("coins", 0);
+		}
+		
+		var wisIndex = parseInt(localStorage.getItem("gWisdom"));
+		var money = parseInt(localStorage.getItem("coins"));
+		
+		if (wisIndex <= wiseWords.length) { //do we have a line of wisdom to give?
+			if (money > 0) { //do we have money to spend?
+				localStorage.setItem("coins", money -= 1); //remove coin
+				textField.innerHTML = "<div id='wis'><p><b>" + wiseWords[wisIndex] + "</b></p></div><br><br><p><a href='../'>+1 Wisdom gained</a></p>";
+				localStorage.setItem("gWisdom", wisIndex += 1);
+			} else {
+				textField.innerHTML = "<p><b style='color:#be772b; text-shadow:0 0 5px #be772b'>You seem to be lacking in coin</b>.<br><br>Return to me once <a href='../../../../endless_coin_box.html'>you've acquired some.</a></p"
+			}
+		}
+	}
+	function decline() {
+		textField.innerHTML = "<p>Very well. I can wait.<br><br><a href='../'>Go back.</a></p>"
+	}
+</script>
