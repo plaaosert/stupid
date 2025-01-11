@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+
+    <style>
+        body {
+            background-color: rgb(255, 255, 255);
+            overflow: hidden;
+        }
+        @keyframes fly {
+            0%{
+                transform: translateX(100vw);
+            }
+
+            100%{
+                transform: translateX(-100vw);
+            }
+        }
+        @keyframes fall {
+            100% {
+                transform: translateY(25vw);
+            }
+        }
+
+
+        .bird {
+             width: 100px;
+             height: 100px;
+             position: absolute;
+             animation: fly linear infinite;
+             --friend: false
+        }
+
+        .egg {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-image: url("egg.png");
+            animation: fall 2s ease-in;
+            animation-fill-mode: forwards;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <script>
+        const explosionSound = new Audio("explosion.mp3")
+        const numberOfBirds = 50;
+        const chirpSound = new Audio("birdschirp.wav")
+        setTimeout(function(){
+            chirpSound.loop = true
+            chirpSound.play()}, 300)
+
+        function getRandomValue(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        for (let i = 0; i < numberOfBirds; i++) {
+            const bird = document.createElement("img")
+            bird.src="pigeon.png"
+            bird.onclick = function(){
+                var e = window.event
+                bird.remove()
+                const explosion = document.createElement("img")
+                explosion.src = "kaboom.gif"
+                explosion.style.position = "absolute"
+                explosion.style.width = "100px"
+                explosion.style.height = "100px"
+                explosion.style.left = (e.x - 50)+"px"
+                explosion.style.top = (e.y - 50)+"px" 
+                setTimeout(function(){explosion.remove()},800)
+                document.body.appendChild(explosion)
+                explosionSound.load()
+                explosionSound.play()
+                if (bird.friend == true) {
+                    const egg = document.createElement("img")
+                    egg.classList.add("egg")
+                    egg.style.left = (e.x - 50)+"px"
+                    egg.style.top = (e.y - 50)+"px"
+                    document.body.appendChild(egg)
+                }
+                if (document.getElementsByClassName("bird").length < 1) {
+                 chirpSound.pause()
+                }
+            }
+            bird.draggable = false
+            bird.style.userSelect = false
+            bird.classList.add("bird")
+
+            const friendChance = Math.floor(Math.random()*100)
+            const randomY = getRandomValue(0,20)
+            const randomDuration = getRandomValue(3,6)
+            
+            if (friendChance == 1) {
+                bird.src="friend.png"
+                bird.style.width = "200px";
+                bird.style.height = "200px";
+                bird.friend = true
+            }
+
+            bird.style.animationDuration = randomDuration+"s"
+            bird.style.top = randomY+"vw"
+
+
+
+            document.body.appendChild(bird)
+            
+
+        }
+    </script>
+</body>
+
+
+
+</html>
