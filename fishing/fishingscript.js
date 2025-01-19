@@ -116,9 +116,7 @@ class Fish {
 	//todo - figure out how to delete a javascript object
 	sell() {
 		if (this.sold !== true) {
-			var fish_caught = parseInt(localStorage.getItem("fish_caught"));
 			var money = parseInt(localStorage.getItem("coins"));
-			localStorage.setItem("fish_caught", fish_caught += 1);
 			localStorage.setItem("coins", money += this.true_value);
 			this.true_value = 0;
 			this.sold = true;
@@ -201,7 +199,7 @@ function get_fish() {
 	console.log(fishy);
 	snd_ding.play();
 	document.getElementById("innertext").innerHTML = "You got a fish!<br><img src='"+fishy.get_fish_sprite()+"'><br><p>"+fishy.get_mod_name()+" "+fishy.name+"<br>Valued at "+fishy.true_value+" coins!";
-	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='fishy.sell(); reset_buttons();'>Sell Fish</button><button id='keep' disabled=true>Save Fish (WIP)</button>"
+	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='fishy.sell(); reset_buttons(); update_counters();'>Sell Fish</button><button id='keep' disabled=true>Save Fish (WIP)</button>"
 	var fishcaught = parseInt(localStorage.getItem("fish_caught"));
 	localStorage.setItem("fish_caught", fishcaught += 1);
 	update_counters();
