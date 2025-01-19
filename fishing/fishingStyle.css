@@ -23,6 +23,7 @@ body {
 #bobber {
 	display:none;
 	position:fixed;
+	margin-bottom:115px;
 }
 #text {
 	font-size:1.22em;
