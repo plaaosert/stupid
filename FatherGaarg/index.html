@@ -48,7 +48,13 @@ audio {
             <source src="gaarg3.mp3">
         </audio>
         <img src="father.png" class="father"> <br>
-        <form id="form" onsubmit="if (document.getElementById('confession').value == 'father i have glurchd') { window.location.href = '/glurch/'; return false } else { confess(); document.getElementById('confession').value = ''; return false; }">
+        <form id="form" onsubmit="
+            if (document.getElementById('confession').value == 'father i have glurchd')
+                { window.location.href = '/glurch/'; return false }
+            else if (document.getElementById('confession').value == 'father please make plaaosert purple')
+                { window.location.href = '../purple.html'; return false }
+            else
+                { confess(); document.getElementById('confession').value = ''; return false; }">
             <input type="text" id="confession" placeholder="confession goes here">
             <input type="submit" value="confess">
         </form>
