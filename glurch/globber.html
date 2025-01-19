@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+#feed, #hug {
+    display: none;
+}
+        </style>
+    </head>
+    <body>
+        <center>
+            <img src="globber.jpg" id="globber">
+            <br>
+            <button id="pat">
+                pat them
+            </button>
+            <button id="feed">
+                feed them
+            </button>
+            <button id="hug">
+                hug them
+            </button>
+            <br>
+            <p>
+                globbometer: <span id="num">0</span> / 10,000
+            </p>
+            <script>
+                function glob(number) {
+                    let globbage = Number.parseInt(document.getElementById("num").innerHTML);
+                    globbage = Number.parseInt(number + globbage);
+                    document.getElementById("num").innerHTML = globbage;
+                    if (globbage >= 100) {
+                        document.getElementById("feed").style["display"] = "inline";
+                    }
+                    if (globbage >= 500) {
+                        document.getElementById("hug").style["display"] = "inline";
+                    }
+                }
+                document.getElementById("pat").addEventListener("click", () => glob(3));
+                document.getElementById("feed").addEventListener("click", () => glob(4));
+                document.getElementById("hug").addEventListener("click", () => glob(7));
+            </script>
+        </center>
+    </body>
+</html>
