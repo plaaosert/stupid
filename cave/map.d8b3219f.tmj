@@ -128,6 +128,72 @@
                  "width":64,
                  "x":960,
                  "y":320
+                }, 
+                {
+                 "height":32,
+                 "id":7,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":544,
+                 "y":448
+                }, 
+                {
+                 "height":32,
+                 "id":8,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":864,
+                 "y":448
+                }, 
+                {
+                 "height":32,
+                 "id":9,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":1184,
+                 "y":800
+                }, 
+                {
+                 "height":32,
+                 "id":10,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":1056,
+                 "y":1408
+                }, 
+                {
+                 "height":32,
+                 "id":11,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":1504,
+                 "y":1728
+                }, 
+                {
+                 "height":32,
+                 "id":12,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":288,
+                 "y":1376
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -136,7 +202,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":7,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
