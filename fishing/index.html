@@ -4,16 +4,25 @@
 	<link rel="icon" type="image/x-icon" href="img/icon.png">
 	<link rel="stylesheet" href="fishingStyle.css">
 </head>
-<body>
+<body onload="update_counters()">	
 	<div id="container">
 		<div>
 			<img id="pond" src="img/pond.png">
 			<div id="text">
 				<p>You can fish here, assuming you have bait.<br>
-				<b class="pay" id="baitBuy">Buy bait (3 coins)</b><br>
-				<b class="pay" id="startFishing">Start Fishing (1 bait)</b><br>
+				<div id="buttons">
+					<button>Buy Bait</button>
+					<button>Start Fishing</button>
+				</div>
 				</p>
 			</div>
 	</div>
+	<!--anything fixed goes down here-->
 	<img id="bobber" src="img/bobber.gif">
+	<div id="reader">
+		<p id="coins">You have <b id="coinAmt">0</b> coins.</p>
+		<p id="bait">You have <b id="baitAmt">0</b> bait.</p>
+		<p id="fishes">You have caught <b id="fishAmt">0</b> fishies.</b>
+	</div>
 </body>
+<script src="fishingscript.js"></script>

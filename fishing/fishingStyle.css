@@ -4,6 +4,13 @@ body {
 	margin:0;
 	font-family:"MS Gothic", "Courier New", monospace;
 }
+#reader {
+	position:fixed;
+	bottom:0;
+	right:20px;
+	
+	text-align:right;
+}
 #container {
 	width:100vw;
 	height:100vh;
@@ -22,10 +29,9 @@ body {
 	max-width:320px;
 	text-align:center;
 }
-.pay {
-	font-size:1.44em;
-}
-.pay:hover {
-	cursor:pointer;
-	text-shadow:0 0 2px blue;
-}
+#buttons button {
+	width:50%;
+	margin:4px;
+	font-family:"MS Gothic", "Courier New", monospace;
+	font-weight:bold;
+	padding:10px;
