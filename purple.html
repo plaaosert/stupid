@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+<style>
+#coins img {
+    position: relative;
+    top: 8px;
+}
+#coins {
+    position: fixed;
+    bottom: 0;
+    left:   0;
+}
+</style>
+    </head>
+    <body>
+        <img src="../../docs/Untitled.png" style="width:100%;" id="blao">
+        <center>
+            <button id="button">
+                plaaosert if he was purple
+            </button>
+        </center>
+        <script>
+            document.getElementById("button").addEventListener("click", () => {
+                document.getElementById("blao").style['filter'] = "hue-rotate(60deg)";
+            });
+        </script>
+    </body>
+</html>
