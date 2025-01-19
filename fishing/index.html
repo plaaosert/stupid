@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+	<title>Fishing Pond</title>
+	<link rel="icon" type="image/x-icon" href="img/icon.png">
+	<link rel="stylesheet" href="fishingStyle.css">
+</head>
+<body onload="update_counters()">	
+	<div id="container">
+		<div>
+			<img id="pond" src="img/pond.png">
+			<div id="text">
+				<p id="innertext">You can fish here, assuming you have bait.<br>
+				<div id="buttons">
+					<button id="btnBait" onclick="buy_bait()">Buy Bait</button>
+					<button id="btnFishing" onclick="go_fishing()">Start Fishing</button>
+				</div>
+				</p>
+			</div>
+	</div>
+	<!--anything fixed goes down here-->
+	<img id="bobber" src="img/bobber.gif">
+	<div id="reader">
+		<p id="coins">You have <b id="coinAmt">0</b> coins.</p>
+		<p id="bait">You have <b id="baitAmt">0</b> bait.</p>
+		<p id="fishes">You have caught <b id="fishAmt">0</b> fishies.</b>
+	</div>
+</body>
+<script src="fishingscript.js"></script>

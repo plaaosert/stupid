@@ -1,0 +1,38 @@
+body {
+	background-color:#ebede9;
+	overflow:hidden;
+	margin:0;
+	font-family:"MS Gothic", "Courier New", monospace;
+}
+#reader {
+	position:fixed;
+	bottom:0;
+	right:20px;
+	
+	text-align:right;
+}
+#container {
+	width:100vw;
+	height:100vh;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+#bobber {
+	display:none;
+	position:fixed;
+	margin-bottom:115px;
+}
+#text {
+	font-size:1.22em;
+	max-width:320px;
+	text-align:center;
+}
+#buttons button {
+	width:50%;
+	margin:4px;
+	font-family:"MS Gothic", "Courier New", monospace;
+	font-weight:bold;
+	padding:10px;
