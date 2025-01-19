@@ -167,7 +167,7 @@ function go_fishing() {
 		buttonsDiv.style = "display:none;";
 		bobber.style = "display:inline;"
 		text.innerHTML = "You are now fishing.<br>Come back soon to claim your fish.";
-		cookie_creator("isFishing", "true, please don't delete me gaarg", Math.floor(Math.random() * 10));
+		cookie_creator("isFishing", "true, please don't delete me gaarg", getRandomArbitrary(1,10));
 		cookie_creator("Fish", "also don't delete me gaarg, i'm required to claim a fish!");
 		
 	} else {
