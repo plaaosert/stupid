@@ -1,0 +1,31 @@
+body {
+	background-color:#ebede9;
+	overflow:hidden;
+	margin:0;
+	font-family:"MS Gothic", "Courier New", monospace;
+}
+#container {
+	width:100vw;
+	height:100vh;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+#bobber {
+	display:none;
+	position:fixed;
+}
+#text {
+	font-size:1.22em;
+	max-width:320px;
+	text-align:center;
+}
+.pay {
+	font-size:1.44em;
+}
+.pay:hover {
+	cursor:pointer;
+	text-shadow:0 0 2px blue;
+}
