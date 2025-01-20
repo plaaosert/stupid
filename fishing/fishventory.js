@@ -1,3 +1,4 @@
+const inventory = document.getElementById("inventoryLimiter");
 var snd_kaching = new Audio("sound/kaching.ogg");
 var snd_click = new Audio("sound/click.ogg");
 
@@ -13,7 +14,6 @@ if (localStorage.getItem("fishs") === null) {
 }
 
 function add_inventory_item(index) {
-	const inventory = document.getElementById("inventoryLimiter");
 	let rarity = fishs[index].rarity[1];
 	let sprite = fishs[index].sprite;
 	let name = fishs[index].name;
@@ -46,10 +46,18 @@ function add_inventory_item(index) {
 	let fishvaluebox = node.querySelector(".fishvaluebox");
 	fishvaluebox.querySelector("span.valuetext").textContent = "Coin Value";
 	fishvaluebox.querySelector(".fishvalue").textContent = value;
+	fishvaluebox.querySelector("button").setAttribute("onclick", "sell_fish("+index+")");
+	fishvaluebox.querySelector("button").setAttribute("id", "b"+index);
 
 	inventory.appendChild(node);
 }
 
+//todo - write this.
+function sell_fish(fish_id) {
+	return 0;
+}
+
+//retrieves all fish in localstorage
 function populate() {
 	if (fishs.length) {
 		for (let i = 0; i < fishs.length; i++) {
