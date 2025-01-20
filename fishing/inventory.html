@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <head>
 	<title>Fishventory</title>
-	<link rel="icon" type="image/x-icon" href="img/icon.png">
+	<link rel="icon" type="image/x-icon" href="img/fishico2x.gif">
 	<link rel="stylesheet" href="fishingStyle.css">
 </head>
-<body>	
+<body onload="populate()">	
 	<div id="inventoryBanner">
-		<div id="bannerHeader"><span>Fishventory</span><img src="img/fishico1x.gif"></div>
+		<div id="bannerHeader"><span>Fishventory</span><img src="img/fishico1x.gif"></div><br>
 	</div>
 	<div id="inventoryContainer">
 		<div id="inventoryLimiter">
 		
 			<div class="fishy">
-			<img src="fishes/marlin.png">
-				<div class="fishycontents">
-					<b class="divine">Divine</b><br>Unknown Fish-like Object
+			<img class="fishyimage" src="fishes/marlin.png">
+				<div class="aboutfish">
+					<b class="Divine">Divine</b><br><span class="fishname">Unknown Fish-like Object</span>
 				</div>
-				<div class="fishycontents">
-					Coin Value<br><b class="highlight">5000</b>
-					<button>Sell Fish</button>
+				<div class="fishvaluebox">
+					<span class="valuetext">Coin Value</span><br><b class="fishvalue">5000</b>
+					<button disabled=true;>Sell Fish</button>
 				</div>
 			</div>
 			
 		</div>
+	</div>
+	<div id="reader">
+		<p>You have <b id="count_of_fish" style="color:white;">0</b> fish.</p>
+		<p><a href="../fishing/">Return to Fishing</p>
 	</div>
 </body>
 <script src="fishventory.js"></script>

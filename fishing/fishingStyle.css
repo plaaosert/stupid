@@ -36,6 +36,13 @@ body {
 	border-radius:20px;
 	box-shadow:0 2px 3px grey inset;
 }
+#reader a {
+	text-decoration:none;
+	font-weight:bold;
+}
+#reader a:hover {
+	color:#F00;
+}
 button {
 	width:50%;
 	margin:4px;
@@ -43,7 +50,7 @@ button {
 	font-weight:bold;
 	padding:10px;
 }
-.highlight {
+.highlight, .fishvalue {
 	color: #04d;
 	font-weight: bold;
 	transition: all 1s ease-in;
@@ -90,6 +97,9 @@ button {
 	padding-top:1px;
 	margin-left:5px;
 }
+.fishvalue {
+	color:#FF0;
+}
 .fishy {
 	width:500px;
 	height:100px;
@@ -101,10 +111,12 @@ button {
 	border-radius:10px;
 	text-align:center;
 	padding:10px;
-	border:3px black outset;
 	
 	display:flex;
 	justify-content:start;
+}
+.fishy:first-of-type {
+	display:none;
 }
 .fishy img {
 	width:128px;
@@ -118,7 +130,7 @@ button {
 	border-radius:20px;
 	box-shadow: 0 5px 5px #02a inset;
 }
-.fishycontents {
+.aboutfish, .fishvaluebox {
 	width:25%;
 	box-shadow: 0 1px 1px grey inset;
 	background-color:#fee;
@@ -128,20 +140,27 @@ button {
 	padding-left:15px;
 	border-radius:5px;
 }
-.fishycontents:first-of-type {
+.aboutfish {
 	margin-right:5px;
 	width:40%;
 }
-.fishycontents button {
+.fishvaluebox button {
 	width:90%;
 	
 }
-
 /*Highlight Qualities*/
-.fishycontents b:first-of-type{
+div b:first-of-type{
 	background-color:#111;
 	padding:2px 10px 2px 10px;
 	border-radius:50px;
+}
+@keyframes pure_platinum_animation {
+	0% {
+		color:#CFF;
+	}
+	100% {
+		color:#8FF;
+	}
 }
 @keyframes divine_animation {
 	0% {
@@ -160,21 +179,28 @@ button {
 	}
 }
 
-.uncommon {color:#4d6;} /*green*/
-.rare {color:#48e;} /*blue*/
-.legendary {color:#64b;} /**/
-.mythical {color:#D65;}/*pale orange*/
-.immortal {color:#D60;}/*pale orange*/
-.puregold {color:#FF0;}/*bright yellow*/
-.pureplatinum {color:#FFF;} /*white*/
-.divine {
+.Normal {color:#FFF;} /*Solid White*/
+.Uncommon {color:#4d6;} /*green*/
+.Rare {color:#48e;} /*blue*/
+.Legendary {color:#64b;} /*purple*/
+.Mythical {color:#D65;}/*pale orange*/
+.Immortal {color:#D60;}/*pale orange*/
+.Puregold {color:#FF0;}/*bright yellow*/
+.Pureplatinum {
+	animation-name: pure_platinum_animation;
+	animation-duration: 1s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function:linear;
+}
+.Divine {
 	animation-name: divine_animation;
 	animation-duration: 0.5s;
 	animation-direction: alternate;
 	animation-iteration-count: infinite;
 	animation-timing-function:linear;
 }
-.chocolate {
+.Chocolate {
 	animation-name: chocolate_animation;
 	animation-duration: 0.15s;
 	animation-direction: alternate;
