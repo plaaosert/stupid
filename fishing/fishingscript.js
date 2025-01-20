@@ -4,6 +4,7 @@ var snd_ding = new Audio("sound/ding.ogg");
 var snd_kaching = new Audio("sound/kaching.ogg");
 var snd_splash = new Audio("sound/splash.ogg");
 var snd_bigsplash = new Audio("sound/bigsplash.ogg");
+var snd_success = new Audio("sound/success.ogg");
 
 // prepare localstorage.
 if (localStorage.getItem("coins") === null) {
@@ -156,8 +157,8 @@ function sell_fish(fish) {
 
 function put_fish_into_inventory(fish) {
 	fishs.push(JSON.parse(JSON.stringify(fish)));
-
 	localStorage.setItem("fishs", JSON.stringify(fishs));
+	snd_success.play();
 }
 
 function buy_bait() {
@@ -220,22 +221,22 @@ const fish_unknown = [
 //types of fish. todo - add MORE
 const fish_types = [
 	{sprite: "koi", lengths: [40, 120], weight_mults: [0.4, 0.7], base_value: 1, names: [
-		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+		"Behkko", "Asargee", "Kohark", "Tarnchau", "Sarke", "Goro", "Hikar"
 	]},
 	{sprite: "marlin", lengths: [300, 600], weight_mults: [1.3, 2], base_value: 3, names: [
-		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+		"Fishmourne", "Dune Conqueror Three", "Arthas", "Rapierfish", "Skirmisher", "Jerry"
 	]},
 	{sprite: "salmon", lengths: [90, 150], weight_mults: [0.2, 0.32], base_value: 2, names: [
-		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+		"Gorgo", "Glembi", "Gimblo", "Florpi", "Glumbus", "Blaot", "Cevapi", "Boinglu"
 	]},
 	{sprite: "tiny", lengths: [4, 8], weight_mults: [0.0014, 0.0021], base_value: 0.1, names: [
-		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+		"Lei-La", "La-Lou", "Ley-La", "Squi-shii", "Fu-nii", "Fun-ki", "Ami-la"
 	]},
 	{sprite: "weird", lengths: [200, 360], weight_mults: [0.06, 0.09], base_value: 0.2, names: [
-		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+		"Unknown Fish-like Object", "Sea snake?", "Sea serpent?", "Squiggly guy?", "Non-electric Eel", "Anomalous Creature"
 	]},
 	{sprite: "goldkoi", lengths: [60, 130], weight_mults: [0.45, 0.75], base_value: 5, names: [
-		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+		"Xen", "Pen", "Gui", "Yin", "Yan", "Yos", "Vos"
 	]},
 ];
 

@@ -23,12 +23,19 @@ body {
 #bobber {
 	display:none;
 	position:fixed;
-	margin-bottom:115px;
+	top: calc(50% - 210px);
+	left: calc(50% - 160px);
 }
 #text {
 	font-size:1.22em;
 	max-width:400px;
 	text-align:center;
+	
+	/*Experimental styling.*/
+	padding-left:18px;
+	padding-right:18px;
+	border-radius:20px;
+	box-shadow:0 2px 3px grey inset;
 }
 #buttons button {
 	width:50%;
@@ -40,4 +47,8 @@ body {
 .highlight {
 	color: #04d;
 	font-weight: bold;
+	transition: all 1s ease-in;
+}
+.highlight:hover {
+	text-shadow: 0 0 10px #04d;
 }
