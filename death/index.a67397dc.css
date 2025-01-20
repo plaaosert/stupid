@@ -1,0 +1,2 @@
+body{color:#fff;background:#000;font-family:Cormorant SC,serif;font-style:normal;font-weight:500}#visualContainer{width:100%}#visual{background-color:#000;margin-left:auto;margin-right:auto;display:block}.text{opacity:0;max-width:800px;margin-left:auto;margin-right:auto;font-size:32px;animation-name:fade-in;animation-duration:2s;animation-fill-mode:forwards}.delay1{animation-delay:1s}.delay2{animation-delay:5s}.delay3{animation-delay:9s}.delay4{animation-delay:13s}@keyframes fade-in{0%{opacity:0}to{opacity:1}}
+/*# sourceMappingURL=index.a67397dc.css.map */
