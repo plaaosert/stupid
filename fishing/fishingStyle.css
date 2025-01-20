@@ -30,6 +30,12 @@ body {
 	font-size:1.22em;
 	max-width:400px;
 	text-align:center;
+	
+	/*Experimental styling.*/
+	padding-left:18px;
+	padding-right:18px;
+	border-radius:20px;
+	box-shadow:0 2px 3px grey inset;
 }
 #buttons button {
 	width:50%;
