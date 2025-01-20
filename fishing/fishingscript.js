@@ -44,7 +44,7 @@ function cookie_creator(name, value, mins) {
 function delete_cookie(name) {
   document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-//msdn my beloved coming in clutch
+//mdn my beloved coming in clutch
 function getRandomArbitrary(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
@@ -174,7 +174,7 @@ function buy_bait() {
 		snd_kaching.play();
 		setTimeout(() => {
 			button.disabled = false;
-		}, 850);
+		}, 950);
 	} else {
 		snd_click.play();
 		button.innerHTML = "You're too poor for bait! (3 coins)";
