@@ -52,19 +52,45 @@ function add_inventory_item(index) {
 	inventory.appendChild(node);
 }
 
-//todo - write this.
+//sells and removes a fish from the localstorage
 function sell_fish(fish_id) {
-	return 0;
+	let button = document.getElementById("b"+fish_id);
+	if (localStorage.getItem("fishs") !== null) {
+		let money = parseInt(localStorage.getItem("coins"));
+		localStorage.setItem("coins", money += fishs[fish_id].value);
+	} else {
+		localStorage.setItem("coins", fishs[fish_id].value);
+	}
+	//removes one fish based on the index, which is already given from the button.
+	fishs.splice(fish_id, 1);
+	save_fishs_to_localstorage(); //save it.
+	
+	button.disabled = true;
+	button.innerHTML = "Sold!";
+	update_counter_values();
+	snd_kaching.cloneNode().play();
 }
 
+function save_fishs_to_localstorage() {
+	localStorage.setItem("fishs", JSON.stringify(fishs));
+}
 //retrieves all fish in localstorage
 function populate() {
 	if (fishs.length) {
 		for (let i = 0; i < fishs.length; i++) {
 			add_inventory_item(i);
 		}
-		document.getElementById("count_of_fish").innerHTML = fishs.length;
 	} else {
 		document.getElementById("inventoryLimiter").innerHTML = "you have no fish :(";
+	}
+	update_counter_values();
+}
+
+function update_counter_values() {
+	document.getElementById("coinAmt").innerHTML = localStorage.getItem("coins");
+	if (fishs.length) {
+		document.getElementById("count_of_fish").innerHTML = fishs.length;
+	} else {
+		document.getElementById("count_of_fish").innerHTML = "0";
 	}
 }
