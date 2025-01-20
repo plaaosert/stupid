@@ -27,7 +27,7 @@ body {
 }
 #text {
 	font-size:1.22em;
-	max-width:320px;
+	max-width:400px;
 	text-align:center;
 }
 #buttons button {
@@ -36,3 +36,8 @@ body {
 	font-family:"MS Gothic", "Courier New", monospace;
 	font-weight:bold;
 	padding:10px;
+}
+.highlight {
+	color: #04d;
+	font-weight: bold;
+}

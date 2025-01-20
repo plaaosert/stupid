@@ -16,6 +16,19 @@ if (localStorage.getItem("fish_caught") === null) {
 	localStorage.setItem("fish_caught", 0);
 }
 
+let fishs = [];
+if (localStorage.getItem("fishs") === null) {
+	localStorage.setItem("fishs", "[]");
+} else {
+	try {
+		fishs = JSON.parse(localStorage.getItem("fishs"));
+	} catch {
+		fishs = [];
+	}
+}
+let got_fish = null;
+
+
 //cookie functions. i'm afraid of these.
 function cookie_creator(name, value, mins) {
 	if (mins) {
@@ -49,52 +62,69 @@ function reset_buttons() {
 }
 
 class Fish {
-	constructor(name, type, modifier, base_value) {
-		this.name = name;
-		this.modifier = modifier;
-		this.type = type;
-		if (Number.isInteger(base_value)) {
-			this.base_value = base_value
-		} else {
-			this.base_value = -5;
+	static personality_types = [
+		"curiosity", "athleticism", "boisterousness", "laziness", "carelessness", "sophistication", "elitism", "assertiveness"
+	]
+
+	static rarities = normalise_weighted_arr([
+		// [name, chance(relative), value_mult, value_plus]
+		[0.4,    "",                1, 0],
+		[0.2,    "Uncommon",        1.5, 0.5],
+		[0.1,    "Rare",            2, 1],
+		[0.05,   "Legendary",       3, 1.5],
+		[0.02,   "Mythical",        5, 2],
+		[0.01,   "Immortal",        10, 3],
+		[0.005,  "Pure Gold",       50, 4],
+		[0.0025, "Pure Platinum",   100, 5],
+		[0.001,  "Divine",          1000, 7],
+		[0.0002, "Chocolate",       10000, 10],
+	])
+
+	static generate(type_index_override=null, rarity_override=null, personality_override=null) {
+		let type_index = type_index_override;
+		if (!type_index) {
+			type_index = random_int(0, fish_types.length);
 		}
-		this.true_value = Math.floor(base_value * (modifier / 2));
-		this.sold = false;
-		
-		//fuk u dont break my fish
-		if ((Number.isInteger(this.modifier) == false)) {
-			this.modifier = -5;
+
+		let rarity = rarity_override;
+		if (!rarity_override) {
+			rarity = weighted_random_from_arr(Fish.rarities);
 		}
+
+		let personality = personality_override;
+		if (!personality) {
+			personality = {};
+			Fish.personality_types.forEach(p => personality[p] = Math.random());
+		}
+
+		return new Fish(
+			random_from_array(fish_types[type_index].names),
+			type_index, rarity, personality
+		);
 	}
-	//gets string for fish modifier
-	//from 1 to 8, with 8 being the highest.
-	get_mod_name() {
-		switch(this.modifier) {
-			case 1:
-				return "Lethargic";
-			case 2:
-				return "Basic";
-			case 3:
-				return "Uncommon";
-			case 4:
-				return "Rare";
-			case 5:
-				return "Ludicrous";
-			case 6:
-				return "Unfathomable";
-			case 7:
-				return "Legendary";
-			case 8:
-				return "Pure gold";
-			default:
-				return "Corrupted";
+
+	constructor(name, type_index, rarity, personality) {
+		this.name = name;
+		this.rarity = rarity;
+		this.personality = personality;
+
+		//fuk u dont break my fish
+		if ((Number.isInteger(type_index) == false)) {
+			this.type = fish_unknown;
+			this.value = this.get_coin_value();
+		} else {
+			this.type = fish_types[type_index];
+			this.value = this.get_coin_value();
 		}
+
+		this.sprite = this.get_fish_sprite();
+		this.full_name = `${this.rarity[1]} ${this.name}`;
 	}
 	
 	//returns a sprite location to use in an img src for the fish.
 	get_fish_sprite() {
 		const x = "fishes/"
-		switch(this.type) {
+		switch(this.type.sprite) {
 			case "koi":
 				return x + "koi.png";
 			case "marlin":
@@ -112,19 +142,22 @@ class Fish {
 		}
 	}
 	
-	//sells the fish
-	//todo - figure out how to delete a javascript object
-	sell() {
-		if (this.sold !== true) {
-			var money = parseInt(localStorage.getItem("coins"));
-			localStorage.setItem("coins", money += this.true_value);
-			this.true_value = 0;
-			this.sold = true;
-			snd_kaching.play();
-		} else {
-			console.log("You can't sell a fish you've already sold!");
-		}
+	get_coin_value() {
+		// coin value doesnt care about personality or size, only rarity and type
+		return Math.ceil((this.type.base_value + this.rarity[3]) * this.rarity[2])
 	}
+}
+
+function sell_fish(fish) {
+	let money = parseInt(localStorage.getItem("coins"));
+	localStorage.setItem("coins", money + fish.value);
+	snd_kaching.play();
+}
+
+function put_fish_into_inventory(fish) {
+	fishs.push(JSON.parse(JSON.stringify(fish)));
+
+	localStorage.setItem("fishs", JSON.stringify(fishs));
 }
 
 function buy_bait() {
@@ -180,28 +213,44 @@ function go_fishing() {
 	}
 }
 
-//names for our fishies
-const fish_names = [
-	"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+const fish_unknown = [
+	{sprite: "generic_fish", lengths: [10, 40], weight_mults: [0.3, 0.6], base_value: -1, names: ["MISSINGNO."]}
 ];
+
 //types of fish. todo - add MORE
 const fish_types = [
-	"koi", "marlin", "salmon", "tiny", "weird", "goldkoi"
+	{sprite: "koi", lengths: [40, 120], weight_mults: [0.4, 0.7], base_value: 1, names: [
+		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+	]},
+	{sprite: "marlin", lengths: [300, 600], weight_mults: [1.3, 2], base_value: 3, names: [
+		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+	]},
+	{sprite: "salmon", lengths: [90, 150], weight_mults: [0.2, 0.32], base_value: 2, names: [
+		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+	]},
+	{sprite: "tiny", lengths: [4, 8], weight_mults: [0.0014, 0.0021], base_value: 0.1, names: [
+		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+	]},
+	{sprite: "weird", lengths: [200, 360], weight_mults: [0.06, 0.09], base_value: 0.2, names: [
+		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+	]},
+	{sprite: "goldkoi", lengths: [60, 130], weight_mults: [0.45, 0.75], base_value: 5, names: [
+		"Gorgo", "Glembi", "Fishmourne", "Gimblo", "Florpi", "Dune Conqueror Three", "Arthas", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Lei-La", "Unknown Fish-like Object", "Angry Fish"
+	]},
 ];
-var fishy;
+
 function get_fish() {
-	fishy = new Fish(
-		fish_names[getRandomArbitrary(0, fish_names.length)], //name
-		fish_types[getRandomArbitrary(0, fish_types.length)], //type
-		getRandomArbitrary(1, 8), //modifier
-		getRandomArbitrary(1, 5) //base value
-	);
-	console.log(fishy);
+	got_fish = Fish.generate();
+
+	console.log(got_fish);
 	snd_ding.play();
-	document.getElementById("innertext").innerHTML = "You got a fish!<br><img src='"+fishy.get_fish_sprite()+"'><br><p>"+fishy.get_mod_name()+" "+fishy.name+"<br>Valued at "+fishy.true_value+" coins!";
-	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='fishy.sell(); reset_buttons(); update_counters();'>Sell Fish</button><button id='keep' disabled=true>Save Fish (WIP)</button>"
-	var fishcaught = parseInt(localStorage.getItem("fish_caught"));
+	
+	document.getElementById("innertext").innerHTML = `You got a fish!<br><img src='${got_fish.sprite}'><br><p>${got_fish.full_name}<br>Liquidate for <span class='highlight'>${got_fish.value}</span> coins, or keep it?`;
+	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='sell_fish(got_fish); reset_buttons(); update_counters();'>Sell Fish</button><button id='keep' onclick='put_fish_into_inventory(got_fish); reset_buttons(); update_counters();'>Keep Fish</button>"
+	
+	let fishcaught = parseInt(localStorage.getItem("fish_caught"));
 	localStorage.setItem("fish_caught", fishcaught += 1);
+	
 	update_counters();
 }
 

@@ -6,16 +6,15 @@
 </head>
 <body onload="update_counters()">	
 	<div id="container">
-		<div>
-			<img id="pond" src="img/pond.png">
-			<div id="text">
-				<p id="innertext">You can fish here, assuming you have bait.<br>
-				<div id="buttons">
-					<button id="btnBait" onclick="buy_bait()">Buy Bait</button>
-					<button id="btnFishing" onclick="go_fishing()">Start Fishing</button>
-				</div>
-				</p>
+		<img id="pond" src="img/pond.png">
+		<div id="text">
+			<p id="innertext">You can fish here, assuming you have bait.<br>
+			<div id="buttons">
+				<button id="btnBait" onclick="buy_bait()">Buy Bait</button>
+				<button id="btnFishing" onclick="go_fishing()">Start Fishing</button>
 			</div>
+			</p>
+		</div>
 	</div>
 	<!--anything fixed goes down here-->
 	<img id="bobber" src="img/bobber.gif">
@@ -25,4 +24,5 @@
 		<p id="fishes">You have caught <b id="fishAmt">0</b> fishies.</b>
 	</div>
 </body>
+<script src="../helpers.js"></script>
 <script src="fishingscript.js"></script>
