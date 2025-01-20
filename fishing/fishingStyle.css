@@ -1,6 +1,5 @@
 body {
 	background-color:#ebede9;
-	overflow:hidden;
 	margin:0;
 	font-family:"MS Gothic", "Courier New", monospace;
 }
@@ -37,7 +36,7 @@ body {
 	border-radius:20px;
 	box-shadow:0 2px 3px grey inset;
 }
-#buttons button {
+button {
 	width:50%;
 	margin:4px;
 	font-family:"MS Gothic", "Courier New", monospace;
@@ -51,4 +50,134 @@ body {
 }
 .highlight:hover {
 	text-shadow: 0 0 10px #04d;
+}
+/*exlusively fishventory styles*/
+#inventoryContainer {	
+	display:flex;
+	justify-content:center;
+	flex-direction:row;
+}
+#inventoryLimiter {
+	display:grid;
+	width:40%;
+	min-width:500px;
+	max-width:1000px;
+	justify-content: space-evenly;
+}
+#inventoryBanner {
+	width:100%;
+	text-align:center;
+	
+	display:flex;
+	justify-content:center;
+}
+#bannerHeader {
+	z-index:99;
+	width:30%;
+	min-width:500px;
+	max-width:1000px;
+	padding:10px 20px 10px 20px;
+	background-color:#04d;
+	background-image:url("img/ditherblue.png");
+	background-repeat: repeat-y;
+	box-shadow: 0 0 10px #02a inset;
+	color:#EEE;
+	border-radius:10px;
+	margin:5px;
+}
+#bannerHeader img {
+	display:inline-block;
+	padding-top:1px;
+	margin-left:5px;
+}
+.fishy {
+	width:500px;
+	height:100px;
+	margin:2px;
+	background-color:#a08662;
+	background-image:url("img/ditherbrown.png");
+	background-repeat:repeat-y;
+	box-shadow:0 2px 3px #796755 inset;
+	border-radius:10px;
+	text-align:center;
+	padding:10px;
+	border:3px black outset;
+	
+	display:flex;
+	justify-content:start;
+}
+.fishy img {
+	width:128px;
+	height:64px;
+	padding:18px 2px 18px 2px;
+	margin-right:5px;
+	background-color:#04d;
+	background-image:url("img/ditherblue_down.png");
+	background-repeat:repeat-x;
+	background-position:0 68px;
+	border-radius:20px;
+	box-shadow: 0 5px 5px #02a inset;
+}
+.fishycontents {
+	width:25%;
+	box-shadow: 0 1px 1px grey inset;
+	background-color:#fee;
+	background-image:url("img/papermargin.png");
+	background-repeat:repeat-y;
+	padding:5px;
+	padding-left:15px;
+	border-radius:5px;
+}
+.fishycontents:first-of-type {
+	margin-right:5px;
+	width:40%;
+}
+.fishycontents button {
+	width:90%;
+	
+}
+
+/*Highlight Qualities*/
+.fishycontents b:first-of-type{
+	background-color:#111;
+	padding:2px 10px 2px 10px;
+	border-radius:50px;
+}
+@keyframes divine_animation {
+	0% {
+		color:#FFF;
+	}
+	100% {
+		color:#FF0;
+	}
+}
+@keyframes chocolate_animation {
+	0% {
+		color:#FF0;
+	}
+	100% {
+		color:#F00;
+	}
+}
+
+.uncommon {color:#4d6;} /*green*/
+.rare {color:#48e;} /*blue*/
+.legendary {color:#64b;} /**/
+.mythical {color:#D65;}/*pale orange*/
+.immortal {color:#D60;}/*pale orange*/
+.puregold {color:#FF0;}/*bright yellow*/
+.pureplatinum {color:#FFF;} /*white*/
+.divine {
+	animation-name: divine_animation;
+	animation-duration: 0.5s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function:linear;
+}
+.chocolate {
+	animation-name: chocolate_animation;
+	animation-duration: 0.15s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function:linear;
 }
