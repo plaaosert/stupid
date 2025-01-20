@@ -59,6 +59,13 @@ button {
 	text-shadow: 0 0 10px #04d;
 }
 /*exlusively fishventory styles*/
+@keyframes fish_enter {
+	100% {
+		opacity:1;
+		transform:none;
+	}
+}
+
 #inventoryContainer {	
 	display:flex;
 	justify-content:center;
@@ -111,6 +118,11 @@ button {
 	border-radius:10px;
 	text-align:center;
 	padding:10px;
+
+	opacity:0;
+	transform-origin:top center;
+	transform:rotateX(-90deg);
+	animation:fish_enter 0.6s cubic-bezier(.62,.12,.79,.96) forwards;
 	
 	display:flex;
 	justify-content:start;
