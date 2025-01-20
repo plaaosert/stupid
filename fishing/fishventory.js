@@ -46,24 +46,30 @@ function add_inventory_item(index) {
 	let fishvaluebox = node.querySelector(".fishvaluebox");
 	fishvaluebox.querySelector("span.valuetext").textContent = "Coin Value";
 	fishvaluebox.querySelector(".fishvalue").textContent = value;
-	fishvaluebox.querySelector("button").setAttribute("onclick", "sell_fish("+index+")");
+	fishvaluebox.querySelector("button").setAttribute("onclick", "sell_fish("+index+", "+fishs[index].personality.curiosity+")");
 	fishvaluebox.querySelector("button").setAttribute("id", "b"+index);
 
 	inventory.appendChild(node);
 }
 
 //sells and removes a fish from the localstorage
-function sell_fish(fish_id) {
+function sell_fish(fish_id, unique_identifier) {
 	let button = document.getElementById("b"+fish_id);
+	let new_id = fish_id;
+	for (let i = 0; i < fishs.length; i++){
+		if (fishs[i].personality.curiosity == unique_identifier) {
+			new_id = i;
+		}
+	}
 	if (localStorage.getItem("fishs") !== null) {
 		let money = parseInt(localStorage.getItem("coins"));
-		localStorage.setItem("coins", money += fishs[fish_id].value);
+		localStorage.setItem("coins", money += fishs[new_id].value);
 	} else {
-		localStorage.setItem("coins", fishs[fish_id].value);
+		localStorage.setItem("coins", fishs[new_id].value);
 	}
 	//removes one fish based on the index, which is already given from the button.
-	fishs.splice(fish_id, 1);
-	save_fishs_to_localstorage(); //save it.
+	fishs.splice(new_id, 1)
+	save_fishs_to_localstorage();
 	
 	button.disabled = true;
 	button.innerHTML = "Sold!";

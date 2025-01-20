@@ -171,10 +171,10 @@ function buy_bait() {
 		localStorage.setItem("coins", money -= 3);
 		localStorage.setItem("fishing_bait", bait += 1);
 		update_counters();
-		snd_kaching.play();
+		snd_kaching.cloneNode().play();
 		setTimeout(() => {
 			button.disabled = false;
-		}, 950);
+		}, 150);
 	} else {
 		snd_click.play();
 		button.innerHTML = "You're too poor for bait! (3 coins)";
