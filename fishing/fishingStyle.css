@@ -156,6 +156,9 @@ button {
 	margin-right:5px;
 	width:40%;
 }
+.aboutfish br:first-of-type {
+	margin-bottom:10px;
+}
 .fishvaluebox button {
 	width:90%;
 	

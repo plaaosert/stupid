@@ -1,6 +1,6 @@
 const inventory = document.getElementById("inventoryLimiter");
 var snd_kaching = new Audio("sound/kaching.ogg");
-var snd_click = new Audio("sound/click.ogg");
+var snd_clack = new Audio("sound/clack.ogg");
 
 let fishs = load_fishs();
 
@@ -77,6 +77,9 @@ function populate() {
 		for (let i = 0; i < fishs.length; i++) {
 			setTimeout(() => {
 				add_inventory_item(i);
+				if (i <= 15) { //so that big inventories aren't an endless blast of clicks
+					snd_clack.cloneNode().play();
+				}
 			}, 100 * i);
 		}
 	} else {

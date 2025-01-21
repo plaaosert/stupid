@@ -106,7 +106,7 @@ function go_fishing() {
 		bobber.style = "display:inline;"
 		text.innerHTML = "You are now fishing.<br>Come back soon to claim your fish.";
 		cookie_creator("isFishing", "true, please don't delete me gaarg", getRandomArbitrary(1,10));
-		cookie_creator("Fish", "also don't delete me gaarg, i'm required to claim a fish!");
+		cookie_creator("Fish", "also don't delete me gaarg, i'm required to claim a fish!", 60000); //41 days to claim your fish.
 		
 	} else {
 		snd_click.play();
@@ -122,7 +122,7 @@ function get_fish() {
 	got_fish = Fish.generate();
 
 	console.log(got_fish);
-	snd_ding.play();
+	snd_ding.cloneNode().play();
 	
 	document.getElementById("innertext").innerHTML = `You got a fish!<br><img src='${got_fish.sprite}'><br><p>${got_fish.full_name}<br>Liquidate for <span class='highlight'>${got_fish.value}</span> coins, or keep it?`;
 	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='sell_fish(got_fish); reset_buttons(); update_counters();'>Sell Fish</button><button id='keep' onclick='put_fish_into_inventory(got_fish); reset_buttons(); update_counters();'>Keep Fish</button>"
