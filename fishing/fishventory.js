@@ -1,8 +1,29 @@
 const inventory = document.getElementById("inventoryLimiter");
 var snd_kaching = new Audio("sound/kaching.ogg");
-var snd_click = new Audio("sound/click.ogg");
-
+var snd_clack = new Audio("sound/clack.ogg");
+var snd_quality = new Audio("../Quality/noise.mp3");
+const coconut_div = document.getElementById("quality");
 let fishs = load_fishs();
+
+//quality street quest
+function coconut() {
+	let streets = JSON.parse(localStorage.getItem("qualitystreets"));
+	streets.push("coconut-eclair");
+	localStorage.setItem("qualitystreets", JSON.stringify(streets));
+	snd_quality.play();
+	coconut_div.innerHTML = "";
+}
+if (localStorage.getItem("qualitystreets") === null) {
+    localStorage.setItem("qualitystreets", "[]");
+}
+if (fishs.length >= 100 && localStorage.getItem("qualitystreets")) {
+	coconut_div.innerHTML = "<img onclick='coconut()' src='../Quality/coconut-eclair.png'>";
+	setTimeout(() => {
+		snd_quality.cloneNode().play();
+	}, 1900);
+}
+
+//end of quality
 
 function add_inventory_item(index) {
 	let rarity = fishs[index].rarity[1];
@@ -77,6 +98,9 @@ function populate() {
 		for (let i = 0; i < fishs.length; i++) {
 			setTimeout(() => {
 				add_inventory_item(i);
+				if (i <= 15) { //so that big inventories aren't an endless blast of clicks
+					snd_clack.cloneNode().play();
+				}
 			}, 100 * i);
 		}
 	} else {
