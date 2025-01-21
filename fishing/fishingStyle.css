@@ -122,7 +122,7 @@ button {
 	opacity:0;
 	transform-origin:top center;
 	transform:rotateX(-90deg);
-	animation:fish_enter 0.6s cubic-bezier(.62,.12,.79,.96) forwards;
+	animation:fish_enter 0.4s cubic-bezier(.62,.12,.79,.96) forwards;
 	
 	display:flex;
 	justify-content:start;

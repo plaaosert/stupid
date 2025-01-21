@@ -17,19 +17,7 @@ if (localStorage.getItem("fish_caught") === null) {
 	localStorage.setItem("fish_caught", 0);
 }
 
-let fishs = [];
-if (localStorage.getItem("fishs") === null) {
-	localStorage.setItem("fishs", "[]");
-} else {
-	try {
-		fishs = JSON.parse(localStorage.getItem("fishs"));
-		fishs = fishs.map(f => new Fish(
-			f.name, f.type_index, f.rarity, f.personality, f.dna
-		));
-	} catch {
-		fishs = [];
-	}
-}
+let fishs = load_fishs();
 let got_fish = null;
 
 
@@ -129,32 +117,6 @@ function go_fishing() {
 		}, 2000);
 	}
 }
-
-const fish_unknown = [
-	{sprite: "generic_fish", lengths: [10, 40], weight_mults: [0.3, 0.6], base_value: -1, names: ["MISSINGNO."]}
-];
-
-//types of fish. todo - add MORE
-const fish_types = [
-	{sprite: "koi", lengths: [40, 120], weight_mults: [0.4, 0.7], base_value: 1, names: [
-		"Behkko", "Asargee", "Kohark", "Tarnchau", "Sarke", "Goro", "Hikar"
-	]},
-	{sprite: "marlin", lengths: [300, 600], weight_mults: [1.3, 2], base_value: 3, names: [
-		"Fishmourne", "Dune Conqueror Three", "Arthas", "Rapierfish", "Skirmisher", "Jerry"
-	]},
-	{sprite: "salmon", lengths: [90, 150], weight_mults: [0.2, 0.32], base_value: 2, names: [
-		"Gorgo", "Glembi", "Gimblo", "Florpi", "Glumbus", "Blaot", "Cevapi", "Boinglu"
-	]},
-	{sprite: "tiny", lengths: [4, 8], weight_mults: [0.0014, 0.0021], base_value: 0.1, names: [
-		"Lei-La", "La-Lou", "Ley-La", "Squi-shii", "Fu-nii", "Fun-ki", "Ami-la"
-	]},
-	{sprite: "weird", lengths: [200, 360], weight_mults: [0.06, 0.09], base_value: 0.2, names: [
-		"Unknown Fish-like Object", "Sea snake?", "Sea serpent?", "Squiggly guy?", "Non-electric Eel", "Anomalous Creature"
-	]},
-	{sprite: "goldkoi", lengths: [60, 130], weight_mults: [0.45, 0.75], base_value: 5, names: [
-		"Xen", "Pen", "Gui", "Yin", "Yan", "Yos", "Vos"
-	]},
-];
 
 function get_fish() {
 	got_fish = Fish.generate();

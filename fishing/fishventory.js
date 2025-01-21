@@ -2,16 +2,7 @@ const inventory = document.getElementById("inventoryLimiter");
 var snd_kaching = new Audio("sound/kaching.ogg");
 var snd_click = new Audio("sound/click.ogg");
 
-var fishs = [];
-if (localStorage.getItem("fishs") === null) {
-	localStorage.setItem("fishs", "[]");
-} else {
-	try {
-		fishs = JSON.parse(localStorage.getItem("fishs"));
-	} catch {
-		fishs = [];
-	}
-}
+let fishs = load_fishs();
 
 function add_inventory_item(index) {
 	let rarity = fishs[index].rarity[1];
@@ -84,7 +75,9 @@ function save_fishs_to_localstorage() {
 function populate() {
 	if (fishs.length) {
 		for (let i = 0; i < fishs.length; i++) {
-			add_inventory_item(i);
+			setTimeout(() => {
+				add_inventory_item(i);
+			}, 100 * i);
 		}
 	} else {
 		document.getElementById("inventoryLimiter").innerHTML = "you have no fish :(";
