@@ -16,7 +16,7 @@ function coconut() {
 if (localStorage.getItem("qualitystreets") === null) {
     localStorage.setItem("qualitystreets", "[]");
 }
-if (fishs.length >= 100 && localStorage.getItem("qualitystreets")) {
+if (fishs.length >= 50 && localStorage.getItem("qualitystreets")) {
 	let streets = JSON.parse(localStorage.getItem("qualitystreets"));
 	if (!(streets.includes("coconut-eclair"))) {
 		coconut_div.innerHTML = "<img onclick='coconut()' src='../Quality/coconut-eclair.png'>";
