@@ -309,9 +309,6 @@ class Fish {
 		let rarity = rarity_override;
 		if (!rarity_override) {
 			rarity = weighted_random_from_arr(Fish.rarities);
-			while (rarity[0] > 0.01) {
-				rarity = weighted_random_from_arr(Fish.rarities);
-			}
 		}
 
 		let personality = personality_override;
