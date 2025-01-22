@@ -57,6 +57,7 @@ function add_inventory_item(index) {
 	aboutfish.querySelector("b").className = mod_class_name;
 	aboutfish.querySelector("b").textContent = rarity;
 	aboutfish.querySelector("span.fishname").textContent = name;
+	aboutfish.querySelector("span.personalitytype").textContent = Fish.get_fish_nature(fishs[index]);
 	//value
 	let fishvaluebox = node.querySelector(".fishvaluebox");
 	fishvaluebox.querySelector("span.valuetext").textContent = "Coin Value";

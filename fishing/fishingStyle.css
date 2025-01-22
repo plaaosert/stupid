@@ -236,3 +236,7 @@ div b:first-of-type{
 	animation-iteration-count: infinite;
 	animation-timing-function:linear;
 }
+.personalitytype {
+	font-weight: bold;
+	color: #33a;
+}

@@ -335,7 +335,7 @@ class Fish {
 			} else {
 				return prev;
 			}
-		}, null).name;
+		}, null).personality.name;
 	}
 
 	constructor(name, type_index, rarity, personality, dna) {
