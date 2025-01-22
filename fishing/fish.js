@@ -405,22 +405,22 @@ class Fish {
 //types of fish. todo - add MORE
 const fish_types = [
 	{sprite: "koi", lengths: [40, 120], weight_mults: [0.4, 0.7], base_value: 1, names: [
-		"Behkko", "Asargee", "Kohark", "Tarnchau", "Sarke", "Goro", "Hikar"
+		"Behkko", "Asargee", "Kohark", "Tarnchau", "Sarke", "Goro", "Hikar", "Janark", "Efrit", "Anatoli"
 	]},
 	{sprite: "marlin", lengths: [300, 600], weight_mults: [1.3, 2], base_value: 3, names: [
-		"Fishmourne", "Dune Conqueror Three", "Arthas", "Rapierfish", "Skirmisher", "Jerry"
+		"Fishmourne", "Dune Conqueror Three", "Arthas", "Rapierfish", "Skirmisher", "Jerry", "Greatest Fishblade", "Xeno's Magnum Opus"
 	]},
 	{sprite: "salmon", lengths: [90, 150], weight_mults: [0.2, 0.32], base_value: 2, names: [
-		"Gorgo", "Glembi", "Gimblo", "Florpi", "Glumbus", "Blaot", "Cevapi", "Boinglu"
+		"Gorgo", "Glembi", "Gimblo", "Florpi", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Scroblo", "Quongus"
 	]},
 	{sprite: "tiny", lengths: [4, 8], weight_mults: [0.0014, 0.0021], base_value: 0.1, names: [
-		"Lei-La", "La-Lou", "Ley-La", "Squi-shii", "Fu-nii", "Fun-ki", "Ami-la"
+		"Lei-La", "La-Lou", "Ley-La", "Squi-shii", "Fu-nii", "Fun-ki", "Ami-la", "Le-Ah", "Na-Nu", "Wei-Wo"
 	]},
 	{sprite: "weird", lengths: [200, 360], weight_mults: [0.06, 0.09], base_value: 0.2, names: [
-		"Unknown Fish-like Object", "Sea snake?", "Sea serpent?", "Squiggly guy?", "Non-electric Eel", "Anomalous Creature"
+		"Unknown Fish-like Object", "Sea snake?", "Sea serpent?", "Squiggly guy?", "Non-electric Eel", "Anomalous Creature", "Possibly sentient rope", "Strange Thing"
 	]},
 	{sprite: "goldkoi", lengths: [60, 130], weight_mults: [0.45, 0.75], base_value: 5, names: [
-		"Xen", "Pen", "Gui", "Yin", "Yan", "Yos", "Vos"
+		"Xen", "Pen", "Gui", "Yin", "Yan", "Yos", "Vos", "Kos", "Eos", "Rom", "Pan"
 	]},
 ];
 
