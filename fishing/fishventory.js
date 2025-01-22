@@ -4,6 +4,8 @@ var snd_clack = new Audio("sound/clack.ogg");
 var snd_quality = new Audio("../Quality/noise.mp3");
 const coconut_div = document.getElementById("quality");
 let fishs = load_fishs();
+// save fish back so any regenerated ones are now set in stone
+localStorage.setItem("fishs", JSON.stringify(fishs));
 
 //quality street quest
 function coconut() {

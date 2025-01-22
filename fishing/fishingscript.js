@@ -18,6 +18,10 @@ if (localStorage.getItem("fish_caught") === null) {
 }
 
 let fishs = load_fishs();
+
+// save fish back so any regenerated ones are now set in stone
+localStorage.setItem("fishs", JSON.stringify(fishs));
+
 let got_fish = null;
 
 
