@@ -74,6 +74,10 @@ function random_int(min_inclusive, max_exclusive) {
     return min_inclusive + Math.floor(Math.random() * (max_exclusive - min_inclusive));
 }
 
+function random_float(min, max) {
+    return min + (Math.random() * (max - min));
+}
+
 function lerp(from, to, amt, round=false) {
     let diff = to - from;
 

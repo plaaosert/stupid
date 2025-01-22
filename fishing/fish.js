@@ -289,11 +289,22 @@ class Fish {
 		[0.0002, "Chocolate",       10000, 10],
 	])
 
-	static generate(type_index_override=null, rarity_override=null, personality_override=null, dna_override=null) {
+	static generate(type_index_override=null, length_override=null, weight_mult_override=null, rarity_override=null, personality_override=null, dna_override=null) {
 		let type_index = type_index_override;
 		if (!type_index) {
 			type_index = random_int(0, fish_types.length);
 		}
+
+		let length = length_override;
+		if (!length_override) {
+			length = random_int(fish_types[type_index].lengths[0], fish_types[type_index].lengths[1]+1);
+		}
+
+		let weight_mult = weight_mult_override
+		if (!weight_mult) {
+			weight_mult = random_float(...fish_types[type_index].weight_mults)
+		}
+		let weight = Math.round(length * weight_mult * 1000) / 1000;
 
 		let rarity = rarity_override;
 		if (!rarity_override) {
@@ -313,8 +324,9 @@ class Fish {
 		}
 
 		return new Fish(
-			random_from_array(fish_types[type_index].names),
-			type_index, rarity, personality, dna
+			random_from_array(fish_types[type_index].names), type_index,
+			length, weight,
+			rarity, personality, dna
 		);
 	}
 
@@ -338,11 +350,14 @@ class Fish {
 		}, null).personality.name;
 	}
 
-	constructor(name, type_index, rarity, personality, dna) {
+	constructor(name, type_index, length, weight, rarity, personality, dna) {
 		this.name = name;
 		this.rarity = rarity;
 		this.personality = personality;
 		this.dna = dna;
+
+		this.length = length;
+		this.weight = weight;
 
 		if (!this.personality) {
 			this.personality = {};
@@ -361,11 +376,20 @@ class Fish {
 		//fuk u dont break my fish
 		if ((Number.isInteger(type_index) == false)) {
 			this.type = fish_unknown;
-			this.value = this.get_coin_value();
 		} else {
 			this.type = fish_types[type_index];
-			this.value = this.get_coin_value();
 		}
+
+		if (!this.length) {
+			this.length = random_int(this.type.lengths[0], this.type.lengths[1]+1);
+		}
+
+		if (!this.weight) {
+			let weight_mult = random_float(...this.type.weight_mults)
+			this.weight = Math.round(this.length * weight_mult * 1000) / 1000;
+		}
+
+		this.value = this.get_coin_value();
 
 		this.sprite = this.get_fish_sprite();
 		this.full_name = `${this.rarity[1]} ${this.name}`;
@@ -409,7 +433,6 @@ class Fish {
 	}
 	
 	get_coin_value() {
-		// coin value doesnt care about personality or size, only rarity and type
 		return Math.ceil((this.type.base_value + this.rarity[3]) * this.rarity[2])
 	}
 }
@@ -470,7 +493,7 @@ function load_fishs() {
 		try {
 			fishs = JSON.parse(localStorage.getItem("fishs"));
 			fishs = fishs.map(f => new Fish(
-				f.name, f.type.index, f.rarity, f.personality, f.dna
+				f.name, f.type.index, f.length, f.weight, f.rarity, f.personality, f.dna
 			));
 		} catch {
 			fishs = [];

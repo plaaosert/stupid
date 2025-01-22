@@ -4,6 +4,8 @@ var snd_clack = new Audio("sound/clack.ogg");
 var snd_quality = new Audio("../Quality/noise.mp3");
 const coconut_div = document.getElementById("quality");
 let fishs = load_fishs();
+// save fish back so any regenerated ones are now set in stone
+localStorage.setItem("fishs", JSON.stringify(fishs));
 
 //quality street quest
 function coconut() {
@@ -52,6 +54,7 @@ function add_inventory_item(index) {
 	let node = fishy_template.cloneNode(true);
 	//image
 	node.querySelector(".fishyimage").src = sprite;
+	node.querySelector(".fishyimage").classList.add(mod_class_name);
 	//aboutsection
 	let aboutfish = node.querySelector(".aboutfish");
 	aboutfish.querySelector("b").className = mod_class_name;
@@ -64,6 +67,11 @@ function add_inventory_item(index) {
 	fishvaluebox.querySelector(".fishvalue").textContent = value;
 	fishvaluebox.querySelector("button").setAttribute("onclick", "sell_fish("+index+", "+fishs[index].personality.curiosity+")");
 	fishvaluebox.querySelector("button").setAttribute("id", "b"+index);
+
+	let length = fishs[index].length;
+	let weight = fishs[index].weight;
+	node.querySelector(".fishlength").textContent = length > 100 ? `${length / 100}m` : `${length}cm`;
+	node.querySelector(".fishweight").textContent = weight < 1 ? `${weight * 1000}g` : `${Math.round(weight * 10) / 10}kg`;
 
 	inventory.appendChild(node);
 }

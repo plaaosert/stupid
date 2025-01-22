@@ -2,7 +2,7 @@
 <head>
 	<title>Fishventory</title>
 	<link rel="icon" type="image/x-icon" href="img/fishico2x.gif">
-	<link rel="stylesheet" href="fishingStyle.css">
+	<link rel="stylesheet" href="fishingStyle.css?v=02">
 </head>
 <body onload="populate()">	
 	<div id="inventoryBanner">
@@ -12,14 +12,34 @@
 		<div id="inventoryLimiter">
 		
 			<div class="fishy">
-				<img class="fishyimage" src="fishes/marlin.png">
+				<div class="row main">
+					<div class="fishyimage-container">
+						<div class="fishybackground"></div>
+						<img class="fishyimage" src="fishes/marlin.png">
+					</div>
 					<div class="aboutfish">
-						<b class="Divine">Divine</b><br><span class="fishname">Unknown Fish-like Object</span><hr>Personality:<br><span class="personalitytype">Angry</span>
+						<b class="Divine">Divine</b>
+						<span class="fishname">Unknown Fish-like Object</span>
+						<hr>
+						<span>Personality:<br><span class="personalitytype">Angry</span></span>
 					</div>
 					<div class="fishvaluebox">
 						<span class="valuetext">Coin Value</span><br><b class="fishvalue">5000</b>
 						<button>Sell Fish</button>
 					</div>
+				</div>
+				<div class="row">
+					<div class="fish-more-stats">
+						<div class="stat">
+							<span>Length:</span>
+							<span class="fishlength">1cm</span>
+						</div>
+						<div class="stat">
+							<span>Weight:</span>
+							<span class="fishweight">1kg</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 		</div>
@@ -31,6 +51,6 @@
 	</div>
 	<div id="quality"></div>
 </body>
-<script src="../helpers.js?v=00"></script>
-<script src="fish.js?v=04"></script>
-<script src="fishventory.js?v=03"></script>
+<script src="../helpers.js?v=01"></script>
+<script src="fish.js?v=07"></script>
+<script src="fishventory.js?v=05"></script>
