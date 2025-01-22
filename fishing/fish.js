@@ -391,6 +391,18 @@ class Fish {
 				return x + "weird_eel.png";
 			case "goldkoi":
 				return x + "gold_koi.png";
+			case "managuppy":
+				return x + "mana_guppy.png";
+			case "limetail":
+				return x + "limetail.png";
+			case "goldfishcracker":
+				return x + "goldfish_cracker.png";
+			case "breadpuff":
+				return x + "breadpuff.png";
+			case "spikefin":
+				return x + "spikefin.png";
+			case "shadedeel":
+				return x + "shaded_eel.png";
 			default:
 				return x + "generic_fish.png";
 		}
@@ -421,6 +433,24 @@ const fish_types = [
 	]},
 	{sprite: "goldkoi", lengths: [60, 130], weight_mults: [0.45, 0.75], base_value: 5, names: [
 		"Xen", "Pen", "Gui", "Yin", "Yan", "Yos", "Vos", "Kos", "Eos", "Rom", "Pan"
+	]},
+	{sprite: "managuppy", lengths: [3, 6], weight_mults: [0.0021, 0.0046], base_value: 0.8, names: [
+		"Penta Sec", "Luna", "Foreverclear", "Pelin", "Daydream", "Maurice", "Maurice II", "Fruit", "Pint", "Flask"
+	]},
+	{sprite: "limetail", lengths: [50, 140], weight_mults: [0.33, 0.66], base_value: 4, names: [
+		"Umami", "Limeta", "Palme", "Keyle", "Wyre", "Limuntus", "L", "Fresh", "Funky", "Free"
+	]},
+	{sprite: "goldfishcracker", lengths: [4, 5], weight_mults: [0.0020, 0.0021], base_value: 0.2, names: [
+		"Emmes Gee", "Sog", "The Boy Who Swam", "Oh He Flies", "Oh How He Dove", "Lovely Crunch", "Salty", "Sour Cream", "Onion"
+	]},
+	{sprite: "breadpuff", lengths: [100, 130], weight_mults: [0.66, 1.11], base_value: 3.5, names: [
+		"Baguette", "Brioche", "Pita", "Hleb", "Lebac", "Breade", "Loufe", "Toaste", "Crust", "Puffy"
+	]},
+	{sprite: "spikefin", lengths: [150, 210], weight_mults: [0.80, 1.2], base_value: 6, names: [
+		"Halberd Hal", "Flaily Fred", "Maceful Marty", "Bladed Bertrand", "Lance Lance", "Dirk Diana", "Pike Penny", "Spike Sally", "Armed Alexandra", "Weaponry Wilma"
+	]},
+	{sprite: "shadedeel", lengths: [180, 310], weight_mults: [0.05, 0.08], base_value: 2.5, names: [
+		"Ezekiel", "Smaugh", "Nightmare", "Dusk", "Nightfall", "Winter", "Shadow", "Morningstar", "Co'al", "Ink"
 	]},
 ];
 
