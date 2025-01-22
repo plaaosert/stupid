@@ -309,9 +309,9 @@ class Fish {
 		let rarity = rarity_override;
 		if (!rarity_override) {
 			rarity = weighted_random_from_arr(Fish.rarities);
-			while (rarity[0] > 0.001) {
-				rarity = weighted_random_from_arr(Fish.rarities);
-			}
+			//while (rarity[0] > 0.001) {
+			//	rarity = weighted_random_from_arr(Fish.rarities);
+			//}
 		}
 
 		let personality = personality_override;
@@ -405,7 +405,6 @@ class Fish {
 	//returns a sprite location to use in an img src for the fish.
 	get_fish_sprite() {
 		let x = "fishes/"
-		console.log(this.rarity);
 		if (this.rarity[1] == "Chocolate") {
 			x += "chocolate/choc_";
 		}
