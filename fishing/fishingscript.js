@@ -124,7 +124,22 @@ function get_fish() {
 	console.log(got_fish);
 	snd_ding.cloneNode().play();
 	
-	document.getElementById("innertext").innerHTML = `You got a fish!<br><img src='${got_fish.sprite}'><br><p>${got_fish.full_name}<br>Liquidate for <span class='highlight'>${got_fish.value}</span> coins, or keep it?`;
+	let rarity = got_fish.rarity[1];
+	let mod_class_name = "";
+	if (rarity != "") {
+		if (rarity == "Pure gold") {
+			mod_class_name = "Puregold";
+		} else if (rarity == "Pure platinum") {
+			mod_class_name = "Pureplatinum";
+		} else {
+			mod_class_name = rarity;
+		}
+	} else {
+		mod_class_name = "Normal";
+		rarity = "Normal";
+	}
+
+	document.getElementById("innertext").innerHTML = `You got a fish!<br><img src='${got_fish.sprite}' class='${mod_class_name}'><br><p>${got_fish.full_name}<br>Liquidate for <span class='highlight'>${got_fish.value}</span> coins, or keep it?`;
 	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='sell_fish(got_fish); reset_buttons(); update_counters();'>Sell Fish</button><button id='keep' onclick='put_fish_into_inventory(got_fish); reset_buttons(); update_counters();'>Keep Fish</button>"
 	
 	let fishcaught = parseInt(localStorage.getItem("fish_caught"));

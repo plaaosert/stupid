@@ -144,7 +144,22 @@ button {
 .fishy:first-of-type {
 	display:none;
 }
-.fishy img {
+.fishyimage-container {
+	display: grid;
+}
+.fishyimage-container .fishyimage {
+	grid-row: 1;
+	grid-column: 1;
+
+	width:128px;
+	height:64px;
+	padding:18px 2px 18px 2px;
+	margin-right:5px;
+}
+.fishyimage-container .fishybackground {
+	grid-row: 1;
+	grid-column: 1;
+
 	width:128px;
 	height:64px;
 	padding:18px 2px 18px 2px;
@@ -235,6 +250,18 @@ div b:first-of-type{
 	animation-direction: alternate;
 	animation-iteration-count: infinite;
 	animation-timing-function:linear;
+}
+img.Puregold {
+	filter: sepia(1) contrast(1.25) saturate(2.5);
+}
+img.Pureplatinum {
+	filter: grayscale(1) brightness(1.75) contrast(1.25);
+}
+img.Divine {
+	filter: contrast(1.5) drop-shadow(0px 0px 6px yellow);
+}
+img.Chocolate {
+	filter: grayscale(1) sepia(1) brightness(0.4) saturate(3) contrast(2) hue-rotate(346deg);
 }
 .personalitytype {
 	font-weight: bold;

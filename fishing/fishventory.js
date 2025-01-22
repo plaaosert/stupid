@@ -52,6 +52,7 @@ function add_inventory_item(index) {
 	let node = fishy_template.cloneNode(true);
 	//image
 	node.querySelector(".fishyimage").src = sprite;
+	node.querySelector(".fishyimage").classList.add(mod_class_name);
 	//aboutsection
 	let aboutfish = node.querySelector(".aboutfish");
 	aboutfish.querySelector("b").className = mod_class_name;
