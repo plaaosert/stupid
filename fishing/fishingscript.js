@@ -139,7 +139,13 @@ function get_fish() {
 		rarity = "Normal";
 	}
 
-	document.getElementById("innertext").innerHTML = `You got a fish!<br><img src='${got_fish.sprite}' class='${mod_class_name}'><br><p>${got_fish.full_name}<br>Liquidate for <span class='highlight'>${got_fish.value}</span> coins, or keep it?`;
+	let length = got_fish.length;
+	let weight = got_fish.weight;
+
+	let length_txt = length > 100 ? `${length / 100}m` : `${length}cm`;
+	let weight_txt = weight < 1 ? `${weight * 1000}g` : `${Math.round(weight * 10) / 10}kg`;
+
+	document.getElementById("innertext").innerHTML = `You got a fish!<br><img src='${got_fish.sprite}' class='${mod_class_name}'><br><p>${got_fish.full_name}</p><p>Length: <span class="personalitytype">${length_txt}</span><br>Weight: <span class="personalitytype">${weight_txt}</span></p>Liquidate for <span class='highlight'>${got_fish.value}</span> coins, or keep it?`;
 	document.getElementById("buttons").innerHTML = "<button id='sell' onclick='sell_fish(got_fish); reset_buttons(); update_counters();'>Sell Fish</button><button id='keep' onclick='put_fish_into_inventory(got_fish); reset_buttons(); update_counters();'>Keep Fish</button>"
 	
 	let fishcaught = parseInt(localStorage.getItem("fish_caught"));

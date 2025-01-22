@@ -66,6 +66,11 @@ function add_inventory_item(index) {
 	fishvaluebox.querySelector("button").setAttribute("onclick", "sell_fish("+index+", "+fishs[index].personality.curiosity+")");
 	fishvaluebox.querySelector("button").setAttribute("id", "b"+index);
 
+	let length = fishs[index].length;
+	let weight = fishs[index].weight;
+	node.querySelector(".fishlength").textContent = length > 100 ? `${length / 100}m` : `${length}cm`;
+	node.querySelector(".fishweight").textContent = weight < 1 ? `${weight * 1000}g` : `${Math.round(weight * 10) / 10}kg`;
+
 	inventory.appendChild(node);
 }
 

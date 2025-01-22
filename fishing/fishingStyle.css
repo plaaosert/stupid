@@ -128,8 +128,8 @@ button {
 }
 .fishy {
 	width:500px;
-	height:100px;
 	margin:2px;
+
 	background-color:#a08662;
 	background-image:url("img/ditherbrown.png");
 	background-repeat:repeat-y;
@@ -142,10 +142,31 @@ button {
 	transform-origin:top center;
 	transform:rotateX(-90deg);
 	animation:fish_enter 0.4s cubic-bezier(.62,.12,.79,.96) forwards;
-	
-	display:flex;
-	justify-content:start;
+
+	display: flex;
+	flex-direction: column;
 }
+.fishy .row {
+	display:flex;
+	flex-direction: row;
+
+	justify-content:start;
+
+	margin-top: 8px;
+}
+.fishy .row:first-of-type {
+	display:flex;
+	flex-direction: row;
+
+	justify-content:start;
+
+	margin-top: 0;
+}
+.fishy .main {
+	min-height:100px;
+	max-height:100px;
+}
+
 .fishy:first-of-type {
 	display:none;
 }
@@ -189,14 +210,46 @@ button {
 .aboutfish {
 	margin-right:5px;
 	width:40%;
+
+	display: flex;
+	flex-direction: column;
+}
+.aboutfish * {
+	margin-top: 2px;
 }
 .aboutfish hr {
 	opacity:0;
 	margin-top:2px;
 }
 .fishvaluebox button {
-	width:90%;
-	
+	width:90%;	
+}
+.fish-more-stats {
+	display: flex;
+	flex-direction: row;
+
+	min-width: 100%;
+}
+
+.fish-more-stats .stat {
+	box-shadow: 0 1px 1px grey inset;
+	background-color:#fee;
+	background-image:url("img/papermargin.png");
+	background-repeat:repeat-y;
+	padding:5px;
+	padding-left:15px;
+	border-radius:5px;
+
+	margin-left: 8px;
+
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.fish-more-stats .stat:first-of-type {
+	margin-left: 0;
 }
 /*Highlight Qualities*/
 div b:first-of-type{
@@ -272,4 +325,7 @@ img.Chocolate {
 .personalitytype {
 	font-weight: bold;
 	color: #33a;
+}
+.bold {
+	font-weight: bold;
 }
