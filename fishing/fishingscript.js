@@ -127,9 +127,9 @@ function get_fish() {
 	let rarity = got_fish.rarity[1];
 	let mod_class_name = "";
 	if (rarity != "") {
-		if (rarity == "Pure gold") {
+		if (rarity.toLowerCase() == "pure gold") {
 			mod_class_name = "Puregold";
-		} else if (rarity == "Pure platinum") {
+		} else if (rarity.toLowerCase() == "pure platinum") {
 			mod_class_name = "Pureplatinum";
 		} else {
 			mod_class_name = rarity;

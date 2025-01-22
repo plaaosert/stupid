@@ -258,10 +258,10 @@ div b:first-of-type{
 	animation-timing-function:linear;
 }
 img.Puregold {
-	filter: sepia(1) contrast(1.25) saturate(2.5);
+	filter: sepia(1) contrast(1.25) saturate(2.25) brightness(1.2);
 }
 img.Pureplatinum {
-	filter: grayscale(1) brightness(1.75) contrast(1.25);
+	filter: grayscale(1) brightness(1.1) contrast(1.25)
 }
 img.Divine {
 	filter: contrast(1.5) drop-shadow(0px 0px 6px yellow);
