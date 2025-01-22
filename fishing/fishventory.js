@@ -36,9 +36,9 @@ function add_inventory_item(index) {
 	let mod_class_name = "";
 
 	if (rarity != "") {
-		if (rarity == "Pure gold") {
+		if (rarity == "Pure Gold") {
 			mod_class_name = "Puregold";
-		} else if (rarity == "Pure platinum") {
+		} else if (rarity == "Pure Platinum") {
 			mod_class_name = "Pureplatinum";
 		} else {
 			mod_class_name = rarity;
