@@ -452,7 +452,7 @@ const fish_types = [
 		"Fishmourne", "Dune Conqueror Three", "Arthas", "Rapierfish", "Skirmisher", "Jerry", "Greatest Fishblade", "Xeno's Magnum Opus"
 	]},
 	{sprite: "salmon", lengths: [90, 150], weight_mults: [0.2, 0.32], base_value: 2, names: [
-		"Gorgo", "Glembi", "Gimblo", "Florpi", "Glumbus", "Blaot", "Cevapi", "Boinglu", "Scroblo", "Quongus"
+		"Gorgo", "Glembi", "Gimblo", "Florpi", "Glumbus", "Blaot", "Ćevapi", "Boinglu", "Scroblo", "Quongus"
 	]},
 	{sprite: "tiny", lengths: [4, 8], weight_mults: [0.0014, 0.0021], base_value: 0.1, names: [
 		"Lei-La", "La-Lou", "Ley-La", "Squi-shii", "Fu-nii", "Fun-ki", "Ami-la", "Le-Ah", "Na-Nu", "Wei-Wo"
