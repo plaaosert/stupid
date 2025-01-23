@@ -435,6 +435,8 @@ class Fish {
 				return x + "shaded_eel.png";
 			case "lumpfish":
 				return x + "lumpfish.png";
+			case "anomalocaris":
+				return x + "anomalocaris.png";
 			default:
 				return x + "generic_fish.png";
 		}
@@ -485,6 +487,9 @@ const fish_types = [
 	]},
 	{sprite: "lumpfish", lengths: [30, 60], weight_mults: [0.041, 0.095], base_value: 2.22, names: [
 		"Stumpy", "Very Beautiful", "Very Powerful", "Lumpy", "High Hump", "Conscript of Fish", "One of Many"
+	]},
+	{sprite: "anomalocaris", lengths: [24, 55], weight_mults: [0.015, 0.1], base_value: 6.5, names: [
+		"Extant", "Tizita", "True Anomaly", "Endling", "Unlike Shrimp", "Abtu"
 	]},
 ];
 
