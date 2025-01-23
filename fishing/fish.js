@@ -433,6 +433,8 @@ class Fish {
 				return x + "spikefin.png";
 			case "shadedeel":
 				return x + "shaded_eel.png";
+			case "lumpfish":
+				return x + "lumpfish.png";
 			default:
 				return x + "generic_fish.png";
 		}
@@ -480,6 +482,9 @@ const fish_types = [
 	]},
 	{sprite: "shadedeel", lengths: [180, 310], weight_mults: [0.05, 0.08], base_value: 2.5, names: [
 		"Ezekiel", "Smaugh", "Nightmare", "Dusk", "Nightfall", "Winter", "Shadow", "Morningstar", "Co'al", "Ink"
+	]},
+	{sprite: "lumpfish", lengths: [30, 60], weight_mults: [0.041, 0.095], base_value: 2.22, names: [
+		"Stumpy", "Very Beautiful", "Very Powerful", "Lumpy", "High Hump", "Conscript of Fish", "One of Many"
 	]},
 ];
 
