@@ -84,7 +84,6 @@ function loadGlobber(globber) {
     document.getElementById("globber").style["filter"] = "hue-rotate(" + globber.colour + "deg)";
     document.getElementById("name").innerHTML = globber.name;
     document.getElementById("num").innerHTML = globber.globbage;
-    document.getElementById("nextglob").innerHTML = globber.goal;
     document.getElementById("letters").innerHTML = globber.letters;
     for (i = 0; i < globbers.length; i = i + 1) {
         if (globbers[i].globbage >= 50) {
@@ -102,6 +101,7 @@ function loadGlobber(globber) {
         document.getElementById("buttons").style["display"] = "block";
     }
     localStorage.setItem("globbers", JSON.stringify(globbers));
+    document.getElementById("nextglob").innerHTML = globber.goal;
 }
 
 function letters() {
