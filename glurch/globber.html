@@ -36,18 +36,6 @@
                 gl<span id="letters"></span>bbometer: <span id="num">0</span>
             </p>
             <script>
-//function glob(number) {
-//    let globbage = Number.parseInt(document.getElementById("num").innerHTML);
-//    globbage = Number.parseInt(number + globbage);
-//    document.getElementById("num").innerHTML = globbage;
-//    if (globbage >= 100) {
-//        document.getElementById("feed").style["display"] = "inline";
-//    }
-//    if (globbage >= 500) {
-//        document.getElementById("hug").style["display"] = "inline";
-//    }
-//}
-
 class Globber {
     constructor(letters, colour) {
         this.letters = letters;
@@ -114,7 +102,7 @@ function letters() {
 }
 
 document.getElementById("next").addEventListener("click", () => { index = (index + 1) % globbers.length; loadGlobber(globbers[index]); });
-document.getElementById("prev").addEventListener("click", () => { index = (index - 1) % globbers.length; loadGlobber(globbers[index]); });
+document.getElementById("prev").addEventListener("click", () => { index = (index - 1) % globbers.length; if (index == -1) index = index + globbers.length; loadGlobber(globbers[index]); });
 
 document.getElementById("pat" ).addEventListener("click", () => pat() );
 document.getElementById("feed").addEventListener("click", () => feed());
