@@ -12,5 +12,5 @@ const items = [
 	[9,		"Choc Fish Replica",	"coins",	1000,	"Real chocolate fish are probably extinct by now, but this does tate like one."],
 	[10,	"Mahjong Tile",			"coins",	120,	"There's a big colourful circle on this one. Someone scribbled the number 1 in Sharpie onto the top-right of it."],
 	[11,	"9mm Bullet",			"coins",	5000,	"I'm not an arms dealer, this just appeared under the counter one day. Goes back under the counter on its own too, oddly."],
-	[99,	"A 'goddamn' bicycle",	"coins",	100000,	"GOD DAMN"],
+	[99,	"A 'goddamn' bicycle",	"coins",	100000,	"THE PEAK OF HUMAN INGENUITY!!! GOD DAMN!!!!!!!"],
 ];

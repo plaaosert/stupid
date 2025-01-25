@@ -84,7 +84,7 @@ function get_sprite_name(item_name) {
 		case "Mahjong Tile":
 			return x + "mahjong.png";
 		case "9mm Bullet":
-			return x + "gaarg_mug.png";
+			return x + "bullet.png";
 		case "A 'goddamn' bicycle":
 			return x + "bicycle.png";
 		default:
