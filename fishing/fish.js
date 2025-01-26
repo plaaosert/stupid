@@ -289,6 +289,12 @@ class Fish {
 		[0.0002, "Chocolate",       10000, 10],
 	])
 
+	static from_data(f) {
+		return new Fish(
+			f.name, f.type.index, f.length, f.weight, f.rarity, f.personality, f.dna
+		)
+	}
+
 	static generate(type_index_override=null, length_override=null, weight_mult_override=null, rarity_override=null, personality_override=null, dna_override=null) {
 		let type_index = type_index_override;
 		if (!type_index) {
@@ -501,6 +507,34 @@ const fish_unknown = {
 
 fish_types.forEach((f, i) => f.index = i);
 
+function update_best_fishs(fishs) {
+	let best_fishs = {};
+
+	// overall
+	best_fishs.overall = {
+		Longest: fishs.reduce((p, c) => c.length > p.length ? c : p),
+		Heaviest: fishs.reduce((p, c) => c.weight > p.weight ? c : p),
+		Rarest: fishs.reduce((p, c) => c.rarity[2] > p.rarity[2] ? c : p),
+		"Most Valuable": fishs.reduce((p, c) => c.value > p.value ? c : p),
+	};
+
+	// per category
+	fish_types.forEach(typ => {
+		let filt_fishs = fishs.filter(f => f.type.sprite == typ.sprite);
+
+		best_fishs[typ.sprite] = {
+			Longest: filt_fishs.reduce((p, c) => !p || c.length > p.length ? c : p, null),
+			Heaviest: filt_fishs.reduce((p, c) => !p || c.weight > p.weight ? c : p, null),
+			Rarest: filt_fishs.reduce((p, c) => !p || c.rarity[2] > p.rarity[2] ? c : p, null),
+			"Most Valuable": filt_fishs.reduce((p, c) => !p || c.value > p.value ? c : p, null),
+		}
+	});
+
+	localStorage.setItem("best_fishs", JSON.stringify(best_fishs));
+
+	return best_fishs;
+}
+
 function load_fishs() {
 	let fishs = [];
 	if (localStorage.getItem("fishs") === null) {
@@ -508,13 +542,13 @@ function load_fishs() {
 	} else {
 		try {
 			fishs = JSON.parse(localStorage.getItem("fishs"));
-			fishs = fishs.map(f => new Fish(
-				f.name, f.type.index, f.length, f.weight, f.rarity, f.personality, f.dna
-			));
+			fishs = fishs.map(f => Fish.from_data(f));
 		} catch {
 			fishs = [];
 		}
 	}
+
+	update_best_fishs(fishs);
 
 	return fishs;
 }

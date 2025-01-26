@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+	<title>Hall of Fish</title>
+	<link rel="icon" type="image/x-icon" href="img/fishico2x.gif">
+	<link rel="stylesheet" href="fishingStyle.css?v=03">
+	<link rel="stylesheet" href="hall_of_fish.css?v=03">
+	<meta charset="UTF-8">
+</head>
+<body onload="populate()">
+	<div id="inventoryBanner">
+		<div id="bannerHeader" class="hof"><span>Hall of Fish</span><img src="img/fishico1x.gif"></div><br>
+	</div>
+	<div class="rows" id="hof_main">
+		<div class="columns hidden-template">
+			<div class="halloffame-fishy hidden-template" id="hof_fish_template">
+				<div class="row main">
+					<div class="fishyframe-container">
+						<img class="fishybackground-photo" src="frame.png">
+						<img class="fishyimage sepia" src="fishes/marlin.png">
+					</div>
+					<div class="bottomhalf">
+						<div class="plaque">
+							<div class="plaque-inner">
+								<span class="award-title">&lt; <span class="award-category">Longest</span> Fish &gt;</span>
+								<span class="fishname center">Unknown Fish-like Object</span>
+								<b class="center fish-rarity">Divine</b>
+								<br>
+								<div class="lr-spread">
+									<span>Length</span><span class="bold length">102cm</span>
+								</div>
+								<div class="lr-spread">
+									<span>Weight</span><span class="bold weight">31.4kg</span>
+								</div>
+								<div class="lr-spread">
+									<span>Value</span><span class="bold value">2</span>
+								</div>
+								<div class="lr-spread">
+									<span>Personality</span><span class="bold nature">Angry</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="quality"></div>
+</body>
+<script src="../helpers.js?v=01"></script>
+<script src="fish.js?v=11"></script>
+<script src="hall_of_fish.js?v=00"></script>
