@@ -43,12 +43,12 @@ function make_fish_row(category, categoryname) {
 					mod_class_name = "Puregold";
 				} else if (fish.rarity[1] == "Pure Platinum") {
 					mod_class_name = "Pureplatinum";
-				} else {
+				} else if (fish.rarity[1]) {
 					mod_class_name = fish.rarity[1];
 				}
 			}
 
-			new_template.querySelector(".plaque .fish-rarity").textContent = fish.rarity[1];
+			new_template.querySelector(".plaque .fish-rarity").textContent = fish.rarity[1] ? fish.rarity[1] : "Normal";
 			new_template.querySelector(".plaque .fish-rarity").classList.add(mod_class_name);
 
 			["value", "nature"].forEach(p => {
