@@ -2,13 +2,14 @@
 <html>
     <head>
         <style>
-#feed, #hug {
+#feed, #hug, #buttons {
     display: none;
 }
         </style>
     </head>
     <body>
         <center>
+            <p id="name"></p>
             <img src="globber.jpg" id="globber">
             <br>
             <button id="pat">
@@ -20,25 +21,94 @@
             <button id="hug">
                 hug them
             </button>
-            <br>
+            <div id="buttons">
+                <button id="prev">
+                    prev
+                </button>
+                <button id="next">
+                    next
+                </button>
+                <p>
+                    next at <span id="nextglob"></span>
+                </p>
+            </div>
             <p>
-                globbometer: <span id="num">0</span> / 10,000
+                gl<span id="letters"></span>bbometer: <span id="num">0</span>
             </p>
             <script>
-                function glob(number) {
-                    let globbage = Number.parseInt(document.getElementById("num").innerHTML);
-                    globbage = Number.parseInt(number + globbage);
-                    document.getElementById("num").innerHTML = globbage;
-                    if (globbage >= 100) {
-                        document.getElementById("feed").style["display"] = "inline";
-                    }
-                    if (globbage >= 500) {
-                        document.getElementById("hug").style["display"] = "inline";
-                    }
-                }
-                document.getElementById("pat").addEventListener("click", () => glob(3));
-                document.getElementById("feed").addEventListener("click", () => glob(4));
-                document.getElementById("hug").addEventListener("click", () => glob(7));
+class Globber {
+    constructor(letters, colour) {
+        this.letters = letters;
+        this.name     = "gl" + letters + "bber";
+        this.colour   = colour;
+        this.globbage = 0;
+        this.goal     = 500 * Math.pow(2, globbers.length);
+
+        this.patnum  = Math.ceil(Math.random() * 10) + globbers.length;
+        this.feednum = Math.ceil(Math.random() * 10) + globbers.length;
+        this.hugnum  = Math.ceil(Math.random() * 10) + globbers.length;
+
+        this.pat  = () => this.glob(this.patnum );
+        this.feed = () => this.glob(this.feednum);
+        this.hug  = () => this.glob(this.hugnum );
+    }
+}
+
+function glob(globber, number) {
+    globber.globbage = globber.globbage + number;
+    loadGlobber(globber);
+}
+
+pat  = () => glob(globbers[index], globbers[index].patnum);
+feed = () => glob(globbers[index], globbers[index].feednum);
+hug  = () => glob(globbers[index], globbers[index].hugnum);
+
+var index = 0;
+
+var globbers = [];
+globbers = localStorage.getItem("globbers") ? JSON.parse(localStorage.getItem("globbers")) : [new Globber("o", 0)];
+
+function loadGlobber(globber) {
+    document.getElementById("globber").style["filter"] = "hue-rotate(" + globber.colour + "deg)";
+    document.getElementById("name").innerHTML = globber.name;
+    document.getElementById("num").innerHTML = globber.globbage;
+    document.getElementById("letters").innerHTML = globber.letters;
+    for (i = 0; i < globbers.length; i = i + 1) {
+        if (globbers[i].globbage >= 50) {
+            document.getElementById("feed").style["display"] = "inline";
+        }
+        if (globbers[i].globbage >= 100) {
+            document.getElementById("hug").style["display"] = "inline";
+        }
+        if (globbers[i].globbage >= globbers[i].goal) {
+            globbers[i].goal = globbers[i].goal * 2;
+            globbers.push(new Globber(letters(globbers.length), Math.floor(Math.random() * 360)));
+        }
+    }
+    if (globbers.length > 1) {
+        document.getElementById("buttons").style["display"] = "block";
+    }
+    localStorage.setItem("globbers", JSON.stringify(globbers));
+    document.getElementById("nextglob").innerHTML = globber.goal;
+}
+
+function letters() {
+    let letters = ["a", "e", "i", "o", "u", "y"];
+    let text = "";
+    while (text.length <= globbers.length) {
+        text = text + letters[Math.floor(Math.random() * 6)];
+    }
+    return text;
+}
+
+document.getElementById("next").addEventListener("click", () => { index = (index + 1) % globbers.length; loadGlobber(globbers[index]); });
+document.getElementById("prev").addEventListener("click", () => { index = (index - 1) % globbers.length; if (index == -1) index = index + globbers.length; loadGlobber(globbers[index]); });
+
+document.getElementById("pat" ).addEventListener("click", () => pat() );
+document.getElementById("feed").addEventListener("click", () => feed());
+document.getElementById("hug" ).addEventListener("click", () => hug() );
+
+loadGlobber(globbers[0]);
             </script>
         </center>
     </body>
