@@ -36,6 +36,97 @@ class Vector4 {
     }
 }
 
+class Lerp {
+    current_value;
+    target_value;
+
+    inertia;
+    max_speed;
+
+    acceleration;
+    deceleration;
+
+    precision = 0.01;
+
+    constructor(current_value, target_value, max_speed, acceleration = null, deceleration = null, inertia = 0) {
+        if (acceleration == null) {
+            acceleration = max_speed;
+        }
+
+        if (deceleration == null) {
+            deceleration = max_speed;
+        }
+
+        this.current_value = current_value;
+        this.target_value = target_value;
+        this.max_speed = max_speed;
+        this.acceleration = acceleration;
+        this.deceleration = deceleration;
+        this.inertia = inertia;
+    }
+
+    needs_step() {
+        return this.current_value != this.target_value;
+    }
+
+    internal_decelerate(delta_time) {
+        if (this.inertia < 0) {
+            this.inertia += delta_time * this.deceleration;
+        } else {
+            this.inertia -= delta_time * this.deceleration;
+        }
+    }
+
+    internal_accelerate(delta_time) {
+        if (this.inertia < 0) {
+            this.inertia -= delta_time * this.acceleration;
+
+            if (this.inertia < -this.max_speed) {
+                this.inertia = -this.max_speed;
+            }
+        } else {
+            this.inertia += delta_time * this.acceleration;
+
+            if (this.inertia > this.max_speed) {
+                this.inertia = this.max_speed;
+            }
+        }
+    }
+
+    step(delta_time) {
+        var distance = Math.abs(this.current_value - this.target_value);
+
+        if (distance <= this.precision) {
+            this.current_value = this.target_value;
+        } else {
+            // console.log(`${delta_time}, ${this.current_value} -> ${this.target_value} (${distance}) @ ${this.inertia} / ${this.max_speed} deg/s`);
+
+            var going_wrong_way = false;
+
+            if (((this.current_value < this.target_value) && this.inertia < 0)
+                || ((this.current_value > this.target_value) && this.inertia > 0)
+            ) {
+                // going wrong way
+                // console.log("wrong way!");
+                this.internal_decelerate(delta_time);
+            } else {
+                var time_to_stop = Math.abs(this.inertia / this.deceleration);
+                var distance_travelled_if_stop_now = Math.abs((this.inertia / 2) * time_to_stop);
+                // console.log(`${time_to_stop}s, ${distance_travelled_if_stop_now} distance`);
+
+                if (distance -  distance_travelled_if_stop_now <= this.precision) {
+                    // console.log("stopping!");
+                    this.internal_decelerate(delta_time);
+                } else {
+                    this.internal_accelerate(delta_time);
+                }
+            }
+
+            this.current_value += this.inertia * delta_time;
+        }
+    }
+}
+
 class Bezier {
     static cubic_bezier_precision = 50;
     static cubic_beziers = {
@@ -70,10 +161,10 @@ class Bezier {
     }
 
     static get_bezier_value(bezier_params, x) {
-        // if (Bezier.cubic_beziers[bezier_params] == null) {
-        //     console.log("umm");
-        //     Bezier.precalculate_bezier(bezier_params);
-        // }
+        if (Bezier.cubic_beziers[bezier_params] == null) {
+            console.log("umm");
+            Bezier.precalculate_bezier(bezier_params);
+        }
 
         x = Math.round(x * Bezier.cubic_bezier_precision);
         return Bezier.cubic_beziers[bezier_params][x];
@@ -151,7 +242,3 @@ class Bezier {
     }
 
 }
-
-Bezier.precalculate_bezier("0.5, 0.5, 0.5, 0.5");
-
-console.log(Bezier.cubic_beziers);

@@ -1,22 +1,37 @@
 var guppies = [];
 
-for (var i = 0; i < 5000; i += 1) {
-    var guppy = new Sprite("img/guppy.png");
-    guppy.change_position(new Vector2(0 + i * 7, 0 + i * 7));
+for (var i = 0; i < 1000; i += 1) {
+    var guppy = new Sprite("img/guppy.png", new Vector2(64 + i * 7, 64 + i * 7));
     guppies.push(guppy);
+    guppy.set_rotation(guppy.get_rotation() + 180);
     //guppy.change_rotation(180, 100);
 }
 
 // setInterval(function () {
 //     for (var guppy of guppies) {
-//         guppy.change_rotation(guppy.get_rotation() + 180, 100);
+//         guppy.set_rotation(guppy.get_rotation() + 180, 90);
 //     }
-// }, 0, (180 / 100) * 1000 + 100);
+// }, 0, (180 / 90) * 1000 + 100);
+
+var last_animation_frame_timestamp = null;
 
 function animate(timestamp) {
-    console.log("animating", guppies);
+    if (last_animation_frame_timestamp == null) {
+        last_animation_frame_timestamp = timestamp;
+        requestAnimationFrame(animate);
+        return;
+    }
+
+    var delta_time = (timestamp - last_animation_frame_timestamp) / 1000;
+
+    last_animation_frame_timestamp = timestamp;
+
     for (var guppy of guppies) {
-        guppy.change_rotation(guppy.get_rotation() + 1);
+        // if (guppy.get_rotation() > 200) {
+        //     continue;
+        // }
+
+        guppy.tick(delta_time);
     }
 
     requestAnimationFrame(animate);
@@ -24,13 +39,16 @@ function animate(timestamp) {
 
 requestAnimationFrame(animate);
 
-// function moved_mouse(e) {
+// var guppy = guppies[0];
+function moved_mouse(e) {
 
-//     var new_rotation = guppy.position.getDegreesBetween(new Vector2(mouse_x, mouse_y));
-//     guppy.change_rotation(new_rotation, 90);
-// }
+    for (guppy of guppies) {
+        var new_rotation = guppy.position.getDegreesBetween(new Vector2(mouse_x, mouse_y));
+        guppy.set_rotation(new_rotation, 2700);
+    }
+}
 
-// listeners_mousemove.push(moved_mouse);
+listeners_mousemove.push(moved_mouse);
 
 // async function test() {
 //     while (true) {
