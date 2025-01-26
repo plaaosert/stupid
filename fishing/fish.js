@@ -508,31 +508,33 @@ const fish_unknown = {
 fish_types.forEach((f, i) => f.index = i);
 
 function update_best_fishs(fishs) {
-	let best_fishs = {};
+	let old_best_fishs_data = localStorage.getItem("best_fishs");
+	let old_best_fishs = JSON.parse(old_best_fishs_data ? old_best_fishs_data : "{}");
+	let new_best_fishs = {};
 
 	// overall
-	best_fishs.overall = {
-		Longest: fishs.reduce((p, c) => c.length > p.length ? c : p),
-		Heaviest: fishs.reduce((p, c) => c.weight > p.weight ? c : p),
-		Rarest: fishs.reduce((p, c) => c.rarity[2] > p.rarity[2] ? c : p),
-		"Most Valuable": fishs.reduce((p, c) => c.value > p.value ? c : p),
+	new_best_fishs.overall = {
+		Longest: fishs.reduce((p, c) => !p || c.length > p.length ? c : p, old_best_fishs.overall?.Longest),
+		Heaviest: fishs.reduce((p, c) => !p || c.weight > p.weight ? c : p, old_best_fishs.overall?.Heaviest),
+		Rarest: fishs.reduce((p, c) => !p || c.rarity[2] > p.rarity[2] ? c : p, old_best_fishs.overall?.Rarest),
+		Most_Valuable: fishs.reduce((p, c) => !p || c.value > p.value ? c : p, old_best_fishs.overall?.Most_Valuable),
 	};
 
 	// per category
 	fish_types.forEach(typ => {
 		let filt_fishs = fishs.filter(f => f.type.sprite == typ.sprite);
 
-		best_fishs[typ.sprite] = {
-			Longest: filt_fishs.reduce((p, c) => !p || c.length > p.length ? c : p, null),
-			Heaviest: filt_fishs.reduce((p, c) => !p || c.weight > p.weight ? c : p, null),
-			Rarest: filt_fishs.reduce((p, c) => !p || c.rarity[2] > p.rarity[2] ? c : p, null),
-			"Most Valuable": filt_fishs.reduce((p, c) => !p || c.value > p.value ? c : p, null),
+		new_best_fishs[typ.sprite] = {
+			Longest: filt_fishs.reduce((p, c) => !p || c.length > p.length ? c : p, old_best_fishs[typ.sprite]?.Longest),
+			Heaviest: filt_fishs.reduce((p, c) => !p || c.weight > p.weight ? c : p, old_best_fishs[typ.sprite]?.Heaviest),
+			Rarest: filt_fishs.reduce((p, c) => !p || c.rarity[2] > p.rarity[2] ? c : p, old_best_fishs[typ.sprite]?.Rarest),
+			Most_Valuable: filt_fishs.reduce((p, c) => !p || c.value > p.value ? c : p, old_best_fishs[typ.sprite]?.Most_Valuable),
 		}
 	});
 
-	localStorage.setItem("best_fishs", JSON.stringify(best_fishs));
+	localStorage.setItem("best_fishs", JSON.stringify(new_best_fishs));
 
-	return best_fishs;
+	return new_best_fishs;
 }
 
 function load_fishs() {

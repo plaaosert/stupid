@@ -64,7 +64,7 @@ function sell_fish(fish) {
 }
 
 function put_fish_into_inventory(fish) {
-	fishs.push(JSON.parse(JSON.stringify(fish)));
+	fishs.push(fish);
 	localStorage.setItem("fishs", JSON.stringify(fishs));
 	snd_success.play();
 }
@@ -155,6 +155,9 @@ function get_fish() {
 	let fishcaught = parseInt(localStorage.getItem("fish_caught"));
 	localStorage.setItem("fish_caught", fishcaught += 1);
 	
+	// update best fish including this one
+	update_best_fishs([...fishs, got_fish]);
+
 	update_counters();
 }
 
