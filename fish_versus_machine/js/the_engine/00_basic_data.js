@@ -1,3 +1,5 @@
+version = "0.1";
+
 class Vector2 {
     x;
     y;
@@ -36,19 +38,22 @@ class Vector4 {
     }
 }
 
-class Lerp {
-    current_value;
-    target_value;
+class LerpValue {
+    current_value = 0;
+    target_value = 0;
 
-    inertia;
-    max_speed;
+    inertia = 0;
+    max_speed = null;
 
     acceleration;
     deceleration;
 
     precision = 0.01;
 
-    constructor(current_value, target_value, max_speed, acceleration = null, deceleration = null, inertia = 0) {
+    api_is_being_stepped = false;
+    step_callback = null;
+
+    constructor(max_speed = null, acceleration = null, deceleration = null) {
         if (acceleration == null) {
             acceleration = max_speed;
         }
@@ -57,46 +62,23 @@ class Lerp {
             deceleration = max_speed;
         }
 
-        this.current_value = current_value;
-        this.target_value = target_value;
         this.max_speed = max_speed;
         this.acceleration = acceleration;
         this.deceleration = deceleration;
-        this.inertia = inertia;
+    }
+
+    get() {
+        return this.current_value;
     }
 
     needs_step() {
         return this.current_value != this.target_value;
     }
 
-    internal_decelerate(delta_time) {
-        if (this.inertia < 0) {
-            this.inertia += delta_time * this.deceleration;
-        } else {
-            this.inertia -= delta_time * this.deceleration;
-        }
-    }
-
-    internal_accelerate(delta_time) {
-        if (this.inertia < 0) {
-            this.inertia -= delta_time * this.acceleration;
-
-            if (this.inertia < -this.max_speed) {
-                this.inertia = -this.max_speed;
-            }
-        } else {
-            this.inertia += delta_time * this.acceleration;
-
-            if (this.inertia > this.max_speed) {
-                this.inertia = this.max_speed;
-            }
-        }
-    }
-
     step(delta_time) {
         var distance = Math.abs(this.current_value - this.target_value);
 
-        if (distance <= this.precision) {
+        if (this.max_speed == null || distance <= this.precision) {
             this.current_value = this.target_value;
         } else {
             // console.log(`${delta_time}, ${this.current_value} -> ${this.target_value} (${distance}) @ ${this.inertia} / ${this.max_speed} deg/s`);
@@ -124,6 +106,48 @@ class Lerp {
 
             this.current_value += this.inertia * delta_time;
         }
+
+        if (this.step_callback != null) {
+            this.step_callback();
+        }
+    }
+
+    internal_decelerate(delta_time) {
+        if (this.inertia < 0) {
+            this.inertia += delta_time * this.deceleration;
+        } else {
+            this.inertia -= delta_time * this.deceleration;
+        }
+    }
+
+    internal_accelerate(delta_time) {
+        if (this.inertia < 0) {
+            this.inertia -= delta_time * this.acceleration;
+
+            if (this.inertia < -this.max_speed) {
+                this.inertia = -this.max_speed;
+            }
+        } else {
+            this.inertia += delta_time * this.acceleration;
+
+            if (this.inertia > this.max_speed) {
+                this.inertia = this.max_speed;
+            }
+        }
+    }
+}
+
+class LerpVector2 {
+    x;
+    y;
+
+    constructor(max_speed = null, acceleration = null, deceleration = null) {
+        this.x = LerpValue(max_speed, acceleration, deceleration);
+        this.y = LerpValue(max_speed, acceleration, deceleration);
+    }
+
+    get() {
+        return new Vector2(this.x.get(), this.y.get());
     }
 }
 
