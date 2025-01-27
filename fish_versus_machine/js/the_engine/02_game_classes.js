@@ -1,47 +1,54 @@
 ui_sprite_render_target = document.getElementById("ui_game_area");
 
 class GameObject {
-    position = new Vector2();
-}
-
-class Sprite extends GameObject {
-    screen_object = null;
-    img_url = null;
-
-    width;
-    height;
-
+    position = new LerpVector2();
     rotation = new LerpValue(360, 2700, 2700);
+    scale = new LerpVector2();
 
-    constructor(img_url = null, position = new Vector2(0, 0), width = 128, height = null, rotation = 0) {
-        super();
-        this.img_url = img_url;
+    screen_object = null;
 
-        if (height == null) {
-            height = width;
+    constructor(position = null, rotation = null) {
+        if (position != null) {
+            this.position.set(position);
         }
 
-        this.position = position;
-        this.width = width;
-        this.height = height;
+        if (rotation != null) {
+            this.rotation.set(rotation);
+        }
+    }
 
-        this.create_screen_object();
-        this.set_rotation(rotation);
-        this.update_render();
+    create_screen_object(object_type = "div", object_class = null) {
+        if (this.screen_object == null) {
+            var e = document.createElement(object_type);
+
+            if (object_class != null) {
+                e.className = object_class;
+            }
+
+            this.screen_object = e;
+        }
+    }
+
+    get_position() {
+
+    }
+
+    move_to(value) {
+
     }
 
     get_rotation() {
         return this.normalize_rotation(this.rotation.get());
     }
 
-    set_rotation(rotation, instant = false) {
-        rotation = this.normalize_rotation(rotation);
+    rotate_to(value, instant = false) {
+        value = this.normalize_rotation(value);
 
         if (instant) {
-            this.rotation.set_goal(rotation, rotation, 0);
+            this.rotation.set(value);
         } else {
             var start_position = this.get_rotation();
-            var end_position = this.normalize_rotation(rotation);
+            var end_position = this.normalize_rotation(value);
 
             // console.log(`${start_position} -> ${end_position}`);
 
@@ -60,32 +67,6 @@ class Sprite extends GameObject {
         }
     }
 
-    update_render() {
-        var e = this.screen_object;
-
-        e.style.width = `${this.width}px`;
-        e.style.height = `${this.height}px`;
-
-        e.style.top = `${Math.round(this.position.y - this.height / 2)}px`;
-        e.style.left = `${Math.round(this.position.x - this.width / 2)}px`;
-
-        var rotation = -this.get_rotation();
-        e.style.rotate = `${rotation}deg`;
-    }
-
-    create_screen_object() {
-        if (this.screen_object !== null) {
-            return;
-        }
-
-        var e = document.createElement("img");
-        e.className = "sprite";
-        e.src = this.img_url + `?v=${version}`;
-        this.screen_object = e;
-
-        ui_sprite_render_target.appendChild(e);
-    }
-
     normalize_rotation(rotation) {
         if (rotation < 0) {
             rotation += Math.abs(Math.floor(rotation / 360) * 360);
@@ -99,15 +80,49 @@ class Sprite extends GameObject {
     }
 }
 
+class Sprite extends GameObject {
+    sprite_url;
+    sprite_size = new LerpVector2(100, 100, 100);
+
+    constructor(sprite_url = null, position = null, sprite_size = new Vector2(128, 128), rotation = null) {
+        super(position, rotation);
+        this.sprite_url = sprite_url;
+
+        this.sprite_size.set(sprite_size);
+
+        this.create_screen_object("img", "sprite");
+        var e = this.screen_object;
+        e.src = this.sprite_url + `?v=${game_version}`;
+        ui_sprite_render_target.appendChild(e);
+
+        this.update_render();
+    }
+
+    update_render() {
+        var e = this.screen_object;
+        var sprite_size = this.sprite_size.get();
+        var position = this.position.get();
+
+        e.style.width = `${sprite_size.x}px`;
+        e.style.height = `${sprite_size.y}px`;
+
+        e.style.top = `${Math.round(position.y - sprite_size.y / 2)}px`;
+        e.style.left = `${Math.round(position.x - sprite_size.x / 2)}px`;
+
+        var rotation = -this.get_rotation();
+        e.style.rotate = `${rotation}deg`;
+    }
+}
+
 class Camera {
     position;
     camera_container;
 
     constructor() {
         this.position = new LerpVector2(100, 100, 100);
-        this.camera_container = document.getElementById("ui_game_area");
+        this.camera_container = document.getElementById("ui_main_area");
 
-        api.listeners_update_ui.push(this.render_camera.bind(this));
+        abstraction_api.listeners_update_ui.push(this.render_camera.bind(this));
     }
 
     get_position() {
@@ -120,7 +135,7 @@ class Camera {
 
     internal_get_style_position() {
         var position = this.position.get();
-        var style_position = new Vector2(api.window_size.x / 2 + position.x, api.window_size.y / 2 + position.y);
+        var style_position = new Vector2(abstraction_api.window_size.x / 2 + position.x, abstraction_api.window_size.y / 2 + position.y);
         return style_position;
     }
 

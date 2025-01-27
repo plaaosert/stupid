@@ -1,4 +1,4 @@
-version = "0.1";
+game_version = "0.1";
 
 class Vector2 {
     x;
@@ -46,7 +46,7 @@ class Vector4 {
     }
 }
 
-class LerpValue {
+class BasicLerpValue {
     current_value = 0;
     target_value = 0;
 
@@ -57,9 +57,6 @@ class LerpValue {
     deceleration;
 
     precision = 0.01;
-
-    api_is_being_stepped = false;
-    step_callback = null;
 
     constructor(max_speed = null, acceleration = null, deceleration = null) {
         if (acceleration == null) {
@@ -79,6 +76,10 @@ class LerpValue {
         return this.current_value;
     }
 
+    set(target_value) {
+        this.set_goal(target_value, target_value, 0);
+    }
+
     set_goal(target_value, current_value = null, inertia = null) {
         this.target_value = target_value;
 
@@ -89,8 +90,6 @@ class LerpValue {
         if (inertia != null) {
             this.inertia = inertia;
         }
-
-        api.start_stepping_lerp(this);
     }
 
     needs_step() {
@@ -128,10 +127,6 @@ class LerpValue {
 
             this.current_value += this.inertia * delta_time;
         }
-
-        if (this.step_callback != null) {
-            this.step_callback();
-        }
     }
 
     internal_decelerate(delta_time) {
@@ -159,37 +154,24 @@ class LerpValue {
     }
 }
 
-class LerpVector2 {
-    x;
-    y;
+// class BasicLerpVector2 {
+//     x;
+//     y;
 
-    constructor(max_speed = null, acceleration = null, deceleration = null) {
-        this.x = new LerpValue(max_speed, acceleration, deceleration);
-        this.y = new LerpValue(max_speed, acceleration, deceleration);
-    }
+//     constructor(max_speed = null, acceleration = null, deceleration = null) {
+//         this.x = new BasicLerpValue(max_speed, acceleration, deceleration);
+//         this.y = new BasicLerpValue(max_speed, acceleration, deceleration);
+//     }
 
-    get() {
-        return new Vector2(this.x.get(), this.y.get());
-    }
+//     get() {
+//         return new Vector2(this.x.get(), this.y.get());
+//     }
 
-    set_goal(target_value, current_value = null, inertia = null) {
-        var current_value_vec2 = new Vector2(null, null);
-        var inertia_vec2 = new Vector2(null, null);
-
-        if (current_value != null) {
-            current_value_vec2.x = current_value.x;
-            current_value_vec2.y = current_value.y;
-        }
-
-        if (inertia != null) {
-            inertia_vec2.x = inertia.x;
-            inertia_vec2.y = inertia.y;
-        }
-
-        this.x.set_goal(target_value.x, current_value_vec2.x, inertia_vec2.x);
-        this.y.set_goal(target_value.y, current_value_vec2.y, inertia_vec2.y);
-    }
-}
+//     set_goal(target_value, current_value = null, inertia = null) {
+//         this.x.set_goal(target_value.x, current_value?.x, inertia?.x);
+//         this.y.set_goal(target_value.y, current_value?.y, inertia?.y);
+//     }
+// }
 
 class Bezier {
     static cubic_bezier_precision = 50;

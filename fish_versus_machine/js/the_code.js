@@ -5,7 +5,7 @@ for (var i = 0; i < 1; i += 1) {
     guppies.push(guppy);
 }
 
-api.listeners_update_ui.push(function (t) {
+abstraction_api.listeners_update_ui.push(function (t) {
     for (var guppy of guppies) {
         guppy.update_render();
     }
@@ -13,16 +13,13 @@ api.listeners_update_ui.push(function (t) {
 
 function moved_mouse(e) {
     for (guppy of guppies) {
-        var new_rotation = guppy.position.getDegreesBetween(api.world_mouse_position);
-        guppy.set_rotation(new_rotation);
+        var new_rotation = guppy.position.get().getDegreesBetween(abstraction_api.mouse_ui_position.minus(camera.get_position()));
+        guppy.rotate_to(new_rotation);
     }
 }
 
-api.listeners_mousemove.push(moved_mouse);
+abstraction_api.listeners_mousemove.push(moved_mouse);
 
-camera = new Camera();
-api.camera = camera;
-camera.set_position(new Vector2(0, 0));
 
 // async function test() {
 //     while (true) {
