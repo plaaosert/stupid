@@ -34,13 +34,11 @@ class Sprite extends GameObject {
         return this.normalize_rotation(this.rotation.get());
     }
 
-    set_rotation(rotation, speed = null) {
+    set_rotation(rotation, instant = false) {
         rotation = this.normalize_rotation(rotation);
 
-        if (speed == null) {
-            this.rotation.current_speed = 0;
-            this.rotation.current_value = rotation;
-            this.rotation.target_value = rotation;
+        if (instant) {
+            this.rotation.set_goal(rotation, rotation, 0);
         } else {
             var start_position = this.get_rotation();
             var end_position = this.normalize_rotation(rotation);
@@ -58,10 +56,7 @@ class Sprite extends GameObject {
             }
 
             // since start_position might've done a 360 to become positive, we need to update the Lerp for it too!
-            this.rotation.current_value = start_position;
-            this.rotation.target_value = end_position;
-            this.rotation.max_speed = speed;
-            api.start_stepping_lerp(this.rotation);
+            this.rotation.set_goal(end_position, start_position);
         }
     }
 
@@ -109,16 +104,29 @@ class Camera {
     camera_container;
 
     constructor() {
-        position = new LerpVector2(100, 100, 100);
-        camera_container = document.getElementById("ui_game_area");
+        this.position = new LerpVector2(100, 100, 100);
+        this.camera_container = document.getElementById("ui_game_area");
+
+        api.listeners_update_ui.push(this.render_camera.bind(this));
     }
 
-    go_to_position(new_position) {
-        this.position.x.target_value = new_position.x;
-        this.position.y.target_value = new_position.y;
+    get_position() {
+        return this.internal_get_style_position();
+    }
+
+    set_position(new_position) {
+        this.position.set_goal(new_position);
+    }
+
+    internal_get_style_position() {
+        var position = this.position.get();
+        var style_position = new Vector2(api.window_size.x / 2 + position.x, api.window_size.y / 2 + position.y);
+        return style_position;
     }
 
     render_camera() {
-        camera_container.style.top
+        var style_position = this.internal_get_style_position();
+        this.camera_container.style.left = `${style_position.x}px`;
+        this.camera_container.style.top = `${style_position.y}px`;
     }
 }

@@ -13,14 +13,22 @@ class Vector2 {
         this.y = y;
     }
 
-    getDegreesBetween(b) {
-        var angle = Math.atan2(- (b.y - this.y), b.x - this.x) * 180 / Math.PI;
+    getDegreesBetween(v2) {
+        var angle = Math.atan2(- (v2.y - this.y), v2.x - this.x) * 180 / Math.PI;
 
         if (angle < 0) {
             angle = 180 + (180 - Math.abs(angle));
         }
 
         return angle;
+    }
+
+    plus(v2) {
+        return new Vector2(this.x + v2.x, this.y + v2.y);
+    }
+
+    minus(v2) {
+        return new Vector2(this.x - v2.x, this.y - v2.y);
     }
 }
 
@@ -69,6 +77,20 @@ class LerpValue {
 
     get() {
         return this.current_value;
+    }
+
+    set_goal(target_value, current_value = null, inertia = null) {
+        this.target_value = target_value;
+
+        if (current_value != null) {
+            this.current_value = current_value;
+        }
+
+        if (inertia != null) {
+            this.inertia = inertia;
+        }
+
+        api.start_stepping_lerp(this);
     }
 
     needs_step() {
@@ -142,12 +164,30 @@ class LerpVector2 {
     y;
 
     constructor(max_speed = null, acceleration = null, deceleration = null) {
-        this.x = LerpValue(max_speed, acceleration, deceleration);
-        this.y = LerpValue(max_speed, acceleration, deceleration);
+        this.x = new LerpValue(max_speed, acceleration, deceleration);
+        this.y = new LerpValue(max_speed, acceleration, deceleration);
     }
 
     get() {
         return new Vector2(this.x.get(), this.y.get());
+    }
+
+    set_goal(target_value, current_value = null, inertia = null) {
+        var current_value_vec2 = new Vector2(null, null);
+        var inertia_vec2 = new Vector2(null, null);
+
+        if (current_value != null) {
+            current_value_vec2.x = current_value.x;
+            current_value_vec2.y = current_value.y;
+        }
+
+        if (inertia != null) {
+            inertia_vec2.x = inertia.x;
+            inertia_vec2.y = inertia.y;
+        }
+
+        this.x.set_goal(target_value.x, current_value_vec2.x, inertia_vec2.x);
+        this.y.set_goal(target_value.y, current_value_vec2.y, inertia_vec2.y);
     }
 }
 

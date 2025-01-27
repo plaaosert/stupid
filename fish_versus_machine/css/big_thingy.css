@@ -6,3 +6,7 @@ body {
 .sprite {
     position: absolute;
 }
+
+.ui_container {
+    position: absolute;
+}
