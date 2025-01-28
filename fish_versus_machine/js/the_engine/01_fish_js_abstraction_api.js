@@ -14,6 +14,10 @@ class AbstractionApi {
 
     lerps_updating = [];
 
+    key_pressed = {};
+    listeners_any_key = [];
+    listeners_specific_key = {};
+
     constructor() {
         document.onmousemove = function(e) {
             for (var f of this.listeners_mousemove) {
@@ -27,12 +31,73 @@ class AbstractionApi {
             }
         }.bind(this);
 
+        addEventListener("keydown", this.event_keydown.bind(this));
+        addEventListener("keyup", this.event_keyup.bind(this));
+
         this.set_window_size();
 
         this.listeners_resize.push(this.set_window_size.bind(this));
         this.listeners_mousemove.push(this.set_mouse_position.bind(this));
         this.listeners_update_ui.push(this.update_lerps.bind(this));
         requestAnimationFrame(this.update_ui.bind(this));
+    }
+
+    event_keydown(e) {
+        var key = e.key;
+
+        if (this.key_pressed[key] == 1) {
+            return;
+        }
+
+        this.key_pressed[key] = 1;
+
+        for (var f of this.listeners_any_key[key]) {
+            f(key);
+        }
+
+        if (this.listeners_specific_key[key] != null) {
+            for (var f of this.listeners_specific_key[key]) {
+                f(key);
+            }
+        }
+
+        console.log(e, e.key);
+    }
+
+    event_keyup(e) {
+        var key = e.key;
+
+        if (this.key_pressed[key] == 0) {
+            return;
+        }
+
+        this.key_pressed[key] = 0;
+
+        for (var f of this.listeners_any_key[key]) {
+            f(key);
+        }
+
+        if (this.listeners_specific_key[key] != null) {
+            for (var f of this.listeners_specific_key[key]) {
+                f(key);
+            }
+        }
+
+        console.log(e, e.key);
+    }
+
+    register_for_keys(keys, callback) {
+        if (typeof keys == "string") {
+            keys = [keys];
+        }
+
+        for (var key of keys) {
+            if (this.listeners_specific_key[key] == null) {
+                this.listeners_specific_key[key] = [];
+            }
+
+            this.listeners_specific_key[key].push(callback);
+        }
     }
 
     set_window_size(e) {
@@ -56,6 +121,9 @@ class AbstractionApi {
         }
 
         var delta_time = (timestamp - this.last_anim_frame_timestamp) / 1000;
+        if (delta_time > 1) {
+            delta_time = 1;
+        }
 
         this.last_anim_frame_timestamp = timestamp;
 
@@ -90,17 +158,30 @@ class AbstractionApi {
 
 class LerpValue extends BasicLerpValue {
     is_on_update_list = false;
-    callback = null;
+    callbacks = [];
 
     set_goal(target_value, current_value = null, inertia = null) {
         super.set_goal(target_value, current_value, inertia);
         abstraction_api.add_lerp_to_update_list(this);
+    }
+
+    add_callback(f) {
+        this.callbacks.push(f);
+    }
+
+    step(delta_time) {
+        super.step(delta_time);
+
+        for (var f of this.callbacks) {
+            f();
+        }
     }
 }
 
 class LerpVector2 {
     x;
     y;
+    callbacks = [];
 
     constructor(max_speed = null, acceleration = null, deceleration = null) {
         this.x = new LerpValue(max_speed, acceleration, deceleration);
@@ -119,6 +200,11 @@ class LerpVector2 {
     set_goal(target_value, current_value = null, inertia = null) {
         this.x.set_goal(target_value.x, current_value?.x, inertia?.x);
         this.y.set_goal(target_value.y, current_value?.y, inertia?.y);
+    }
+
+    add_callback(f) {
+        this.x.add_callback(f);
+        this.y.add_callback(f);
     }
 }
 

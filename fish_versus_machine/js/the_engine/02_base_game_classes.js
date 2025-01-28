@@ -30,11 +30,15 @@ class GameObject {
     }
 
     get_position() {
-
+        return this.position.get();
     }
 
-    move_to(value) {
-
+    move_to(value, instant = false) {
+        if (instant) {
+            this.position.set(value);
+        } else {
+            this.position.set_goal(value);
+        }
     }
 
     get_rotation() {
@@ -67,6 +71,11 @@ class GameObject {
         }
     }
 
+    rotate_towards(point, instant = false) {
+        var new_rotation = this.get_position().getDegreesBetween(point);
+        this.rotate_to(new_rotation, instant);
+    }
+
     normalize_rotation(rotation) {
         if (rotation < 0) {
             rotation += Math.abs(Math.floor(rotation / 360) * 360);
@@ -83,6 +92,7 @@ class GameObject {
 class Sprite extends GameObject {
     sprite_url;
     sprite_size = new LerpVector2(100, 100, 100);
+    screen_object_needs_update = true;
 
     constructor(sprite_url = null, position = null, sprite_size = new Vector2(128, 128), rotation = null) {
         super(position, rotation);
@@ -95,10 +105,22 @@ class Sprite extends GameObject {
         e.src = this.sprite_url + `?v=${game_version}`;
         ui_sprite_render_target.appendChild(e);
 
-        this.update_render();
+        this.position.add_callback(this.mark_screen_object_needs_update.bind(this));
+        this.rotation.add_callback(this.mark_screen_object_needs_update.bind(this));
+        this.sprite_size.add_callback(this.mark_screen_object_needs_update.bind(this));
+
+        abstraction_api.listeners_update_ui.push(this.update_screen_object.bind(this));
     }
 
-    update_render() {
+    mark_screen_object_needs_update() {
+        this.screen_object_needs_update = true;
+    }
+
+    update_screen_object() {
+        if (!this.screen_object_needs_update) {
+            return;
+        }
+
         var e = this.screen_object;
         var sprite_size = this.sprite_size.get();
         var position = this.position.get();
@@ -114,34 +136,24 @@ class Sprite extends GameObject {
     }
 }
 
-class Camera {
-    position;
-    camera_container;
-
+class Camera extends GameObject {
     constructor() {
-        this.position = new LerpVector2(100, 100, 100);
-        this.camera_container = document.getElementById("ui_main_area");
+        super();
+        this.screen_object = document.getElementById("ui_main_area");
+        this.move_to(new Vector2(0, 0), true);
 
-        abstraction_api.listeners_update_ui.push(this.render_camera.bind(this));
+        abstraction_api.listeners_update_ui.push(this.update_screen_object.bind(this));
     }
 
-    get_position() {
-        return this.internal_get_style_position();
-    }
-
-    set_position(new_position) {
-        this.position.set_goal(new_position);
-    }
-
-    internal_get_style_position() {
-        var position = this.position.get();
+    get_ui_position() {
+        var position = this.get_position();
         var style_position = new Vector2(abstraction_api.window_size.x / 2 + position.x, abstraction_api.window_size.y / 2 + position.y);
         return style_position;
     }
 
-    render_camera() {
-        var style_position = this.internal_get_style_position();
-        this.camera_container.style.left = `${style_position.x}px`;
-        this.camera_container.style.top = `${style_position.y}px`;
+    update_screen_object() {
+        var style_position = this.get_ui_position();
+        this.screen_object.style.left = `${style_position.x}px`;
+        this.screen_object.style.top = `${style_position.y}px`;
     }
 }
