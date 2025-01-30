@@ -8,8 +8,9 @@ body {
 .pukeko {
 	position:fixed;
 	margin:2px;
-	bottom:0;
-	right:0;
+	top:0;
+	left:0;
+	filter: drop-shadow(0 0 6px grey);
 }
 .pukeko_wrapper {
 	display:flex;
@@ -17,13 +18,13 @@ body {
 .pukeko img {
 	width:200px;
 	height:200px;
-	filter: drop-shadow(0 0 6px grey);
 }
 .pukeko_bubble {
 	position: relative;
 	background: #004;
 	border-radius: .4em;
 	max-height:100px;
+	margin-right:20px;
 }
 .pukeko_bubble p {
 	padding:20px;
@@ -45,4 +46,8 @@ body {
 	border-bottom: 0;
 	margin-top: -30px;
 	margin-right: -50px;
+}
+
+.pukeko:first-of-type {
+	display:none;
 }
