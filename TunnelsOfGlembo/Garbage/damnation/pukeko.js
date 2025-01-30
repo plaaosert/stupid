@@ -42,7 +42,7 @@ class pukeko {
 		this.pos_y = y
 		
 		this.type = quotes[Math.floor(Math.random() * quotes.length)];
-		this.quote = this.exaggeration(this.type[1], Math.floor(Math.random() * 6) + 1);
+		this.quote = this.exaggeration(this.type[1], Math.floor(Math.random() * 8) + 3);
 		this.sprite = this.sprite_maker(this.type[0]);
 	}
 	
