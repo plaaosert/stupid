@@ -1,3 +1,9 @@
+@keyframes pukeko_enter {
+	100% {
+		transform:translate(0,0);
+	}
+}
+
 body {
 	overflow:hidden;
 	background-color:#EEE;
@@ -24,6 +30,10 @@ body {
 	margin:2px;
 	top:0;
 	left:0;
+	
+	transform:translate(0, 120vh);
+	animation:pukeko_enter 0.28s ease-out forwards;
+	
 	filter: drop-shadow(4px 4px 6px black);
 }
 .pukeko_wrapper {
