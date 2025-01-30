@@ -1,0 +1,48 @@
+body {
+	overflow:hidden;
+	background-color:#EEE;
+	margin:0;
+}
+
+/*Pukeko Styling*/
+.pukeko {
+	position:fixed;
+	margin:2px;
+	bottom:0;
+	right:0;
+}
+.pukeko_wrapper {
+	display:flex;
+}
+.pukeko img {
+	width:200px;
+	height:200px;
+	filter: drop-shadow(0 0 6px grey);
+}
+.pukeko_bubble {
+	position: relative;
+	background: #004;
+	border-radius: .4em;
+	max-height:100px;
+}
+.pukeko_bubble p {
+	padding:20px;
+	color:#FFF;
+	font-weight:bold;
+	text-shadow: 2px 2px 2px grey;
+}
+
+.pukeko_bubble:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 50px solid transparent;
+	border-left-color: #004;
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -30px;
+	margin-right: -50px;
+}
