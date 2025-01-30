@@ -4,21 +4,24 @@
 	<link rel="icon" type="image/x-icon" href="icon.png">
 	<link rel="stylesheet" href="pukeko_style.css">
 	<meta charset="UTF-8">
-	<title>Your Horoscope for Today</title>
+	<title>Pukeko</title>
 	
 </head>
 
-<body id="pukeko_space">
+<body id="pukeko_space" onload="new_pukeko()">
 
 	<div class="pukeko">
 		<div class="pukeko_wrapper">
 			<div class="pukeko_bubble">
 				<p class="pukeko_speech">SCRIPT FAILURE!!!!!!</p>
 			</div>
-			<img class="pukeko_image" src="pukekos/normal.png">
+			<img class="pukeko_image" src="pukekos/normal.png" onclick="new_pukeko()">
 		</div>
 	</div>
 	
+	<div id="return">
+		<a href="../../../index.html">Go back.</a>
+	</div>
 </body>
 
 <script src="pukeko.js?v=01"></script>

@@ -5,10 +5,6 @@ const snd_squeak4 = new Audio("squeaks/4.ogg");
 const snd_squeak5 = new Audio("squeaks/5.ogg");
 const snd_damn = new Audio("squeaks/damn.mp3");
 
-var screenWidth = window.innerWidth - 600;
-var screenHeight = window.innerHeight - 200;
-
-
 function squeak() {
 	let hash = document.location.hash.split(":");
 	if (hash[0] == "#DAMN") {
@@ -41,6 +37,8 @@ function squeak() {
 const pukeko_template = document.querySelector(".pukeko");
 
 function new_pukeko(x_override = null, y_override = null) {
+	let screenWidth = window.innerWidth - 320;
+	let screenHeight = window.innerHeight - 160;
 	let x, y;
 	if (x_override != null) {
 		x = x_override;

@@ -11,7 +11,7 @@ class pukeko {
 			["normal",	"ANNIHILATION"],
 			["normal",	"OBLIVION"],
 			["normal",	"OSMOREGULATION"],
-			["normal",	"PERFECTATION"],
+			["normal",	"PERFECTION"],
 			["invert",	"INVERSION"],
 			["obfus",	"ENCRYPTION"],
 			["obfus",	"OBFUSCATION"],
