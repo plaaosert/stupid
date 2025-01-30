@@ -1,0 +1,77 @@
+@keyframes pukeko_enter {
+	100% {
+		transform:translate(0,0);
+	}
+}
+
+body {
+	overflow:hidden;
+	background-color:#EEE;
+	margin:0;
+}
+#return {
+	position:fixed;
+	bottom:0;
+	right:0;
+	padding:20px;
+	background-color:#DDD;
+	border-radius:25px 0 0 0;
+	z-index:99;
+	filter: drop-shadow(-4px -4px 10px #AAA);
+}
+#return a {
+	font-size:25px;
+	text-decoration:none;
+}
+
+/*Pukeko Styling*/
+.pukeko {
+	position:fixed;
+	margin:2px;
+	top:0;
+	left:0;
+	
+	transform:translate(0, 120vh);
+	animation:pukeko_enter 0.28s ease-out forwards;
+	
+	filter: drop-shadow(4px 4px 6px black);
+}
+.pukeko_wrapper {
+	display:flex;
+}
+.pukeko img {
+	width:200px;
+	height:200px;
+	cursor:pointer;
+}
+.pukeko_bubble {
+	position: relative;
+	background: #004;
+	border-radius: .4em;
+	max-height:100px;
+	margin-right:20px;
+}
+.pukeko_bubble p {
+	padding:20px;
+	color:#FFF;
+	font-weight:bold;
+	text-shadow: 2px 2px 2px grey;
+}
+.pukeko_bubble:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 50px solid transparent;
+	border-left-color: #004;
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -30px;
+	margin-right: -50px;
+}
+
+.pukeko:first-of-type {
+	display:none;
+}
