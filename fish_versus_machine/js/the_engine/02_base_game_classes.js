@@ -94,7 +94,7 @@ class Sprite extends GameObject {
     sprite_size = new LerpVector2(100, 100, 100);
     screen_object_needs_update = true;
 
-    constructor(sprite_url = null, position = null, sprite_size = new Vector2(128, 128), rotation = null) {
+    constructor(sprite_url = null, sprite_size = new Vector2(128, 128), position = null, rotation = null) {
         super(position, rotation);
         this.sprite_url = sprite_url;
 
@@ -102,7 +102,6 @@ class Sprite extends GameObject {
 
         this.create_screen_object("img", "sprite");
         var e = this.screen_object;
-        e.src = this.sprite_url + `?v=${game_version}`;
         ui_sprite_render_target.appendChild(e);
 
         this.position.add_callback(this.mark_screen_object_needs_update.bind(this));
@@ -125,6 +124,8 @@ class Sprite extends GameObject {
         var sprite_size = this.sprite_size.get();
         var position = this.position.get();
 
+        e.src = this.sprite_url + `?v=${game_version}`;
+
         e.style.width = `${sprite_size.x}px`;
         e.style.height = `${sprite_size.y}px`;
 
@@ -133,6 +134,86 @@ class Sprite extends GameObject {
 
         var rotation = -this.get_rotation();
         e.style.rotate = `${rotation}deg`;
+    }
+}
+
+// ignore this
+let entity = null;
+let world = null;
+
+// entity has .position, .velocity, .move_force
+// world has .friction
+function game_loop() {
+    // get keys
+    let mov_dir = new Vector2(1, 0); // input movement direction as a point on a circle
+
+    entity.apply_impulse(impulse)
+    entity.velocity = entity.velocity.add(mov_dir.mul(entity.move_force)) // modify velocity by movement direction multiplied by move force
+
+    entity.position = entity.position.add(entity.velocity); // modify position by velocity
+
+    entity.velocity = entity.velocity.mul(world.friction); // multiply velocity by friction coefficient of world
+}
+
+
+class Entity extends Sprite {
+
+    movement = new LerpVector2(6, 30, 30);
+    max_movement_speed = 6;
+
+    constructor() {
+        super();
+        this.movement.set_instant_flip(true);
+        abstraction_api.listeners_update_ui.push(this.update_position.bind(this));
+    }
+
+    set_movement_direction(north, east, west, south) {
+        if (north && south) {
+            north = false;
+            south = false;
+        }
+
+        if (east && west) {
+            east = false;
+            west = false;
+        }
+
+        var dir_x = 0;
+        var dir_y = 0;
+
+        if (north) {
+            dir_y = -1;
+        }
+
+        if (south) {
+            dir_y = 1;
+        }
+
+        if (east) {
+            dir_x = 1;
+        }
+
+        if (west) {
+            dir_x = -1;
+        }
+
+        if (dir_x != 0 && dir_y != 0) {
+            dir_x *= 1 / Math.SQRT2;
+            dir_y *= 1 / Math.SQRT2;
+        }
+
+        this.movement.set_goal(new Vector2(dir_x, dir_y));
+        console.log("goal", dir_x, dir_y);
+    }
+
+    update_position() {
+        console.log("move speed", this.movement.get().toString());
+
+        var movement_delta = this.movement.get();
+        movement_delta.x *= this.max_movement_speed;
+        movement_delta.y *= this.max_movement_speed;
+
+        this.position.set(this.position.get().plus(movement_delta));
     }
 }
 

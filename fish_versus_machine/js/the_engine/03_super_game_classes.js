@@ -1,3 +1,0 @@
-class Entity extends Sprite {
-
-}

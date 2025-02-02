@@ -51,7 +51,7 @@ class AbstractionApi {
 
         this.key_pressed[key] = 1;
 
-        for (var f of this.listeners_any_key[key]) {
+        for (var f of this.listeners_any_key) {
             f(key);
         }
 
@@ -61,7 +61,7 @@ class AbstractionApi {
             }
         }
 
-        console.log(e, e.key);
+        // console.log(e, e.key);
     }
 
     event_keyup(e) {
@@ -73,7 +73,7 @@ class AbstractionApi {
 
         this.key_pressed[key] = 0;
 
-        for (var f of this.listeners_any_key[key]) {
+        for (var f of this.listeners_any_key) {
             f(key);
         }
 
@@ -83,7 +83,15 @@ class AbstractionApi {
             }
         }
 
-        console.log(e, e.key);
+        // console.log(e, e.key);
+    }
+
+    is_key_pressed(key) {
+        if (this.key_pressed[key] != null) {
+            return this.key_pressed[key] == 1;
+        }
+
+        return false;
     }
 
     register_for_keys(keys, callback) {
@@ -165,6 +173,10 @@ class LerpValue extends BasicLerpValue {
         abstraction_api.add_lerp_to_update_list(this);
     }
 
+    set_instant_flip(instant_flip) {
+        this.instant_flip = instant_flip;
+    }
+
     add_callback(f) {
         this.callbacks.push(f);
     }
@@ -195,6 +207,11 @@ class LerpVector2 {
     set(value) {
         this.x.set(value.x);
         this.y.set(value.y);
+    }
+
+    set_instant_flip(instant_flip) {
+        this.x.set_instant_flip(instant_flip);
+        this.y.set_instant_flip(instant_flip);
     }
 
     set_goal(target_value, current_value = null, inertia = null) {

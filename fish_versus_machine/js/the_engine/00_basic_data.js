@@ -23,6 +23,10 @@ class Vector2 {
         return angle;
     }
 
+    equals(v2) {
+        return (this.x == v2.x) && (this.y == v2.y);
+    }
+
     plus(v2) {
         return new Vector2(this.x + v2.x, this.y + v2.y);
     }
@@ -49,6 +53,7 @@ class Vector4 {
 class BasicLerpValue {
     current_value = 0;
     target_value = 0;
+    instant_flip = false;
 
     inertia = 0;
     max_speed = null;
@@ -104,20 +109,22 @@ class BasicLerpValue {
         } else {
             // console.log(`${delta_time}, ${this.current_value} -> ${this.target_value} (${distance}) @ ${this.inertia} / ${this.max_speed} deg/s`);
 
-            var going_wrong_way = false;
-
             if (((this.current_value < this.target_value) && this.inertia < 0)
                 || ((this.current_value > this.target_value) && this.inertia > 0)
             ) {
                 // going wrong way
                 // console.log("wrong way!");
-                this.internal_decelerate(delta_time);
+                if (this.instant_flip) {
+                    this.inertia = 0;
+                } else {
+                    this.internal_decelerate(delta_time);
+                }
             } else {
                 var time_to_stop = Math.abs(this.inertia / this.deceleration);
                 var distance_travelled_if_stop_now = Math.abs((this.inertia / 2) * time_to_stop);
                 // console.log(`${time_to_stop}s, ${distance_travelled_if_stop_now} distance`);
 
-                if (distance -  distance_travelled_if_stop_now <= this.precision) {
+                if (distance - distance_travelled_if_stop_now <= this.precision) {
                     // console.log("stopping!");
                     this.internal_decelerate(delta_time);
                 } else {
@@ -132,19 +139,30 @@ class BasicLerpValue {
     internal_decelerate(delta_time) {
         if (this.inertia < 0) {
             this.inertia += delta_time * this.deceleration;
-        } else {
+        } else if (this.inertia > 0) {
             this.inertia -= delta_time * this.deceleration;
         }
     }
 
     internal_accelerate(delta_time) {
-        if (this.inertia < 0) {
+        var go_lower = (this.inertia < 0);
+        var go_higher = (this.inertia > 0);
+
+        if (this.inertia == 0) {
+            if (this.current_value < this.target_value) {
+                go_higher = true;
+            } else {
+                go_lower = true;
+            }
+        }
+
+        if (go_lower) {
             this.inertia -= delta_time * this.acceleration;
 
             if (this.inertia < -this.max_speed) {
                 this.inertia = -this.max_speed;
             }
-        } else {
+        } else if (go_higher) {
             this.inertia += delta_time * this.acceleration;
 
             if (this.inertia > this.max_speed) {
