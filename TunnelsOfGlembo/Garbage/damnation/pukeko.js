@@ -14,7 +14,6 @@ class pukeko {
 			["normal",	"PROCRASTINATION"],
 			["normal",	"VISUALISATION"],
 			["invert",	"INVERSION"],
-			["obfus",	"OBFUSCATION"],
 			["cubes",	"OPTIMISATION"],
 			["ident",	"IDENTIFICATION"],
 			["magni",	"MAGNIFICATION"],
