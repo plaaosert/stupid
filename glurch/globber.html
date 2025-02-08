@@ -5,6 +5,23 @@
 #feed, #hug, #buttons {
     display: none;
 }
+#sweet {
+    display: none;
+}
+.sweet {
+    width: 100px;
+    margin: auto 30px;
+    animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+}
         </style>
     </head>
     <body>
@@ -19,8 +36,7 @@
                 feed them
             </button>
             <button id="hug">
-                hug them
-            </button>
+                hug them </button>
             <div id="buttons">
                 <button id="prev">
                     prev
@@ -90,6 +106,10 @@ function loadGlobber(globber) {
     }
     localStorage.setItem("globbers", JSON.stringify(globbers));
     document.getElementById("nextglob").innerHTML = globber.goal;
+    if (index == 4 && !getstreets().includes("strawberry-creme")) {
+        document.getElementById("sweet").style["display"] = "block";
+        document.getElementById("noise").play();
+    }
 }
 
 function letters() {
@@ -101,6 +121,14 @@ function letters() {
     return text;
 }
 
+function setstreets(streets) {
+    localStorage.setItem("qualitystreets", JSON.stringify(streets));
+}
+
+function getstreets() {
+    return JSON.parse(localStorage.getItem("qualitystreets") ? localStorage.getItem("qualitystreets") : "[]");
+}
+
 document.getElementById("next").addEventListener("click", () => { index = (index + 1) % globbers.length; loadGlobber(globbers[index]); });
 document.getElementById("prev").addEventListener("click", () => { index = (index - 1) % globbers.length; if (index == -1) index = index + globbers.length; loadGlobber(globbers[index]); });
 
@@ -108,8 +136,22 @@ document.getElementById("pat" ).addEventListener("click", () => pat() );
 document.getElementById("feed").addEventListener("click", () => feed());
 document.getElementById("hug" ).addEventListener("click", () => hug() );
 
+document.getElementById("strawberry").addEventListener("click", () => {
+    document.getElementById("sweet").style["display"] = "block";
+    document.getElementById("noise").pause();
+    let streets = getstreets();
+    streets.push("strawberry-creme");
+    setstreets(streets);
+});
+
 loadGlobber(globbers[0]);
             </script>
+            <div id="sweet">
+                <audio loop id="noise">
+                    <source src="../Quality/noise.mp3" type="audio/mpeg">
+                </audio>
+                <img src="../Quality/strawberry-creme.png" class="sweet" id="strawberry">
+            </div>
         </center>
     </body>
 </html>
