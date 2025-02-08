@@ -443,6 +443,14 @@ class Fish {
 				return x + "lumpfish.png";
 			case "anomalocaris":
 				return x + "anomalocaris.png";
+			case "mechafish":
+				return x + "mechafish.png";
+			case "depthfish":
+				return x + "depthfish.png";
+			case "snorbler":
+				return x + "snorbler.png";
+			case "eyeball":
+				return x + "eyeball.png";
 			default:
 				return x + "generic_fish.png";
 		}
@@ -496,6 +504,18 @@ const fish_types = [
 	]},
 	{sprite: "anomalocaris", lengths: [24, 55], weight_mults: [0.015, 0.1], base_value: 6.5, names: [
 		"Extant", "Tizita", "True Anomaly", "Endling", "Unlike Shrimp", "Abtu"
+	]},
+	{sprite: "mechafish", lengths: [20, 30], weight_mults: [1.6, 2.0], base_value: 5.75, names: [
+		"XX-20", "PT-29", "FSH-E", "OSHAN", "EF-P091", "M3T4L", "G34R", "Rust-E", "PROTOTYPE-11", "PROTOTYPE-78", "5C0U7"
+	]},
+	{sprite: "depthfish", lengths: [25, 50], weight_mults: [0.025, 0.065], base_value: 3.1, names: [
+		"Dusk", "Fathomless", "Verne", "Abyssian", "Ingo", "Inky"
+	]},
+	{sprite: "snorbler", lengths: [40, 88], weight_mults: [0.026, 0.0065], base_value: 3.3, names: [
+		"Whiffer", "Truffle", "Snoop", "Holy Moly", "Sniffs-a-Lot", "Sniffles"
+	]},
+	{sprite: "eyeball", lengths: [6, 12], weight_mults: [0.002, 0.006], base_value: 1.75, names: [
+		"Cthu", "Daemoni", "Fohcuhs", "Azazel", "Veytak", "Gaze", "Obser", "Verve"
 	]},
 ];
 
