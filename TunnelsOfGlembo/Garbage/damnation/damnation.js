@@ -53,9 +53,11 @@ function new_pukeko(x_override = null, y_override = null) {
 	
 	fresh_pukeko = new pukeko(x, y);
 	let pukeko_node = pukeko_template.cloneNode(true);
+	console.log(fresh_pukeko.box_colour);
 	pukeko_node.querySelector(".pukeko_speech").textContent = fresh_pukeko.quote;
+	pukeko_node.querySelector(".pukeko_bubble").setAttribute("class", "pukeko_bubble " + fresh_pukeko.box_colour);
 	pukeko_node.querySelector(".pukeko_image").src = fresh_pukeko.sprite;
-	pukeko_node.setAttribute("style", "top:"+y+"px; left:"+x+"px");
+	pukeko_node.setAttribute("style", "top:"+fresh_pukeko.pos_y+"px; left:"+fresh_pukeko.pos_x+"px");
 	
 	document.getElementById("pukeko_space").appendChild(pukeko_node);
 	squeak();

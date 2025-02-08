@@ -75,3 +75,15 @@ body {
 .pukeko:first-of-type {
 	display:none;
 }
+
+/*Speechbubble colour overrides*/
+.Red {background:#e30000;}
+.Red:after {border-left-color:#e30000;}
+.Green {background:#00e300;}
+.Green:after {border-left-color:#00e300;}
+.Blue {background:#0000e3;}
+.Blue:after {border-left-color:#0000e3;}
+.Purple {background:#a700e3;}
+.Purple:after {border-left-color:#a700e3;}
+.Yellow {background:#e3ca00;}
+.Yellow:after {border-left-color:#e3ca00;}
