@@ -9,6 +9,10 @@ body {
 	background-color:#EEE;
 	margin:0;
 }
+#pukeko_space {
+	height:100vh;
+	width:100vw;
+}
 #return {
 	position:fixed;
 	bottom:0;
@@ -27,7 +31,6 @@ body {
 /*Pukeko Styling*/
 .pukeko {
 	position:fixed;
-	margin:2px;
 	top:0;
 	left:0;
 	

@@ -39,31 +39,42 @@ function squeak() {
 const pukeko_template = document.querySelector(".pukeko");
 var pukekos = [];
 
-function new_pukeko(x_override = null, y_override = null) {
-	let screenWidth = window.innerWidth - 320;
-	let screenHeight = window.innerHeight - 160;
-	let x, y;
-	if (x_override != null) {
-		x = x_override;
-	} else {
-		x = Math.floor(Math.random() * screenWidth);
-	}
-	if (y_override != null) {
-		y = y_override;
-	} else {
-		y = Math.floor(Math.random() * screenHeight);
-	}
+function new_pukeko(x_override = null, y_override = null, no_sound = false) {
+	let screenWidth = window.innerWidth + 40;
+	let screenHeight = window.innerHeight + 20;
 	
-	fresh_pukeko = new pukeko(x, y);
+	fresh_pukeko = new pukeko(0,0);
 	pukekos.push(fresh_pukeko);
 	let pukeko_node = pukeko_template.cloneNode(true);
 	pukeko_node.querySelector(".pukeko_speech").textContent = fresh_pukeko.quote;
 	pukeko_node.querySelector(".pukeko_bubble").setAttribute("class", "pukeko_bubble " + fresh_pukeko.box_colour);
 	pukeko_node.querySelector(".pukeko_image").src = fresh_pukeko.sprite;
-	pukeko_node.setAttribute("style", "top:"+fresh_pukeko.pos_y+"px; left:"+fresh_pukeko.pos_x+"px");
-	
 	document.getElementById("pukeko_space").appendChild(pukeko_node);
-	squeak();
+	
+	
+	let pukeko_box = pukeko_node.getBoundingClientRect()
+	if (x_override != null) {
+		fresh_pukeko.pos_x = x_override;
+	} else {
+		fresh_pukeko.pos_x = Math.floor(Math.random() * (screenWidth - pukeko_box.width));
+	}
+	if (y_override != null) {
+		fresh_pukeko.pos_y = y_override;
+	} else {
+		fresh_pukeko.pos_y = Math.floor(Math.random() * (screenHeight - pukeko_box.height));
+	}
+	console.log(pukeko_box.height);
+	console.log(pukeko_box.width);
+	pukeko_node.setAttribute("style", "top:"+fresh_pukeko.pos_y+"px; left:"+fresh_pukeko.pos_x+"px");
+	if (no_sound == false) {
+		squeak();
+	}
+}
+
+function debug_pukeko(amt) {
+	for (let i = 0; i < amt; i++) {
+		new_pukeko(null,null,true);
+	}
 }
 
 if (hash[0] == "#DAMNATION") {
