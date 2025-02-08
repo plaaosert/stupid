@@ -137,29 +137,10 @@ class Sprite extends GameObject {
     }
 }
 
-// ignore this
-let entity = null;
-let world = null;
-
-// entity has .position, .velocity, .move_force
-// world has .friction
-function game_loop() {
-    // get keys
-    let mov_dir = new Vector2(1, 0); // input movement direction as a point on a circle
-
-    entity.apply_impulse(impulse)
-    entity.velocity = entity.velocity.add(mov_dir.mul(entity.move_force)) // modify velocity by movement direction multiplied by move force
-
-    entity.position = entity.position.add(entity.velocity); // modify position by velocity
-
-    entity.velocity = entity.velocity.mul(world.friction); // multiply velocity by friction coefficient of world
-}
-
-
 class Entity extends Sprite {
 
-    movement = new LerpVector2(6, 30, 30);
-    max_movement_speed = 6;
+    movement = new LerpVector2(3, 15, 15);
+    max_movement_speed = 3;
 
     constructor() {
         super();
@@ -202,12 +183,31 @@ class Entity extends Sprite {
             dir_y *= 1 / Math.SQRT2;
         }
 
-        this.movement.set_goal(new Vector2(dir_x, dir_y));
-        console.log("goal", dir_x, dir_y);
+        //this.movement.set_goal(new Vector2(dir_x, dir_y));
+        let deg_r = Math.PI * ((this.get_rotation()) / 180);
+        console.log(this.get_rotation(), deg_r, new Vector2(Math.cos(deg_r) * dir_y, Math.sin(deg_r) * dir_y).toString());
+
+        let goal = new Vector2(0, 0);
+
+        if (dir_y > 0) {
+            dir_y /= 2;
+        }
+
+        dir_x /= 2;
+
+        goal = goal.plus(new Vector2(Math.cos(deg_r) * -dir_y, -Math.sin(deg_r) * -dir_y));
+        if (dir_x != 0) {
+            deg_r = Math.PI * ((this.get_rotation() + 90) / 180);
+            goal = goal.plus(new Vector2(Math.cos(deg_r) * -dir_x, -Math.sin(deg_r) * -dir_x));
+        }
+
+        this.movement.set_goal(goal);
+
+        //console.log("goal", dir_x, dir_y);
     }
 
     update_position() {
-        console.log("move speed", this.movement.get().toString());
+        //console.log("move speed", this.movement.get().toString());
 
         var movement_delta = this.movement.get();
         movement_delta.x *= this.max_movement_speed;

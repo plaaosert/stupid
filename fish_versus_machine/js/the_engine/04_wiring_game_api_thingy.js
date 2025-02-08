@@ -9,7 +9,9 @@ class GameApi {
         this.player.screen_object_needs_update = true;
 
         abstraction_api.listeners_update_ui.push(this.player_face_mouse.bind(this));
-        abstraction_api.register_for_keys(["w", "a", "s", "d"], this.player_input.bind(this));
+        //abstraction_api.register_for_keys(["w", "a", "s", "d"], this.player_input.bind(this));
+        abstraction_api.listeners_update_ui.push(this.player_input.bind(this));
+
     }
 
     get_mouse_world_position() {
