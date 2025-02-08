@@ -12,8 +12,8 @@ class pukeko {
 			["normal",	"OSMOREGULATION"],
 			["normal",	"PERFECTION"],
 			["normal",	"PROCRASTINATION"],
+			["normal",	"VISUALISATION"],
 			["invert",	"INVERSION"],
-			["obfus",	"OBFUSCATION"],
 			["cubes",	"OPTIMISATION"],
 			["ident",	"IDENTIFICATION"],
 			["magni",	"MAGNIFICATION"],
@@ -26,6 +26,7 @@ class pukeko {
 			["student",	"EDUCATION"],
 			["mage",	"INVOCATION"],
 			["mage",	"DIVINATION"],
+			["mage",	"ALCHEMISATION"],
 			["split",	"DIVISION"],
 			["shy",		"INFATUATION"],
 			["glowGrn",	"RADIATION"],
@@ -43,11 +44,36 @@ class pukeko {
 			["master",	"CULTIVATION"],
 			["egg",		"INCUBATION"],
 			["money",	"DONATION"],
+			["ufo",		"ABDUCTION"],
+			["ufo",		"ALIENATION"],
+			["tired",	"EXHAUSTION"],
+			["tired",	"INTOXICATION"],
+			["drunk",	"INTOXICATION"],
+			["drunk",	"INEBRIATION"],
+			["drunk",	"DEPRESSION"],
+			["satur8",	"SATURATION"],
+			["dlc",		"MONETISATION"],
+			["censor",	"IMPLICATION"],
+			["info",	"INFORMATION"],
+			["info",	"DIRECTION"],
+			["arrow",	"INDICATION"],
+			["arrow",	"NOTIFICATION"],
+			["pinged",	"NOTIFICATION"],
+			["amalg",	"AMALGAMATION"],
+			["amalg",	"ABOMINATION"],
+			["amalg",	"MODIFICATION"],
 			["draw1",	"INTERPRETATION"]
+		]
+		
+		//textbox colours
+		const colours = [
+			"Default", "Blue", "Red", "Green", "Purple", "Yellow"
 		]
 		//location logic should be handled elsewhere
 		this.pos_x = x
 		this.pos_y = y
+		
+		this.box_colour = colours[Math.floor(Math.random() * colours.length)];
 		
 		this.type = quotes[Math.floor(Math.random() * quotes.length)];
 		this.quote = this.exaggeration(this.type[1], Math.floor(Math.random() * 8) + 3);
