@@ -80,11 +80,11 @@ function summonsweets() {
 }
 
 function setstreets(streets) {
-    localStorage.setItem("qualitystreets", "[" + String(streets) + "]");
+    localStorage.setItem("qualitystreets", JSON.stringify(streets));
 }
 
 function getstreets() {
-    return eval(localStorage.getItem("qualitystreets") ? localStorage.getItem("qualitystreets") : []);
+    return JSON.parse(localStorage.getItem("qualitystreets") ? localStorage.getItem("qualitystreets") : []);
 }
         </script>
     </body>
