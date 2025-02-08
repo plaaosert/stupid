@@ -51,6 +51,12 @@
             <p>
                 gl<span id="letters"></span>bbometer: <span id="num">0</span>
             </p>
+            <div id="sweet">
+                <audio loop id="noise">
+                    <source src="../Quality/noise.mp3" type="audio/mpeg">
+                </audio>
+                <img src="../Quality/strawberry-creme.png" class="sweet" id="strawberry">
+            </div>
             <script>
 class Globber {
     constructor(letters, colour) {
@@ -146,12 +152,6 @@ document.getElementById("strawberry").addEventListener("click", () => {
 
 loadGlobber(globbers[0]);
             </script>
-            <div id="sweet">
-                <audio loop id="noise">
-                    <source src="../Quality/noise.mp3" type="audio/mpeg">
-                </audio>
-                <img src="../Quality/strawberry-creme.png" class="sweet" id="strawberry">
-            </div>
         </center>
     </body>
 </html>
