@@ -91,7 +91,7 @@ function purge_pukekos() {
 	let plagued_pukekos = document.getElementsByClassName("pukeko");
 	snd_explosion.cloneNode().play();
 	snd_damn.cloneNode().play();
-	for (let i = pukekos.length; i > 1; --i) {
+	for (let i = pukekos.length; i > 0; --i) {
 		plagued_pukekos[i].remove();
 	}
 	pukekos = [];
