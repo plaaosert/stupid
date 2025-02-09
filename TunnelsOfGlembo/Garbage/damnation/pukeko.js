@@ -1,5 +1,5 @@
 class pukeko {
-	constructor(x, y) {
+	constructor(x, y, type_index = null) {
 		const quotes = [
 		//format is Sprite, Quote
 		//exclamations are added afterwards. don't include them unless you want to be funny
@@ -63,9 +63,11 @@ class pukeko {
 			["amalg",	"ABOMINATION"],
 			["amalg",	"MODIFICATION"],
 			["draw1",	"ILLUSTRATION"],
+			["draw2",	"ILLUSTRATION"],
 			["taxation","TAXATION"],
 			["observ",	"OBSERVATION"],
 			["rblx",	"####"],
+			["rblx",	"#########"],
 			["mtgcard",	"Damnation, Sorcery - Destroy all creatures. They can't be regenerated"]
 		]
 
@@ -78,8 +80,11 @@ class pukeko {
 		this.pos_y = y
 
 		this.box_colour = colours[Math.floor(Math.random() * colours.length)];
-
-		this.type = quotes[Math.floor(Math.random() * quotes.length)];
+		if (type_index == null) {
+			this.type = quotes[Math.floor(Math.random() * quotes.length)];
+		} else {
+			this.type = quotes[type_index];
+		}
 		this.quote = this.exaggeration(this.type[1], Math.floor(Math.random() * 8) + 3);
 		this.sprite = this.sprite_maker(this.type[0]);
 	}
