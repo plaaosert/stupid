@@ -63,9 +63,11 @@ class pukeko {
 			["amalg",	"ABOMINATION"],
 			["amalg",	"MODIFICATION"],
 			["draw1",	"ILLUSTRATION"],
+			["draw2",	"ILLUSTRATION"],
 			["taxation","TAXATION"],
 			["observ",	"OBSERVATION"],
 			["rblx",	"####"],
+			["rblx",	"#########"],
 			["mtgcard",	"Damnation, Sorcery - Destroy all creatures. They can't be regenerated"]
 		]
 

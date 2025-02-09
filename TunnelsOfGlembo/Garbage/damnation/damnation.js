@@ -80,6 +80,10 @@ function new_pukeko(x_override = null, y_override = null, no_sound = false) {
 }
 
 function debug_pukeko(amt) {
+	if (amt > 2500 || pukekos.length + amt > 2500) {
+		console.log("TOO MUCH!!!!!!!!!!! (greater than 2500)");
+		return
+	}
 	console.log("DAMN!!!!!! "+amt+" PUKEKOS INCOMING!!!!!!!!!!"); 
 	for (let i = 0; i < amt; i++) {
 		new_pukeko(null,null,true);
