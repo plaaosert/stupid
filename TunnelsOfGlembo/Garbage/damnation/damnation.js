@@ -44,11 +44,11 @@ const pukeko_template = document.querySelector(".pukeko");
 var pukekos = [];
 var purge_ready = false;
 
-function new_pukeko(x_override = null, y_override = null, no_sound = false) {
+function new_pukeko(x_override = null, y_override = null, no_sound = false, type_override = null) {
 	let screenWidth = window.innerWidth + 40;
 	let screenHeight = window.innerHeight + 20;
 	
-	fresh_pukeko = new pukeko(0,0);
+	fresh_pukeko = new pukeko(0,0, type_override);
 	pukekos.push(fresh_pukeko);
 	let pukeko_node = pukeko_template.cloneNode(true);
 	pukeko_node.querySelector(".pukeko_speech").textContent = fresh_pukeko.quote;
