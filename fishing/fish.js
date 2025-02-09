@@ -511,7 +511,7 @@ const fish_types = [
 	{sprite: "depthfish", lengths: [25, 50], weight_mults: [0.025, 0.065], base_value: 3.1, names: [
 		"Dusk", "Fathomless", "Verne", "Abyssian", "Ingo", "Inky"
 	]},
-	{sprite: "snorbler", lengths: [40, 88], weight_mults: [0.026, 0.0065], base_value: 3.3, names: [
+	{sprite: "snorbler", lengths: [40, 88], weight_mults: [0.026, 0.065], base_value: 3.3, names: [
 		"Whiffer", "Truffle", "Snoop", "Holy Moly", "Sniffs-a-Lot", "Sniffles"
 	]},
 	{sprite: "eyeball", lengths: [6, 12], weight_mults: [0.002, 0.006], base_value: 1.75, names: [
