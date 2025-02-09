@@ -96,6 +96,7 @@ function purge_pukekos() {
 	}
 	pukekos = [];
 	document.getElementById("purge").style.display = "none";
+	new_pukeko();
 	purge_ready = false;
 	console.log("IT IS DONE.");
 }
