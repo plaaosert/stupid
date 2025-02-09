@@ -86,7 +86,7 @@ function new_pukeko(x_override = null, y_override = null, no_sound = false, type
 
 function debug_pukeko(amt) {
 	if (amt > 1000 || pukekos.length + amt > 1000) {
-		console.log("TOO MUCH!!!!!!!!!!! (greater than 2500)");
+		console.log("TOO MUCH!!!!!!!!!!! (greater than 1000)");
 		return
 	}
 	console.log("DAMN!!!!!! "+amt+" PUKEKOS INCOMING!!!!!!!!!!"); 
@@ -118,8 +118,8 @@ if (hash[0] == "#DAMNATION") {
 			interval -= 20;
 			new_pukeko();
 			console.log("DAMNATION AT "+interval+"ms");
-			interval = interval < 220 ? 220 : interval;
-			if (pukekos.length < 200) {
+			interval = interval < 120 ? 120 : interval;
+			if (pukekos.length < 1000) {
 				setTimeout(timer, interval);
 			} else {
 				console.log("DAMNATION COMPLETE!!!!!!");
