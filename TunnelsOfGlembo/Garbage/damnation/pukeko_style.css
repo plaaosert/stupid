@@ -4,6 +4,15 @@
 	}
 }
 
+@keyframes shake {
+	0% {
+		right:-1px;
+	}
+	100% {
+		right:1px;
+	}
+}
+
 body {
 	overflow:hidden;
 	background-color:#EEE;
@@ -27,12 +36,31 @@ body {
 	font-size:25px;
 	text-decoration:none;
 }
+#purge {
+	display:none;
+	color:#333;
+	position:fixed;
+	right:0;
+	top:0;
+	margin:20px;
+	cursor:pointer;
+	z-index:99999;
+}
+#purge:hover {
+	color:Red;
+	font-size:200px;
+	text-shadow:Red 1px 0 10px;
+	animation:0.05s infinite shake;
+	transition:all 10s ease-out;
+}
 
 /*Pukeko Styling*/
 .pukeko {
 	position:fixed;
 	top:0;
 	left:0;
+	
+	user-select:none;
 	
 	transform:translate(0, 120vh);
 	animation:pukeko_enter 0.28s ease-out forwards;
@@ -90,3 +118,19 @@ body {
 .Purple:after {border-left-color:#a700e3;}
 .Yellow {background:#e3ca00;}
 .Yellow:after {border-left-color:#e3ca00;}
+.Orange {background:#ff5400;}
+.Orange:after {border-left-color:#ff5400;}
+.Pink {background:#ff7af0;}
+.Pink:after {border-left-color:#ff7af0;}
+.DarkCyan {background:#243680;}
+.DarkCyan:after {border-left-color:#243680;}
+.DarkGreen {background:#006400;}
+.DarkGreen:after {border-left-color:#006400;}
+.Swamp {background:#2b5b19;}
+.Swamp:after {border-left-color:#2b5b19;}
+.Orchid {background:#DA70D6;}
+.Orchid:after {border-left-color:#DA70D6;}
+.Maroon {background:#800000;}
+.Maroon:after {border-left-color:#800000;}
+.Black {background:#111;}
+.Black:after {border-left-color:#111;}

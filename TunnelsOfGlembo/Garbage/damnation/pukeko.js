@@ -62,14 +62,16 @@ class pukeko {
 			["amalg",	"AMALGAMATION"],
 			["amalg",	"ABOMINATION"],
 			["amalg",	"MODIFICATION"],
-			["draw1",	"INTERPRETATION"],
+			["draw1",	"ILLUSTRATION"],
 			["taxation","TAXATION"],
-			["observ","OBSERVATION"]
+			["observ",	"OBSERVATION"],
+			["rblx",	"####"],
+			["mtgcard",	"Damnation, Sorcery - Destroy all creatures. They can't be regenerated"]
 		]
 
 		//textbox colours
 		const colours = [
-			"Default", "Blue", "Red", "Green", "Purple", "Yellow"
+			"Default", "Blue", "Red", "Green", "Purple", "Yellow", "Orange", "Pink", "DarkCyan", "DarkGreen", "Swamp", "Orchid", "Maroon", "Black"
 		]
 		//location logic should be handled elsewhere
 		this.pos_x = x

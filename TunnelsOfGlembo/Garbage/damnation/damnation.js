@@ -4,6 +4,10 @@ const snd_squeak3 = new Audio("squeaks/3.ogg");
 const snd_squeak4 = new Audio("squeaks/4.ogg");
 const snd_squeak5 = new Audio("squeaks/5.ogg");
 const snd_damn = new Audio("squeaks/damn.mp3");
+
+const snd_explosion = new Audio("squeaks/explosion.ogg");
+const snd_clank = new Audio("squeaks/clank.ogg");
+
 var hash = document.location.hash.split(":");
 
 function squeak() {
@@ -38,6 +42,7 @@ function squeak() {
 }
 const pukeko_template = document.querySelector(".pukeko");
 var pukekos = [];
+var purge_ready = false;
 
 function new_pukeko(x_override = null, y_override = null, no_sound = false) {
 	let screenWidth = window.innerWidth + 40;
@@ -63,18 +68,37 @@ function new_pukeko(x_override = null, y_override = null, no_sound = false) {
 	} else {
 		fresh_pukeko.pos_y = Math.floor(Math.random() * (screenHeight - pukeko_box.height));
 	}
-	console.log(pukeko_box.height);
-	console.log(pukeko_box.width);
 	pukeko_node.setAttribute("style", "top:"+fresh_pukeko.pos_y+"px; left:"+fresh_pukeko.pos_x+"px");
 	if (no_sound == false) {
 		squeak();
 	}
+	if (pukekos.length >= 50 && purge_ready != true) {
+		snd_clank.cloneNode().play();
+		document.getElementById("purge").style.display = "block";
+		purge_ready = true;
+	}
 }
 
 function debug_pukeko(amt) {
+	console.log("DAMN!!!!!! "+amt+" PUKEKOS INCOMING!!!!!!!!!!"); 
 	for (let i = 0; i < amt; i++) {
 		new_pukeko(null,null,true);
 	}
+}
+
+//this entire city must be purged
+function purge_pukekos() {
+	let plagued_pukekos = document.getElementsByClassName("pukeko");
+	snd_explosion.cloneNode().play();
+	snd_damn.cloneNode().play();
+	for (let i = pukekos.length; i > 0; --i) {
+		plagued_pukekos[i].remove();
+	}
+	pukekos = [];
+	document.getElementById("purge").style.display = "none";
+	new_pukeko();
+	purge_ready = false;
+	console.log("IT IS DONE.");
 }
 
 if (hash[0] == "#DAMNATION") {
@@ -96,5 +120,6 @@ if (hash[0] == "#DAMNATION") {
 		timer();
 	})();
 } else {
+	console.log("DAMN!!!!")
 	new_pukeko();
 }
