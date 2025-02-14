@@ -14,7 +14,7 @@ class Vector2 {
     }
 
     getDegreesBetween(v2) {
-        var angle = Math.atan2(- (v2.y - this.y), v2.x - this.x) * 180 / Math.PI;
+        let angle = Math.atan2(- (v2.y - this.y), v2.x - this.x) * 180 / Math.PI;
 
         if (angle < 0) {
             angle = 180 + (180 - Math.abs(angle));
@@ -33,6 +33,10 @@ class Vector2 {
 
     minus(v2) {
         return new Vector2(this.x - v2.x, this.y - v2.y);
+    }
+
+    mul(val) {
+        return new Vector2(this.x * val, this.y * val);
     }
 }
 
@@ -61,6 +65,8 @@ class BasicLerpValue {
     acceleration;
     deceleration;
 
+    deceleration_coef = 1;
+
     precision = 0.01;
 
     constructor(max_speed = null, acceleration = null, deceleration = null) {
@@ -82,7 +88,9 @@ class BasicLerpValue {
     }
 
     set(target_value) {
-        this.set_goal(target_value, target_value, 0);
+        this.current_value = target_value;
+        this.target_value = target_value;
+        this.inertia = 0;
     }
 
     set_goal(target_value, current_value = null, inertia = null) {
@@ -97,12 +105,20 @@ class BasicLerpValue {
         }
     }
 
-    needs_step() {
-        return this.current_value != this.target_value;
+    needs_step(target_value = null, current_value = null) {
+        if (target_value == null) {
+            target_value = this.target_value;
+        }
+
+        if (current_value == null) {
+            current_value = this.current_value;
+        }
+
+        return current_value != target_value;
     }
 
     step(delta_time) {
-        var distance = Math.abs(this.current_value - this.target_value);
+        let distance = Math.abs(this.current_value - this.target_value);
 
         if (this.max_speed == null || distance <= this.precision) {
             this.current_value = this.target_value;
@@ -120,8 +136,8 @@ class BasicLerpValue {
                     this.internal_decelerate(delta_time);
                 }
             } else {
-                var time_to_stop = Math.abs(this.inertia / this.deceleration);
-                var distance_travelled_if_stop_now = Math.abs((this.inertia / 2) * time_to_stop);
+                let time_to_stop = Math.abs(this.inertia / this.deceleration);
+                let distance_travelled_if_stop_now = Math.abs((this.inertia / 2) * time_to_stop);
                 // console.log(`${time_to_stop}s, ${distance_travelled_if_stop_now} distance`);
 
                 if (distance - distance_travelled_if_stop_now <= this.precision) {
@@ -138,15 +154,15 @@ class BasicLerpValue {
 
     internal_decelerate(delta_time) {
         if (this.inertia < 0) {
-            this.inertia += delta_time * this.deceleration;
+            this.inertia += delta_time * (this.deceleration * this.deceleration_coef);
         } else if (this.inertia > 0) {
-            this.inertia -= delta_time * this.deceleration;
+            this.inertia -= delta_time * (this.deceleration * this.deceleration_coef);
         }
     }
 
     internal_accelerate(delta_time) {
-        var go_lower = (this.inertia < 0);
-        var go_higher = (this.inertia > 0);
+        let go_lower = (this.inertia < 0);
+        let go_higher = (this.inertia > 0);
 
         if (this.inertia == 0) {
             if (this.current_value < this.target_value) {
@@ -201,13 +217,13 @@ class Bezier {
     };
 
     static cubic_bezier(bezier_params, t) {
-        var p1x = bezier_params.x;
-        var p1y = bezier_params.y;
-        var p2x = bezier_params.z;
-        var p2y = bezier_params.w;
+        let p1x = bezier_params.x;
+        let p1y = bezier_params.y;
+        let p2x = bezier_params.z;
+        let p2y = bezier_params.w;
 
-        var coord_x = 0;
-        var coord_y = 0;
+        let coord_x = 0;
+        let coord_y = 0;
 
         coord_x = 3 * Math.pow(1 - t, 2) * t * p1x
                 +
@@ -245,39 +261,39 @@ class Bezier {
     }
 
     static precalculate_bezier(bezier_params_string) {
-        var bezier_params_list = [];
+        let bezier_params_list = [];
 
         for (x of bezier_params_string.split(", ")) {
             bezier_params_list.push(parseFloat(x));
         }
 
-        var bezier_params = new Vector4(bezier_params_list[0], bezier_params_list[1], bezier_params_list[2], bezier_params_list[3]);
+        let bezier_params = new Vector4(bezier_params_list[0], bezier_params_list[1], bezier_params_list[2], bezier_params_list[3]);
 
-        var x_values = {};
+        let x_values = {};
         x_values[0] = 0;
         x_values[Bezier.cubic_bezier_precision] = 1;
 
-        var increment_amount = 1 / Bezier.cubic_bezier_precision;
-        for (var i = 0; i <= 1; i += increment_amount) {
-            var point = Bezier.cubic_bezier(bezier_params, i);
+        let increment_amount = 1 / Bezier.cubic_bezier_precision;
+        for (let i = 0; i <= 1; i += increment_amount) {
+            let point = Bezier.cubic_bezier(bezier_params, i);
             // console.log("function point", i, point.x, point.y);
 
-            // var s = new Sprite("img/tester.png", 2);
+            // let s = new Sprite("img/tester.png", 2);
             // if (point.x > 1) {
             //     s.change_size(128);
             // }
 
             // s.change_position(new Vector2(512 + point.x * 128, 512 - point.y * 128));
 
-            var x = Math.round(point.x * Bezier.cubic_bezier_precision);
+            let x = Math.round(point.x * Bezier.cubic_bezier_precision);
             x_values[x] = point.y;
         }
 
-        var precalculated_list = [];
+        let precalculated_list = [];
 
         function find_closest_defined_value(x) {
-            var distance = 0;
-            var value_found = null;
+            let distance = 0;
+            let value_found = null;
 
             while (value_found == null) {
                 // console.log("search is", x, x + distance, x - distance, x_values[x + distance], x_values[x - distance], x_values);
@@ -296,8 +312,8 @@ class Bezier {
             return value_found;
         }
 
-        for (var i = 0; i <= Bezier.cubic_bezier_precision; i += 1) {
-            var value = find_closest_defined_value(i);
+        for (let i = 0; i <= Bezier.cubic_bezier_precision; i += 1) {
+            let value = find_closest_defined_value(i);
             precalculated_list.push(value);
         }
 

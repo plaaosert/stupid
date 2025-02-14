@@ -18,21 +18,23 @@ class AbstractionApi {
     listeners_any_key = [];
     listeners_specific_key = {};
 
+    document_was_invisible = false;
+
     constructor() {
         document.onmousemove = function(e) {
-            for (var f of this.listeners_mousemove) {
+            for (let f of this.listeners_mousemove) {
                 f(e);
             }
         }.bind(this);
 
         window.onresize = function(e) {
-            for (var f of this.listeners_resize) {
+            for (let f of this.listeners_resize) {
                 f(e);
             }
         }.bind(this);
 
-        addEventListener("keydown", this.event_keydown.bind(this));
-        addEventListener("keyup", this.event_keyup.bind(this));
+        document.addEventListener("keydown", this.event_keydown.bind(this));
+        document.addEventListener("keyup", this.event_keyup.bind(this));
 
         this.set_window_size();
 
@@ -40,10 +42,18 @@ class AbstractionApi {
         this.listeners_mousemove.push(this.set_mouse_position.bind(this));
         this.listeners_update_ui.push(this.update_lerps.bind(this));
         requestAnimationFrame(this.update_ui.bind(this));
+
+        document.addEventListener("visibilitychange", function() {
+            document_visible = !document.hidden && document.visibilityState == "visible";
+            if (!document_visible) {
+                this.document_was_invisible = true;
+            }
+
+        }.bind(this));
     }
 
     event_keydown(e) {
-        var key = e.key;
+        let key = e.key;
 
         if (this.key_pressed[key] == 1) {
             return;
@@ -51,12 +61,12 @@ class AbstractionApi {
 
         this.key_pressed[key] = 1;
 
-        for (var f of this.listeners_any_key) {
+        for (let f of this.listeners_any_key) {
             f(key);
         }
 
         if (this.listeners_specific_key[key] != null) {
-            for (var f of this.listeners_specific_key[key]) {
+            for (let f of this.listeners_specific_key[key]) {
                 f(key);
             }
         }
@@ -65,7 +75,7 @@ class AbstractionApi {
     }
 
     event_keyup(e) {
-        var key = e.key;
+        let key = e.key;
 
         if (this.key_pressed[key] == 0) {
             return;
@@ -73,12 +83,12 @@ class AbstractionApi {
 
         this.key_pressed[key] = 0;
 
-        for (var f of this.listeners_any_key) {
+        for (let f of this.listeners_any_key) {
             f(key);
         }
 
         if (this.listeners_specific_key[key] != null) {
-            for (var f of this.listeners_specific_key[key]) {
+            for (let f of this.listeners_specific_key[key]) {
                 f(key);
             }
         }
@@ -99,7 +109,7 @@ class AbstractionApi {
             keys = [keys];
         }
 
-        for (var key of keys) {
+        for (let key of keys) {
             if (this.listeners_specific_key[key] == null) {
                 this.listeners_specific_key[key] = [];
             }
@@ -111,7 +121,6 @@ class AbstractionApi {
     set_window_size(e) {
         this.window_size.x = window.innerWidth;
         this.window_size.y = window.innerHeight;
-        console.log("resized window!", this.window_size);
     }
 
     set_mouse_position(e) {
@@ -122,20 +131,21 @@ class AbstractionApi {
     }
 
     update_ui(timestamp) {
-        if (this.last_anim_frame_timestamp == null) {
+        if (this.last_anim_frame_timestamp == null || this.document_was_invisible) {
+            this.document_was_invisible = false;
             this.last_anim_frame_timestamp = timestamp;
             requestAnimationFrame(this.update_ui.bind(this));
             return;
         }
 
-        var delta_time = (timestamp - this.last_anim_frame_timestamp) / 1000;
+        let delta_time = (timestamp - this.last_anim_frame_timestamp) / 1000;
         if (delta_time > 1) {
             delta_time = 1;
         }
 
         this.last_anim_frame_timestamp = timestamp;
 
-        for (var f of this.listeners_update_ui) {
+        for (let f of this.listeners_update_ui) {
             f(delta_time);
         }
 
@@ -143,8 +153,8 @@ class AbstractionApi {
     }
 
     update_lerps(delta_time) {
-        for (var i = 0; i < this.lerps_updating.length; i += 1) {
-            var lerp = this.lerps_updating[i];
+        for (let i = 0; i < this.lerps_updating.length; i += 1) {
+            let lerp = this.lerps_updating[i];
             lerp.step(delta_time);
 
             if (!lerp.needs_step()) {
@@ -170,7 +180,10 @@ class LerpValue extends BasicLerpValue {
 
     set_goal(target_value, current_value = null, inertia = null) {
         super.set_goal(target_value, current_value, inertia);
-        abstraction_api.add_lerp_to_update_list(this);
+
+        if (this.needs_step(target_value, current_value)) {
+            abstraction_api.add_lerp_to_update_list(this);
+        }
     }
 
     set_instant_flip(instant_flip) {
@@ -184,7 +197,7 @@ class LerpValue extends BasicLerpValue {
     step(delta_time) {
         super.step(delta_time);
 
-        for (var f of this.callbacks) {
+        for (let f of this.callbacks) {
             f();
         }
     }
@@ -217,6 +230,11 @@ class LerpVector2 {
     set_goal(target_value, current_value = null, inertia = null) {
         this.x.set_goal(target_value.x, current_value?.x, inertia?.x);
         this.y.set_goal(target_value.y, current_value?.y, inertia?.y);
+    }
+
+    set_deceleration_coef(deceleration_coef) {
+        this.x.deceleration_coef = deceleration_coef.x;
+        this.y.deceleration_coef = deceleration_coef.y;
     }
 
     add_callback(f) {

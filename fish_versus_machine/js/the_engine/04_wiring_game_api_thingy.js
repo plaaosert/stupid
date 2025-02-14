@@ -9,8 +9,9 @@ class GameApi {
         this.player.screen_object_needs_update = true;
 
         abstraction_api.listeners_update_ui.push(this.player_face_mouse.bind(this));
-        //abstraction_api.register_for_keys(["w", "a", "s", "d"], this.player_input.bind(this));
-        abstraction_api.listeners_update_ui.push(this.player_input.bind(this));
+        abstraction_api.register_for_keys(["w", "a", "s", "d"], this.player_input.bind(this));
+
+        // abstraction_api.listeners_update_ui.push(this.player_input.bind(this));
 
     }
 
@@ -23,12 +24,12 @@ class GameApi {
     }
 
     player_input() {
-        var w = abstraction_api.is_key_pressed("w");
-        var a = abstraction_api.is_key_pressed("a");
-        var s = abstraction_api.is_key_pressed("s");
-        var d = abstraction_api.is_key_pressed("d");
+        let w = abstraction_api.is_key_pressed("w");
+        let a = abstraction_api.is_key_pressed("a");
+        let s = abstraction_api.is_key_pressed("s");
+        let d = abstraction_api.is_key_pressed("d");
 
-        this.player.set_movement_direction(w, d, a, s);
+        this.player.set_input_direction(w, d, a, s);
     }
 }
 
