@@ -140,6 +140,8 @@ function currency_retriever(currency) {
 function buy_item(item_id) {
 	const inventory = JSON.parse(localStorage.getItem("shop_items"));
 	let used_currency = currency_retriever(items[item_id][2]);
+	let purchased_name = items[item_id][1];
+	console.log(purchased_name);
 	//you're broke.
 	if (used_currency < items[item_id][3]) {
 		write_to_div(shopkeep_lines_cant_afford[Math.floor(Math.random() * shopkeep_lines_cant_afford.length)], introtext);
@@ -147,9 +149,9 @@ function buy_item(item_id) {
 	}
 	//do this if we're just adding a value.
 	//todo - fix this because it's bork.
-	if (inventory.includes(items[item_id][1])) {
-		let item_index = inventory.indexOf(items[item_id][1]);
-		
+	if (inventory.some(x => x[1][0] == purchased_name)) {
+		//let item_index = inventory.indexOf(items[item_id][1]);
+		console.log("YEAH!");
 	} else { //if we're adding a new item to the list.
 		inventory.push([items[item_id][1], 1]);
 		localStorage.setItem("shop_items", JSON.stringify(inventory));
