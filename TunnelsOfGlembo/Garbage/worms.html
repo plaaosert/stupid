@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+	<title>worms :)</title>
+	<link rel="icon" type="image/x-icon" href="worms/omegaworm.png">
+	<style>
+		body {
+			background-color:beige;
+			background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAAGuTRJ+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAfSURBVBhXY/j69Q7DkSMbGIGYAQiAFBOUBsocObIBAA1zEKgj3kpBAAAAAElFTkSuQmCC);
+			overflow-x:hidden;
+			margin:0;
+			padding:0;
+		}
+		#mainwrapper {
+			width:100vw;
+			height:100%;
+			display:flex;
+			flex-direction:column;
+			align-items:center;
+			padding-bottom:10px;
+		}
+		#wormwrapper {
+			width:70vw;
+			display:flex;
+			flex-direction:row;
+			flex-wrap:wrap;
+			align-content:space-between;
+			padding-bottom:20px;
+		}
+		#wormwrapper > * {
+			flex:1 1 200px;
+			image-rendering: crisp-edges;
+			box-shadow: 2px 2px 10px gray;
+			margin:2px;
+			padding:6px;
+			background-color:white;
+			border-radius:8px;
+		}
+		#wormwrapper > img:hover {
+			box-shadow: 0px 0px 10px gray;
+			background-color:#E7E7E7;
+		}
+		.box {
+			background-color:#EBE2BC;
+			padding:5px 20px 5px 20px;
+			margin:5px;
+			border:5px groove #cac3a5;
+		}
+		.box > a {
+			font-size:54px;
+		}
+		.centeredtext {text-align:center;}
+		.wide {
+			min-width:60vw;
+		}
+		@keyframes redflash {
+			0% {
+				color:red;
+			}
+			100% {
+				color:crimson;
+			}
+		}
+		.flashbold {
+			color:red;
+			animation-name:redflash;
+			animation-duration:0.25s;
+			animation-direction:alternate;
+			animation-iteration-count:infinite;
+			animation-timing-function:linear;
+		}
+	</style>
+</head>
+<body>
+	<div id="mainwrapper">
+		<div class="box centeredtext wide">
+			<h1>cool worms :)</h1>
+		</div>
+		<div class="box wide">
+			HI WELCOME TO Website HERE ARE MY WORMS PLEASE ENJOY.<br>
+			<b class="flashbold" title="YOU KNOW WHAT YOU DID">FISHER NOT WELCOME >:(</b>
+		</div>
+		<div id="wormwrapper">
+			<img src="worms/omegaworm.png"title="MIRACLE CREATURA, SOMEHOW MOVES LIKE THIS???">
+			<img src="worms/ringyworm.png" title="CAPTURED DURING ITS RINGY PHASE. DOES IT NOT *KNOW* THAT'S NOT COOL ANYMORE???">
+			<img src="worms/spindydoodleworm.png" title="CURLS UP, +20 DEF -10 AGI!">
+			<img src="worms/questionworm.png" title="WILL NOT STOP ASKING QUESTIONS. PLEASE, GIVE THIS ONE INTERNET ACCESS.">
+			<img src="worms/nubworm.png" title="TINY!! DO NOT MISTAKE FOR PILL..">
+			<img src="worms/voidworm.png" title="FOUND IN DARK HOLE, LIKES TO SQUIRM">
+			<img src="worms/basicassworm.png" title="IT JUST IS.">
+			<img src="worms/finnedworm.png" title="IS NOT KNOWN TO SWIM, THAT'S JUST FOR STYLE APPARENTLY???? WHAT.?">
+		</div>
+		<div class="box wide">
+			THANK YOU FOR VISITING!!! PLEASE SEND MORE WORMS!<br>
+			<a href="../">COME BACK SOON :)</a>
+		</div>
+	</div>
+</body>
