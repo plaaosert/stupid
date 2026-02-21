@@ -34,7 +34,8 @@ const locations = [ "../",
 	"Garbage/sludge.html",
 	"../bird.html",
 	"Garbage/TheDepths/",
-	"Garbage/worms.html"
+	"Garbage/worms.html",
+	"Garbage/alienFinder.html"
 ];
 /* Links to images for the Tunnels of Glembo */
 /* Don't include the .gif at the end. Case Sensitive, probably. */
