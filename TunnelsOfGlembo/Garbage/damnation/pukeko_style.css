@@ -1,0 +1,136 @@
+@keyframes pukeko_enter {
+	100% {
+		transform:translate(0,0);
+	}
+}
+
+@keyframes shake {
+	0% {
+		right:-1px;
+	}
+	100% {
+		right:1px;
+	}
+}
+
+body {
+	overflow:hidden;
+	background-color:#EEE;
+	margin:0;
+}
+#pukeko_space {
+	height:100vh;
+	width:100vw;
+}
+#return {
+	position:fixed;
+	bottom:0;
+	right:0;
+	padding:20px;
+	background-color:#DDD;
+	border-radius:25px 0 0 0;
+	z-index:99;
+	filter: drop-shadow(-4px -4px 10px #AAA);
+}
+#return a {
+	font-size:25px;
+	text-decoration:none;
+}
+#purge {
+	display:none;
+	color:#333;
+	position:fixed;
+	right:0;
+	top:0;
+	margin:20px;
+	cursor:pointer;
+	z-index:99999;
+}
+#purge:hover {
+	color:Red;
+	font-size:200px;
+	text-shadow:Red 1px 0 10px;
+	animation:0.05s infinite shake;
+	transition:all 10s ease-out;
+}
+
+/*Pukeko Styling*/
+.pukeko {
+	position:fixed;
+	top:0;
+	left:0;
+	
+	user-select:none;
+	
+	transform:translate(0, 120vh);
+	animation:pukeko_enter 0.28s ease-out forwards;
+	
+	filter: drop-shadow(4px 4px 6px black);
+}
+.pukeko_wrapper {
+	display:flex;
+}
+.pukeko img {
+	width:200px;
+	height:200px;
+	cursor:pointer;
+}
+.pukeko_bubble {
+	position: relative;
+	background: #004;
+	border-radius: .4em;
+	max-height:100px;
+	margin-right:20px;
+}
+.pukeko_bubble p {
+	padding:20px;
+	color:#FFF;
+	font-weight:bold;
+	text-shadow: 2px 2px 2px grey;
+}
+.pukeko_bubble:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 50px solid transparent;
+	border-left-color: #004;
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -30px;
+	margin-right: -50px;
+}
+
+.pukeko:first-of-type {
+	display:none;
+}
+
+/*Speechbubble colour overrides*/
+.Red {background:#e30000;}
+.Red:after {border-left-color:#e30000;}
+.Green {background:#00e300;}
+.Green:after {border-left-color:#00e300;}
+.Blue {background:#0000e3;}
+.Blue:after {border-left-color:#0000e3;}
+.Purple {background:#a700e3;}
+.Purple:after {border-left-color:#a700e3;}
+.Yellow {background:#e3ca00;}
+.Yellow:after {border-left-color:#e3ca00;}
+.Orange {background:#ff5400;}
+.Orange:after {border-left-color:#ff5400;}
+.Pink {background:#ff7af0;}
+.Pink:after {border-left-color:#ff7af0;}
+.DarkCyan {background:#243680;}
+.DarkCyan:after {border-left-color:#243680;}
+.DarkGreen {background:#006400;}
+.DarkGreen:after {border-left-color:#006400;}
+.Swamp {background:#2b5b19;}
+.Swamp:after {border-left-color:#2b5b19;}
+.Orchid {background:#DA70D6;}
+.Orchid:after {border-left-color:#DA70D6;}
+.Maroon {background:#800000;}
+.Maroon:after {border-left-color:#800000;}
+.Black {background:#111;}
+.Black:after {border-left-color:#111;}

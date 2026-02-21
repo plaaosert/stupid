@@ -1,0 +1,12 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.sprite {
+    position: absolute;
+}
+
+.ui_container {
+    position: absolute;
+}
