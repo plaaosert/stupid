@@ -1,0 +1,42 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map.tmj",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "cave_tiles.tsj": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map.tmj": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 829,
+                "y": 590
+            }
+        }
+    },
+    "last.imagePath": "/home/ren/Documents/plaaosert/cave/src/images",
+    "map.height": 64,
+    "map.lastUsedFormat": "json",
+    "map.layerDataFormat": "3",
+    "map.width": 64,
+    "openFiles": [
+        "map.tmj",
+        "cave_tiles.tsj"
+    ],
+    "project": "cave.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "cave_tiles.tsj",
+        "map.tmj"
+    ],
+    "tileset.lastUsedFormat": "json",
+    "tileset.type": 1
+}
